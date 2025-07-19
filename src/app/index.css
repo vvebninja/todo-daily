@@ -1,0 +1,26 @@
+@import '../shared/fonts/rowdies/rowdies.css';
+@import '../shared/fonts/montserrat/montserrat.css';
+@import '../shared/fonts/poppins/poppins.css';
+@import 'tailwindcss';
+
+@theme {
+ --font-primary: 'Poppins', sans-serif;
+ --font-secondary: 'Rowdies', sans-serif;
+
+ --color-accent: #ff4f5a;
+ --color-smoke: #e3e3e3;
+
+ --border-width-primary: 1px;
+
+ --border-radius-primary: 0.75rem;
+ --tracking-default: 0.01em;
+}
+
+@utility section-px {
+ padding-inline: 1rem;
+}
+
+@utility section-py {
+ padding-block: 6rem;
+}
+
