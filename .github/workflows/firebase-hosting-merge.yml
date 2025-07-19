@@ -14,7 +14,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8 # Specify pnpm version. You can change this to 'latest' or a specific version like '9'.
           run_install: false # We'll run pnpm install explicitly in the next step
 
       # Setup Node.js with pnpm caching
