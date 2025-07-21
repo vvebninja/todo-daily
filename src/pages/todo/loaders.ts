@@ -1,6 +1,6 @@
 import { getCurrentUserPromise } from "@/shared/api";
 import { firestore } from "@/shared/api/config";
-import { type Todo } from "@/shared/api/firestore";
+import { type Todo } from "@/shared/global.types";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
 async function todosLoader() {

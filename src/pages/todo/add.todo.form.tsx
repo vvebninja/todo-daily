@@ -1,4 +1,4 @@
-import { type Todo } from "@/shared/api/firestore";
+import { type Todo } from "@/shared/global.types";
 import { AddButton } from "@/shared/ui/add.button";
 import { clsn } from "@/shared/utils";
 import { useState } from "react";
