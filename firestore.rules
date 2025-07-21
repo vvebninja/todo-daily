@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // This allows a user to read and write only their own documents in the 'todos' collection
+    match /todos/{userId}/{document=**} {
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    // You can add other rules for other collections here if needed
+    // For example, if you have a 'public_items' collection that anyone can read:
+    // match /public_items/{document=**} {
+    //   allow read: if true;
+    // }
+  }
+}

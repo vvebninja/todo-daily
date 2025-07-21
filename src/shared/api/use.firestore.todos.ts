@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { auth, firestore } from "./config";
-import { Todo } from "./firestore";
+import { Todo } from "../global.types";
 
 interface UseFirestoreTodosReturn {
   liveTodos: Todo[];

@@ -1,3 +1,4 @@
+import { heroBg } from "@/shared/images";
 import { ROUTES } from "@/shared/model";
 import { Link } from "@/shared/ui";
 
@@ -5,8 +6,9 @@ export default function HeroSection() {
   return (
     <section
       className="px-4 bg-white bg-bottom bg-no-repeat sm:pt-32 pb-70
-      bg-[url('img/png/hero-bg-desk-2x.png')] bg-size-[25rem] sm:bg-size-[45rem]
-      sm:pb-130 lg:bg-size-[65rem] lg:pb-[44rem] xl:pb-[54rem] 2xl:bg-size-[75rem]"
+      bg-size-[25rem] sm:bg-size-[45rem] sm:pb-130 lg:bg-size-[65rem] lg:pb-[44rem] 
+      xl:pb-[40rem] 2xl:bg-size-[75rem]"
+      style={{ backgroundImage: `url(${heroBg})` }}
     >
       <div className="container mx-auto text-center">
         <h1

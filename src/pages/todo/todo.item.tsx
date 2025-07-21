@@ -1,10 +1,11 @@
-import { type Todo } from "@/shared/api/firestore";
-import { CheckIcon, TrashbinIcon } from "@/shared/icons/components";
+import { type Todo } from "@/shared/global.types";
 import { EditableTextContainer } from "@/shared/ui";
 import { clsn } from "@/shared/utils";
 import { useRef, useState } from "react";
+import { BsTrash } from "react-icons/bs";
+import { FaCheck } from "react-icons/fa6";
 
-interface TodoProps {
+interface TodoItemProps {
   todo: Todo;
   onDeleteTodoClick: (id: Todo["id"]) => void;
   onCompleteChange: (id: Todo["id"], isCompleted: Todo["isCompleted"]) => void;
@@ -16,7 +17,7 @@ interface TodoProps {
   className?: string;
 }
 
-function TodoItem(props: TodoProps) {
+function TodoItem(props: TodoItemProps) {
   const {
     todo: { id, title, description, isCompleted },
     onDeleteTodoClick,
@@ -71,31 +72,27 @@ function TodoItem(props: TodoProps) {
       )}
     >
       {/* Todo Controls */}
-      <div className="relative z-10 float-right flex gap-4 pl-1">
-        <label
-          className={clsn(
-            "flex h-6 w-6 cursor-pointer rounded-full border p-1 hover:border-accent hover:text-accent focus-within:border-accent focus-within:text-accent",
-          )}
-        >
+      <div className="relative z-10 float-right flex gap-3 pl-1">
+        <label className="flex w-5 cursor-pointer rounded-full border p-1 hover:border-accent hover:text-accent focus-within:border-accent focus-within:text-accent transition-colors duration-300">
           <input
-            className="sr-only peer"
             type="checkbox"
             name="is-completed"
             checked={isTodoCompleted}
             onChange={handleCompleteChange}
+            className="sr-only peer"
           />
-          <CheckIcon className="h-full w-full peer-not-checked:hidden peer-checked:block" />
+          <FaCheck className="h-full w-full peer-not-checked:hidden peer-checked:block " />
         </label>
 
         <button
-          className={clsn(
-            "w-6 cursor-pointer outline-transparent hover:text-accent focus:text-accent",
-          )}
           type="button"
           onClick={handleDeleteTodoClick}
           aria-label="Delete task"
+          className={clsn(
+            "w-5 cursor-pointer outline-transparent hover:text-accent focus:text-accent transition-colors duration-300",
+          )}
         >
-          <TrashbinIcon />
+          <BsTrash className="w-full h-full" />
         </button>
       </div>
 

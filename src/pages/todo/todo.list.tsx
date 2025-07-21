@@ -1,6 +1,6 @@
 import { clsn } from "@/shared/utils";
 import { TodoItem } from "./todo.item";
-import { type Todo } from "@/shared/api/firestore";
+import { type Todo } from "@/shared/global.types";
 
 interface TodoListProps {
   todos: Todo[];

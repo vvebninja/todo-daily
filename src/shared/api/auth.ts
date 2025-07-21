@@ -1,7 +1,13 @@
-import { GoogleAuthProvider, signInWithPopup, signOut, User } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  User,
+} from "firebase/auth";
 import { redirect } from "react-router";
 import { ROUTES } from "../model";
 import { auth } from "./config";
+
 
 async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();

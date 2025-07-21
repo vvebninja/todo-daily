@@ -1,10 +1,10 @@
-import { Todo } from "@/shared/api/firestore";
 import { useFirestoreTodos } from "@/shared/api/use.firestore.todos";
+import { type Todo } from "@/shared/global.types";
 import { AddButton, Modal } from "@/shared/ui";
 import { useState } from "react";
+import { useLoaderData } from "react-router";
 import AddTodoForm from "./add.todo.form";
 import { TodoList } from "./todo.list";
-import { useLoaderData } from "react-router";
 
 function TodoPage() {
   const initialTodos = useLoaderData() as Todo[];
