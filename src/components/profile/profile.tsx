@@ -1,19 +1,19 @@
-import { useSession } from "@/context/session";
 import { clsn } from "@/shared/utils/clsn";
 import { useEffect, useRef, useState } from "react";
 import { ProfileMenu } from "./profile.menu";
+import { useAuth } from "@/context/auth";
 
 interface ProfileProps {
   className?: string;
 }
 
 function Profile({ className }: ProfileProps) {
-  const { currentUser } = useSession();
+  const { user } = useAuth();
   const profileRef = useRef<HTMLDivElement>(null);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const handleToggleMenu = () => setIsMenuVisible(prev => !prev);
-  const handleCloseMenu = () => setIsMenuVisible(false); // New function to close the menu
+  const handleCloseMenu = () => setIsMenuVisible(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -39,7 +39,8 @@ function Profile({ className }: ProfileProps) {
     };
   }, [isMenuVisible]);
 
-  const profileImageSrc = currentUser?.photoURL || "https://placehold.co/55x55";
+  const profileImageSrc = user?.photoURL || "https://placehold.co/55x55";
+  const profileName = user?.displayName || user?.email;
 
   return (
     <div
@@ -47,8 +48,8 @@ function Profile({ className }: ProfileProps) {
       ref={profileRef}
       tabIndex={0}
     >
-      {currentUser?.displayName && (
-        <span className="font-secondary text-white sm:inline-block">{currentUser.displayName}</span>
+      {user?.displayName && (
+        <span className="font-secondary text-white sm:inline-block">{profileName}</span>
       )}
       <button
         className="bg-gray-200 w-14 h-14 rounded-full overflow-hidden flex items-center justify-center cursor-pointer"

@@ -1,10 +1,14 @@
 import { Header } from "@/components/header";
-import { Outlet } from "react-router";
+import { ROUTES } from "@/shared/model";
+import { Outlet, useLocation } from "react-router";
 
 export function App() {
+  const location = useLocation();
+  const isAuthPage = location.pathname === ROUTES.SIGN_UP || location.pathname === ROUTES.SIGN_IN;
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      {!isAuthPage && <Header />}
       <main className="flex-grow">
         <Outlet />
       </main>

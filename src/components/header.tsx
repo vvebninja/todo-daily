@@ -31,7 +31,7 @@ export const Header = ({ className }: HeaderProps) => {
           <ul className="text-[1.25rem] flex gap-5 max-sm:flex-col">
             <li>
               <Link
-                to={ROUTES.AUTH}
+                to={ROUTES.SIGN_IN}
                 className="px-4 py-2 w-full text-accent inline-block hover:text-black transition-colors duration-300"
               >
                 Sign in
@@ -39,7 +39,7 @@ export const Header = ({ className }: HeaderProps) => {
             </li>
             <li>
               <Link
-                to={ROUTES.AUTH}
+                to={ROUTES.SIGN_UP}
                 className="px-4 py-2 w-full inline-block hover:text-accent transition-colors duration-300"
               >
                 Sign up

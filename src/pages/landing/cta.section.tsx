@@ -15,7 +15,7 @@ export default function CtaSection() {
             Achieve your target and won your life
           </h2>
           <Link
-            to={ROUTES.AUTH}
+            to={ROUTES.SIGN_UP}
             replace
             variant="filled"
             size="md"

@@ -5,12 +5,15 @@ import { useState } from "react";
 import { useLoaderData } from "react-router";
 import AddTodoForm from "./add.todo.form";
 import { TodoList } from "./todo.list";
+import { useAuth } from "@/context/auth";
 
 function TodoPage() {
   const initialTodos = useLoaderData() as Todo[];
   const { liveTodos, updateField, addTodo, deleteTodo, toggleComplete } =
     useFirestoreTodos(initialTodos);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useAuth();
+  console.log(user);
 
   const handleSubmit = (todo: Pick<Todo, "title" | "description">) => {
     try {

@@ -1,4 +1,4 @@
-import { logOutUser } from "@/shared/api";
+import { useAuth } from "@/context/auth";
 import { ROUTES } from "@/shared/model";
 import { CgLogOut } from "react-icons/cg";
 import { useNavigate } from "react-router";
@@ -8,17 +8,18 @@ interface ProfileMenuProps {
 }
 
 function ProfileMenu({ onClose }: ProfileMenuProps) {
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logOutUser();
+    await logout();
     navigate(ROUTES.LANDING, { replace: true });
     onClose();
   };
 
   return (
     <div
-      className="absolute top-full mt-2 px-8 py-3 rounded-[0.7rem] bg-white shadow-2xl max-sm:-right-[50%]"
+      className="absolute top-full right-0 mt-2 px-8 py-3 rounded-[0.7rem] bg-white shadow-2xl max-sm:-right-[50%]"
       id="user-menu-floating"
       role="menu"
     >

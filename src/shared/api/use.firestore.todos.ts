@@ -1,18 +1,18 @@
 import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  Timestamp,
-  updateDoc,
-  where,
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    onSnapshot,
+    orderBy,
+    query,
+    Timestamp,
+    updateDoc,
+    where,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { auth, firestore } from "./config";
 import { Todo } from "../global.types";
+import { auth, firestore } from "./config";
 
 interface UseFirestoreTodosReturn {
   liveTodos: Todo[];

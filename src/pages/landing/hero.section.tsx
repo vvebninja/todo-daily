@@ -7,7 +7,7 @@ export default function HeroSection() {
     <section
       className="px-4 bg-white bg-bottom bg-no-repeat sm:pt-32 pb-70
       bg-size-[25rem] sm:bg-size-[45rem] sm:pb-130 lg:bg-size-[65rem] lg:pb-[44rem] 
-      xl:pb-[40rem] 2xl:bg-size-[75rem]"
+      xl:pb-[40rem] 2xl:bg-size-[67rem]"
       style={{ backgroundImage: `url(${heroBg})` }}
     >
       <div className="container mx-auto text-center">
@@ -20,7 +20,7 @@ export default function HeroSection() {
         </h1>
 
         <Link
-          to={ROUTES.AUTH}
+          to={ROUTES.SIGN_UP}
           replace
           variant="filled"
           size="md"
