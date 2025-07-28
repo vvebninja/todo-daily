@@ -1,4 +1,4 @@
-import { useFirebaseAuth, type UseFirebaseAuthReturnType } from "@/shared/api";
+import { UseFirebaseAuthReturnType, useFirebaseAuth } from "@/shared/firebase/auth";
 import { createContext, useContext } from "react";
 
 const AuthContext = createContext<UseFirebaseAuthReturnType | undefined>(undefined);

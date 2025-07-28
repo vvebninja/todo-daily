@@ -9,8 +9,7 @@ import {
   User,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { onAuthStateChange } from "./auth";
-import { auth } from "./config";
+import { auth, onAuthStateChange } from "./auth";
 
 export interface UseFirebaseAuthReturnType {
   user: User | null;

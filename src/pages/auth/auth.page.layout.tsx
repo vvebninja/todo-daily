@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/auth";
-import { ROUTES } from "@/shared/model";
+import { ROUTES } from "@/shared/routes";
 import { Logo } from "@/shared/ui/logo";
 import { SocialButton } from "@/shared/ui/social.button";
 import { Link, useLocation, useNavigate } from "react-router";

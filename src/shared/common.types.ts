@@ -1,12 +1,15 @@
+import { User } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 
-interface Todo {
+export type Todo = {
   id: string;
   userId: string;
   title: string;
   description: string;
   createdAt: Timestamp;
   isCompleted: boolean;
-}
+};
 
-export { type Todo };
+export type TodoFields = Pick<Todo, "title" | "description">;
+
+export type FirebaseUser = User | null;

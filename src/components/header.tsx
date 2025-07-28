@@ -1,8 +1,8 @@
 import { logoAccentIcon, logoLightIcon } from "@/shared/icons/static";
 import { Link, useLocation } from "react-router";
-import { clsn } from "@/shared/utils";
-import { ROUTES } from "@/shared/model";
 import { Profile } from "./profile";
+import { ROUTES } from "@/shared/routes";
+import { clsn } from "@/shared/utils/clsn";
 
 interface HeaderProps {
   className?: string;
@@ -22,9 +22,7 @@ export const Header = ({ className }: HeaderProps) => {
             src={isTodosPage ? logoLightIcon : logoAccentIcon}
             alt="logo"
           />
-          <span className={clsn("text-4xl leading-9 ", isTodosPage ? "text-white" : "text-accent")}>
-            Todo Daily
-          </span>
+          <span className={clsn("text-4xl leading-9 ", isTodosPage ? "text-white" : "text-accent")}>Todo Daily</span>
         </div>
 
         {isLandingPage && (

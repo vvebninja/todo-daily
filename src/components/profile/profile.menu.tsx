@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/auth";
-import { ROUTES } from "@/shared/model";
+import { ROUTES } from "@/shared/routes";
 import { CgLogOut } from "react-icons/cg";
 import { useNavigate } from "react-router";
 

@@ -1,6 +1,6 @@
 import { SlNote } from "react-icons/sl";
 import { IoMdAddCircle } from "react-icons/io";
-import { clsn } from "../utils";
+import { clsn } from "../utils/clsn";
 
 const iconSizes = { md: 40, lg: 50 };
 

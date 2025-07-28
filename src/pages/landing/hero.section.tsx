@@ -1,6 +1,6 @@
 import { heroBg } from "@/shared/images";
-import { ROUTES } from "@/shared/model";
-import { Link } from "@/shared/ui";
+import { ROUTES } from "@/shared/routes";
+import { Link } from "@/shared/ui/link";
 
 export default function HeroSection() {
   return (

@@ -1,6 +1,6 @@
-import { type Todo } from "@/shared/global.types";
+import { Todo } from "@/shared/common.types";
 import { AddButton } from "@/shared/ui/add.button";
-import { clsn } from "@/shared/utils";
+import { clsn } from "@/shared/utils/clsn";
 import { useState } from "react";
 import { SlNote } from "react-icons/sl";
 
@@ -70,10 +70,7 @@ function AddTodoForm({ onSubmit, className }: AddTodoFormProps) {
         iconName="addCircle"
         iconSize="lg"
         color="accent"
-        className={clsn(
-          "block mx-auto",
-          todo.title.trim() || (todo.description.trim() ? "opacity-100" : "opacity-0"),
-        )}
+        className={clsn("block mx-auto", todo.title.trim() || (todo.description.trim() ? "opacity-100" : "opacity-0"))}
       />
     </form>
   );

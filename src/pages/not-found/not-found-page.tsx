@@ -1,4 +1,4 @@
-import { ROUTES } from "@/shared/model";
+import { ROUTES } from "@/shared/routes";
 import { Link } from "react-router";
 
 function NotFoundPage() {

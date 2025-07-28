@@ -1,5 +1,5 @@
 import { Link as RouterLink, LinkProps } from "react-router";
-import { clsn } from "../utils/clsn.ts";
+import { clsn } from "../utils/clsn";
 
 const LinkVariants = {
   filled:

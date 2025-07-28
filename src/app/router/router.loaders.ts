@@ -1,5 +1,5 @@
-import { getCurrentUserPromise } from "@/shared/api";
-import { ROUTES } from "@/shared/model";
+import { getCurrentUserPromise } from "@/shared/firebase/auth";
+import { ROUTES } from "@/shared/routes";
 import { redirect } from "react-router";
 
 async function publicRoutesLoader() {

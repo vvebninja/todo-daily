@@ -1,6 +1,6 @@
-import { type Todo } from "@/shared/global.types";
-import { EditableTextContainer } from "@/shared/ui";
-import { clsn } from "@/shared/utils";
+import type { Todo } from "@/shared/common.types";
+import { EditableTextContainer } from "@/shared/ui/editable.text.container";
+import { clsn } from "@/shared/utils/clsn";
 import { useRef, useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa6";
@@ -9,11 +9,6 @@ interface TodoItemProps {
   todo: Todo;
   onDeleteTodoClick: (id: Todo["id"]) => void;
   onCompleteChange: (id: Todo["id"], isCompleted: Todo["isCompleted"]) => void;
-  onUpdateFieldBlur: (
-    id: Todo["id"],
-    field: keyof Pick<Todo, "title" | "description">,
-    text: string,
-  ) => void;
   className?: string;
 }
 
@@ -22,7 +17,6 @@ function TodoItem(props: TodoItemProps) {
     todo: { id, title, description, isCompleted },
     onDeleteTodoClick,
     onCompleteChange,
-    onUpdateFieldBlur,
     className,
   } = props;
   const [isTodoCompleted, setIsTodoCompleted] = useState(isCompleted);
@@ -38,20 +32,6 @@ function TodoItem(props: TodoItemProps) {
   const handleCompleteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsTodoCompleted(event.target.checked);
     onCompleteChange(id, event.target.checked);
-  };
-
-  const handleUpdateTitleBlur = (event: React.ChangeEvent<HTMLDivElement>) => {
-    const currentTitle = event.currentTarget.textContent;
-    if (currentTitle && currentTitle.trim() !== title) {
-      onUpdateFieldBlur(id, "title", currentTitle.trim());
-    }
-  };
-
-  const handleUpdateDescrBlur = (event: React.ChangeEvent<HTMLDivElement>) => {
-    const currDescription = event.currentTarget.textContent;
-    if (currDescription && currDescription.trim() !== description) {
-      onUpdateFieldBlur(id, "description", currDescription.trim());
-    }
   };
 
   const handleTodoBlur = (event: React.FocusEvent<HTMLDivElement>) => {
@@ -100,14 +80,12 @@ function TodoItem(props: TodoItemProps) {
         ref={titleRef}
         text={title}
         isEditable={isEditable}
-        onBlur={handleUpdateTitleBlur}
         className="mb-2 font-secondary"
       />
       <EditableTextContainer
         ref={descriptionRef}
         text={description}
         isEditable={isEditable}
-        onBlur={handleUpdateDescrBlur}
       />
     </div>
   );

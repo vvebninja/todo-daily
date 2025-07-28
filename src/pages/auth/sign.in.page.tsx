@@ -1,13 +1,13 @@
 import { useAuth } from "@/context/auth";
-import { ROUTES } from "@/shared/model";
+import { ROUTES } from "@/shared/routes";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import * as z from "zod";
 import { AuthPageLayout } from "./auth.page.layout";
-import { useEffect } from "react";
 
 const signInSchema = z.object({
   email: z.email(),

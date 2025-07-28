@@ -1,4 +1,4 @@
-import { clsn } from "../utils/clsn.ts";
+import { clsn } from "../utils/clsn";
 
 const ButtonVariants = {
   filled:

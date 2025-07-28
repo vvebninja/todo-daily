@@ -1,5 +1,5 @@
 import { Header } from "@/components/header";
-import { ROUTES } from "@/shared/model";
+import { ROUTES } from "@/shared/routes";
 import { Outlet, useLocation } from "react-router";
 
 export function App() {

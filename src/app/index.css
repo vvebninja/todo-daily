@@ -1,6 +1,3 @@
-@import '../shared/fonts/rowdies/rowdies.css';
-@import '../shared/fonts/montserrat/montserrat.css';
-@import '../shared/fonts/poppins/poppins.css';
 @import 'tailwindcss';
 
 @theme {

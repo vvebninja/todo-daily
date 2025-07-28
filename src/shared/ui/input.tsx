@@ -1,4 +1,4 @@
-import { clsn } from "../utils";
+import { clsn } from "../utils/clsn";
 
 interface Input extends React.ComponentProps<"input"> {
   errorMessage?: string;

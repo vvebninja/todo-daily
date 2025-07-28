@@ -1,5 +1,5 @@
 import { logoLightIcon, logoAccentIcon } from "../icons/static";
-import { clsn } from "../utils";
+import { clsn } from "../utils/clsn";
 
 interface LogoProps {
   theme: "light" | "accent";
@@ -14,7 +14,10 @@ function Logo({ theme, className }: LogoProps) {
         alt="logo"
       />
       <span
-        className={clsn("text-3xl leading-9 sm:text-4xl", theme === "light" ? "text-white" : "text-accent")}
+        className={clsn(
+          "text-3xl leading-9 sm:text-4xl",
+          theme === "light" ? "text-white" : "text-accent",
+        )}
       >
         Todo Daily
       </span>

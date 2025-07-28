@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { clsn } from "../utils";
+import { clsn } from "../utils/clsn";
 
 const iconsMap = {
   google: FcGoogle,

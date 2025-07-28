@@ -1,13 +1,13 @@
 import { useAuth } from "@/context/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { ROUTES } from "@/shared/routes";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { type FieldValues, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import * as z from "zod";
 import { AuthPageLayout } from "./auth.page.layout";
-import { useNavigate } from "react-router";
-import { ROUTES } from "@/shared/model";
-import { useEffect } from "react";
 
 const signUpSchema = z
   .object({

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { clsn } from "../utils/clsn.ts";
+import { clsn } from "../utils/clsn";
 
 interface ModalProps {
   isOpen: boolean;

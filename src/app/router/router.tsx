@@ -1,10 +1,9 @@
 import { AuthProvider } from "@/context/auth";
-import { todosLoader } from "@/pages/todo/loaders";
-import { ROUTES } from "@/shared/model";
+import { todosLoader } from "@/pages/todo/todos.page.loaders";
+import { ROUTES } from "@/shared/routes";
 import { createBrowserRouter, redirect } from "react-router";
 import { App } from "../app";
-import { protectedRoutesLoader, publicRoutesLoader } from "./loaders";
-
+import { protectedRoutesLoader, publicRoutesLoader } from "./router.loaders";
 export const router = createBrowserRouter([
   {
     element: (

@@ -1,19 +1,18 @@
-import { useFirestoreTodos } from "@/shared/api/use.firestore.todos";
-import { type Todo } from "@/shared/global.types";
-import { AddButton, Modal } from "@/shared/ui";
+import { useAuth } from "@/context/auth";
+import type { Todo } from "@/shared/common.types";
+import { useFirestoreTodos } from "@/shared/firebase/firestore";
+import { AddButton } from "@/shared/ui/add.button";
+import { Modal } from "@/shared/ui/modal";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 import AddTodoForm from "./add.todo.form";
 import { TodoList } from "./todo.list";
-import { useAuth } from "@/context/auth";
 
 function TodoPage() {
-  const initialTodos = useLoaderData() as Todo[];
-  const { liveTodos, updateField, addTodo, deleteTodo, toggleComplete } =
-    useFirestoreTodos(initialTodos);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuth();
-  console.log(user);
+  const initialTodos = useLoaderData() as Todo[];
+  const { liveTodos, addTodo, deleteTodo, toggleComplete } = useFirestoreTodos(user, initialTodos);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (todo: Pick<Todo, "title" | "description">) => {
     try {
@@ -40,14 +39,6 @@ function TodoPage() {
     }
   };
 
-  const handleUpdateFieldBlur = (
-    id: Todo["id"],
-    field: keyof Pick<Todo, "title" | "description">,
-    text: string,
-  ) => {
-    updateField(id, field, text);
-  };
-
   return (
     <div className="container mx-auto px-3 pt-16 pb-20">
       {liveTodos?.length ? (
@@ -55,7 +46,6 @@ function TodoPage() {
           todos={liveTodos}
           onDeleteTodoClick={handleDeleteClick}
           onCompleteChange={handleCompleteChange}
-          onUpdateFieldBlur={handleUpdateFieldBlur}
         />
       ) : (
         <div className="flex items-center justify-center gap-8 mt-35 font-secondary font-extrabold text-3xl text-slate-400">
