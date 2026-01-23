@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  title: Todo Daily API
+  description: Backend API for managing personalized daily tasks.
+  version: 1.0.0
+
+paths:
+  /todos:
+    get:
+      $ref: "./endpoints/todos.yaml#/getAllTodos"
+    post:
+      $ref: "./endpoints/todos.yaml#/createTodo"
+
+  /todos/{todoId}:
+    patch:
+      $ref: "./endpoints/todos.yaml#/updateTodo"
+    delete:
+      $ref: "./endpoints/todos.yaml#/deleteTodo"

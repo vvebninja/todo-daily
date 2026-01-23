@@ -1,0 +1,63 @@
+getAllTodos:
+  summary: Get all user tasks
+  responses:
+    '200':
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../models/todo.yaml#/Todo'
+    '401':
+      $ref: '../shared/responses.yaml#/UnauthorizedError'
+
+createTodo:
+  summary: Create a new task
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../models/todo.yaml#/TodoCreate'
+  responses:
+    '201':
+      description: Todo created
+    '400':
+      $ref: '../shared/responses.yaml#/BadRequestError'
+    '401':
+      $ref: '../shared/responses.yaml#/UnauthorizedError'
+
+updateTodo:
+  summary: Update an existing task
+  parameters:
+    - name: todoId
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../models/todo.yaml#/TodoUpdate'
+  responses:
+    '200':
+      description: Todo updated successfully
+    '404':
+      $ref: '../shared/responses.yaml#/NotFoundError'
+
+deleteTodo:
+  summary: Remove a task
+  parameters:
+    - name: todoId
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    '204':
+      description: Todo deleted
+    '404':
+      $ref: '../shared/responses.yaml#/NotFoundError'

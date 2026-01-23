@@ -1,0 +1,35 @@
+Todo:
+  type: object
+  required:
+    - id
+    - title
+    - isCompleted
+  properties:
+    id:
+      type: string
+    title:
+      type: string
+    description:
+      type: string
+    isCompleted:
+      type: boolean
+
+TodoCreate:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+
+TodoUpdate:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    isCompleted:
+      type: boolean
