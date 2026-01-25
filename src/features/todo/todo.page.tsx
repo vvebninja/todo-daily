@@ -1,12 +1,10 @@
-import { href, Link } from "react-router";
-import { rqClient } from "shared/api/instance";
-import { ROUTES } from "shared/model/routes";
+import { useParams } from "react-router";
+import type { PathParams, ROUTES } from "shared/model/routes";
 
 function TodoPage() {
-  return (
-    <div>
-    </div>
-  );
+  const params = useParams<PathParams[typeof ROUTES.TODO]["params"]>();
+
+  return <div>{params.todoId}</div>;
 }
 
 export const Component = TodoPage;
