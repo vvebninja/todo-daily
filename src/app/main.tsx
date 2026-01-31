@@ -4,14 +4,14 @@ import { RouterProvider } from "react-router";
 import "./index.css";
 import { router } from "./router";
 
-async function eneableMocking() {
+async function enableMocking() {
   if (import.meta.env.PROD) return;
 
-  const { worker } = await import("shared/api/mocks/browser");
+  const { worker } = await import("@/shared/api/mocks/browser");
   worker.start();
 }
 
-eneableMocking().then(() => {
+enableMocking().then(() => {
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <RouterProvider router={router} />

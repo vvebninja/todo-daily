@@ -1,5 +1,5 @@
+import type { PathParams, ROUTES } from "@/shared/model/routes";
 import { useParams } from "react-router";
-import type { PathParams, ROUTES } from "shared/model/routes";
 
 function TodoPage() {
   const params = useParams<PathParams[typeof ROUTES.TODO]["params"]>();

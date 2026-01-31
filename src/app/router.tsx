@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router";
 import { App } from "./App";
-import { ROUTES } from "shared/model/routes";
+import { ROUTES } from "@/shared/model/routes";
 
 export const router = createBrowserRouter([
   {
@@ -12,19 +12,19 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.LANDING,
-        lazy: () => import("features/landing/landing.page"),
+        lazy: () => import("@/features/landing/landing.page"),
       },
       {
         path: ROUTES.TODOS,
-        lazy: () => import("features/todos/todos.page"),
+        lazy: () => import("@/features/todos/todos.page"),
       },
       {
         path: ROUTES.TODO,
-        lazy: () => import("features/todo/todo.page"),
+        lazy: () => import("@/features/todo/todo.page"),
       },
       {
         path: ROUTES.PROFILE,
-        lazy: () => import("features/profile/profile.page"),
+        lazy: () => import("@/features/profile/profile.page"),
       },
     ],
   },
