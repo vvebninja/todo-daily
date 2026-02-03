@@ -1,5 +1,4 @@
 import { setupWorker } from "msw/browser";
-import { todosHandlers } from "./handlers/todos.ts";
-import { authHandlers } from "@/shared/api/mocks/handlers/auth.ts";
+import { handlers } from "./handlers";
 
-export const worker = setupWorker(...authHandlers, ...todosHandlers);
+export const worker = setupWorker(...handlers);
