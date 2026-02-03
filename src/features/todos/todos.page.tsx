@@ -1,6 +1,6 @@
 import { rqClient } from "@/shared/api/instance";
 import { Button } from "@/shared/ui/kit/button";
-import { Checkbox } from "@/shared/ui/kit/checkbox";
+
 import { Input } from "@/shared/ui/kit/input";
 import { useQueryClient } from "@tanstack/react-query";
 

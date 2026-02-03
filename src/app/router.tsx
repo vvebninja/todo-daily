@@ -7,6 +7,10 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: ROUTES.LOGIN,
+        lazy: () => import("@/features/auth/login.page"),
+      },
+      {
         path: ROUTES.HOME,
         loader: () => redirect(ROUTES.TODOS),
       },

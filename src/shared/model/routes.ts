@@ -6,6 +6,8 @@ export const ROUTES = {
   TODO: "/todos/:todoId",
   LANDING: "/landing",
   PROFILE: "/profile",
+  LOGIN: "/login",
+  REGISTER: "/register",
 } as const;
 
 export type PathParams = {

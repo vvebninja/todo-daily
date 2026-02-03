@@ -4,10 +4,8 @@ import { Providers } from "./providers/providers";
 export function App() {
   return (
     <Providers>
-      <header className="h-12 bg-[#ff4f5a]">
-        
-      </header>
-      <div>
+      <header className="h-12 bg-[#ff4f5a]"></header>
+      <div className="h-screen flex flex-col">
         <Outlet />
       </div>
     </Providers>
