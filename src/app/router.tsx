@@ -1,11 +1,19 @@
 import { createBrowserRouter, redirect } from "react-router";
-import { App } from "./App";
 import { ROUTES } from "@/shared/model/routes";
+import { App } from "./app";
 
 export const router = createBrowserRouter([
   {
     element: <App />,
     children: [
+      {
+        path: ROUTES.REGISTER,
+        lazy: () => import("@/features/auth/register.page"),
+      },
+      {
+        path: ROUTES.LOGIN,
+        lazy: () => import("@/features/auth/login.page"),
+      },
       {
         path: ROUTES.HOME,
         loader: () => redirect(ROUTES.TODOS),

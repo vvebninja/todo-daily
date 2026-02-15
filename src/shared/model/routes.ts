@@ -1,6 +1,8 @@
 import "react-router";
 
 export const ROUTES = {
+  REGISTER: "/register",
+  LOGIN: "/login",
   HOME: "/",
   TODOS: "/todos",
   TODO: "/todos/:todoId",

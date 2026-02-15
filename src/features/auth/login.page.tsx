@@ -1,5 +1,20 @@
+import { Link } from "react-router";
+import { Fragment } from "react/jsx-runtime";
+import { AuthLayout } from "./ui/auth-layout";
+import { LoginForm } from "./ui/login-form";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <AuthLayout
+      title="Signin"
+      form={<LoginForm />}
+      footer={
+        <Fragment>
+          Not have an account? <Link to="/register" className='text-accent'>Register</Link>
+        </Fragment>
+      }
+    />
+  );
 };
 
 export const Component = LoginPage;
