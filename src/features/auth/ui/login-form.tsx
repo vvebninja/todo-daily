@@ -95,7 +95,7 @@ export function LoginForm() {
         <Button
           type="submit"
           disabled={isPending}
-          className="h-11 mt-2 px-8 text-lg focus:cursor-pointer hover:cursor-pointer"
+          className="h-11 mt-2 px-8 text-lg"
         >
           {isPending && <Spinner />}
           Login

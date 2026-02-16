@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/css";
 
 const logoVariants = cva(
-  "inline-flex items-center gap-2 min-h:11 py-4 text-4xl text-primary-foreground font-extrabold",
+  "inline-flex items-center gap-2 min-h:11 py-4 text-3xl text-primary-foreground font-extrabold md:text-4xl",
   {
     variants: {
       variant: {
@@ -20,7 +20,7 @@ const logoVariants = cva(
 );
 
 const logoBoxVariants = cva(
-  "flex items-center w-10 h-10 pl-3 pr-1 rounded-sm",
+  "flex items-center w-8 h-8 pl-3 pr-1 rounded-sm md:w-10 md:h-10",
   {
     variants: {
       variant: {
