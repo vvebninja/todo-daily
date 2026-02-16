@@ -6,11 +6,14 @@ import { LoginForm } from "./ui/login-form";
 const LoginPage = () => {
   return (
     <AuthLayout
-      title="Signin"
+      title="Login"
       form={<LoginForm />}
       footer={
         <Fragment>
-          Not have an account? <Link to="/register" className='text-accent'>Register</Link>
+          Not have an account?{" "}
+          <Link to="/register" className="text-accent">
+            Register
+          </Link>
         </Fragment>
       }
     />

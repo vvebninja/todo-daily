@@ -1,5 +1,10 @@
 import { Button } from "@/shared/ui/kit/button";
-import { Field, FieldGroup, FieldLabel, FieldError } from "@/shared/ui/kit/field";
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldError,
+} from "@/shared/ui/kit/field";
 import { Input } from "@/shared/ui/kit/input";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
@@ -24,7 +29,7 @@ const RegisterSchema = z
   });
 
 export function RegisterForm() {
-  const { register, isPending } = useRegister()
+  const { register, errorMessage, isPending } = useRegister();
 
   const { handleSubmit, Field: RegisterField } = useForm({
     defaultValues: {
@@ -36,18 +41,18 @@ export function RegisterForm() {
       onSubmit: RegisterSchema,
     },
     onSubmit: async ({ value }) => {
-      register(value)
+      register(value);
     },
   });
 
-  const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     handleSubmit();
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <FieldGroup className="gap-6 [&_div]:gap-2.5 [&_input]:h-11 [&_input]:text-[18px] [&_input::placeholder]:text-[18px] [&_label]:text-[16px]">
+      <FieldGroup className="gap-4 [&_div]:gap-2.5 [&_input]:h-11 [&_input]:text-[18px] [&_input::placeholder]:text-[18px] [&_label]:text-[16px]">
         <RegisterField
           name="email"
           children={(field) => {
@@ -122,12 +127,13 @@ export function RegisterForm() {
           }}
         />
       </FieldGroup>
+      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
       <Field orientation="responsive" className="mt-4">
         <Button
           type="submit"
+          disabled={isPending}
           className="h-11 mt-2 px-8 text-lg focus:cursor-pointer hover:cursor-pointer"
         >
-
           {isPending && <Spinner />}
           Register
         </Button>

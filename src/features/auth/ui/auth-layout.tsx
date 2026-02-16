@@ -15,12 +15,10 @@ export function AuthLayout(props: {
 }) {
   return (
     <main className="grow flex flex-col items-center pt-40 px-4">
-      <Card className="gap-10 max-w-125 w-full p-10 pb-24 rounded-[6px]">
-        <CardHeader className='gap-10'>
-          <AppLogo  />
-          <CardTitle className="text-2xl">
-            {props.title}
-          </CardTitle>
+      <Card className="gap-8 max-w-125 w-full p-10 pb-24 rounded-[6px]">
+        <CardHeader className="gap-10">
+          <AppLogo />
+          <CardTitle className="text-2xl font-bold">{props.title}</CardTitle>
         </CardHeader>
         <CardContent className="">{props.form}</CardContent>
         <CardFooter className="flex justify-center items-center">

@@ -18,7 +18,7 @@ const todos: ApiSchemas["Todo"][] = [
   },
 ];
 
-export const handlers = [
+export const todosHandlers = [
   http.get("/todos", () => {
     return HttpResponse.json(todos);
   }),

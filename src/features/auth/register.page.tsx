@@ -6,11 +6,14 @@ import { RegisterForm } from "./ui/register-form";
 const RegisterPage = () => {
   return (
     <AuthLayout
-      title="Signup"
+      title="Register"
       form={<RegisterForm />}
       footer={
         <Fragment>
-          Have an account? <Link to="/login" className='text-accent'>Login</Link>
+          Have an account?{" "}
+          <Link to="/login" className="text-accent">
+            Login
+          </Link>
         </Fragment>
       }
     />
