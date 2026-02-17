@@ -3,19 +3,10 @@ import { http } from "../http";
 import { type ApiSchemas } from "../../schema";
 
 const todos: ApiSchemas["Todo"][] = [
-  {
-    id: "todo-1",
-    title: "Marketing Campaign",
-    description: "Lorem desck",
-    isCompleted: false,
-  },
-
-  {
-    id: "todo-2",
-    title: "Dont forget to remove pnpm.lock and push",
-    description: "Lorem desck",
-    isCompleted: false,
-  },
+  { id: '1', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false },
+  { id: '2', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false },
+  { id: '3', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false },
+  { id: '4', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false }
 ];
 
 export const todosHandlers = [

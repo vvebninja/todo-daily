@@ -135,7 +135,7 @@
   :disabled,
   .disabled,
   [data-disabled] {
-    @apply cursor-not-allowed !important;
+    @apply cursor-not-allowed;
   }
 
   body {

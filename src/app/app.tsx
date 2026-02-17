@@ -11,7 +11,7 @@ export function App() {
   return (
     <Providers>
       {isPrivateRoute && <Header />}
-      <div>
+      <div className="flex flex-col min-h-screen">
         <Outlet />
       </div>
     </Providers>
