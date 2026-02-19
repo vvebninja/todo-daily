@@ -1,12 +1,32 @@
 import { HttpResponse } from "msw";
+import type { ApiSchemas } from "../../schema";
 import { http } from "../http";
-import { type ApiSchemas } from "../../schema";
 
 const todos: ApiSchemas["Todo"][] = [
-  { id: '1', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false },
-  { id: '2', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false },
-  { id: '3', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false },
-  { id: '4', title: 'Dont forget to buy milk', description: 'Dont forget to buy milk', isCompleted: false }
+  {
+    id: "1",
+    title: "Dont forget to buy milk",
+    description: "Dont forget to buy milk",
+    isCompleted: false,
+  },
+  {
+    id: "2",
+    title: "Dont forget to buy milk",
+    description: "Dont forget to buy milk",
+    isCompleted: false,
+  },
+  {
+    id: "3",
+    title: "Dont forget to buy milk",
+    description: "Dont forget to buy milk",
+    isCompleted: false,
+  },
+  {
+    id: "4",
+    title: "Dont forget to buy milk",
+    description: "Dont forget to buy milk",
+    isCompleted: false,
+  },
 ];
 
 export const todosHandlers = [

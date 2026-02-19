@@ -22,7 +22,6 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoutesLayout />,
         children: [
-
           {
             path: ROUTES.TODOS,
             lazy: () => import("@/features/todos/todos.page"),
@@ -31,8 +30,8 @@ export const router = createBrowserRouter([
             path: ROUTES.PROFILE,
             lazy: () => import("@/features/profile/profile.page"),
           },
-        ]
-      }
+        ],
+      },
     ],
   },
 ]);

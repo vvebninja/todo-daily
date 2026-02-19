@@ -1,15 +1,10 @@
-import { Button } from "@/shared/ui/kit/button";
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-  FieldError,
-} from "@/shared/ui/kit/field";
-import { Input } from "@/shared/ui/kit/input";
 import { useForm } from "@tanstack/react-form";
 import * as z from "zod";
-import { useRegister } from "../model/use-register";
+import { Button } from "@/shared/ui/kit/button";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/ui/kit/field";
+import { Input } from "@/shared/ui/kit/input";
 import { Spinner } from "@/shared/ui/kit/spinner";
+import { useRegister } from "../model/use-register";
 
 const RegisterSchema = z
   .object({
@@ -56,8 +51,7 @@ export function RegisterForm() {
         <RegisterField
           name="email"
           children={(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
+            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Email</FieldLabel>
@@ -80,8 +74,7 @@ export function RegisterForm() {
         <RegisterField
           name="password"
           children={(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
+            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
@@ -105,8 +98,7 @@ export function RegisterForm() {
         <RegisterField
           name="confirmPassword"
           children={(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
+            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Confirm password</FieldLabel>
@@ -129,11 +121,7 @@ export function RegisterForm() {
       </FieldGroup>
       {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
       <Field orientation="responsive" className="mt-4">
-        <Button
-          type="submit"
-          disabled={isPending}
-          className="h-11 mt-2 px-8 text-lg"
-        >
+        <Button type="submit" disabled={isPending} className="mt-2 h-11 px-8 text-lg">
           {isPending && <Spinner />}
           Register
         </Button>

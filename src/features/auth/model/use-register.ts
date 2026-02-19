@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router";
 import { rqClient } from "@/shared/api/instance";
 import type { ApiSchemas } from "@/shared/api/schema";
 import { ROUTES } from "@/shared/model/routes";
-import { useNavigate } from "react-router";
 
 export const useRegister = () => {
   const navigate = useNavigate();
@@ -15,9 +15,7 @@ export const useRegister = () => {
   const register = (userCredentials: ApiSchemas["RegisterRequest"]) =>
     registerMutation.mutate({ body: userCredentials });
 
-  const errorMessage = registerMutation.isError
-    ? registerMutation.error.message
-    : undefined;
+  const errorMessage = registerMutation.isError ? registerMutation.error.message : undefined;
 
   return {
     register,

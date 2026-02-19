@@ -1,28 +1,18 @@
-import AppLogo from "@/shared/ui/app-logo";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/kit/card";
 import type { ReactNode } from "react";
+import AppLogo from "@/shared/ui/app-logo";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/shared/ui/kit/card";
 
-export function AuthLayout(props: {
-  title: ReactNode;
-  form: ReactNode;
-  footer: ReactNode;
-}) {
+export function AuthLayout(props: { title: ReactNode; form: ReactNode; footer: ReactNode }) {
   return (
-    <main className="grow flex flex-col items-center pt-40 px-4">
-      <Card className="gap-8 max-w-125 w-full p-10 pb-24 rounded-[6px]">
+    <main className="flex grow flex-col items-center px-4 pt-40">
+      <Card className="w-full max-w-125 gap-8 rounded-[6px] p-10 pb-24">
         <CardHeader className="gap-10">
           <AppLogo variant="secondary" />
           <CardTitle className="text-2xl font-bold">{props.title}</CardTitle>
         </CardHeader>
         <CardContent className="">{props.form}</CardContent>
-        <CardFooter className="flex justify-center items-center">
-          <p className="text-lg text-muted-foreground">{props.footer}</p>
+        <CardFooter className="flex items-center justify-center">
+          <p className="text-muted-foreground text-lg">{props.footer}</p>
         </CardFooter>
       </Card>
     </main>

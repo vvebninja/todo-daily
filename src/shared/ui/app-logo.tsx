@@ -1,8 +1,8 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { Menu } from "lucide-react";
 import { Link } from "react-router";
-import { ROUTES } from "../model/routes";
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../lib/css";
+import { ROUTES } from "../model/routes";
 
 const logoVariants = cva(
   "inline-flex items-center gap-2 min-h:11 py-4 text-3xl text-primary-foreground font-extrabold md:text-4xl",
@@ -16,23 +16,20 @@ const logoVariants = cva(
         },
       },
     },
-  }
+  },
 );
 
-const logoBoxVariants = cva(
-  "flex items-center w-8 h-8 pl-3 pr-1 rounded-sm md:w-10 md:h-10",
-  {
-    variants: {
-      variant: {
-        default: "bg-secondary text-secondary-foreground",
-        secondary: "bg-primary text-primary-foreground",
-        defaultVariants: {
-          variant: "default",
-        },
+const logoBoxVariants = cva("flex items-center w-8 h-8 pl-3 pr-1 rounded-sm md:w-10 md:h-10", {
+  variants: {
+    variant: {
+      default: "bg-secondary text-secondary-foreground",
+      secondary: "bg-primary text-primary-foreground",
+      defaultVariants: {
+        variant: "default",
       },
     },
-  }
-);
+  },
+});
 
 export default function AppLogo({
   variant = "default",

@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router";
 import { rqClient } from "@/shared/api/instance";
 import type { ApiSchemas } from "@/shared/api/schema";
 import { ROUTES } from "@/shared/model/routes";
-import { useNavigate } from "react-router";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -15,9 +15,7 @@ export const useLogin = () => {
   const login = (userCredentials: ApiSchemas["LoginRequest"]) =>
     loginMutation.mutate({ body: userCredentials });
 
-  const errorMessage = loginMutation.isError
-    ? loginMutation.error.message
-    : undefined;
+  const errorMessage = loginMutation.isError ? loginMutation.error.message : undefined;
 
   return {
     login,

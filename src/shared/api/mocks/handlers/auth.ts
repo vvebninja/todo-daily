@@ -1,6 +1,6 @@
+import { HttpResponse } from "msw";
 import type { ApiSchemas } from "../../schema";
 import { http } from "../http";
-import { HttpResponse } from "msw";
 
 const userPasswords = new Map<string, string>();
 const mockUsers: ApiSchemas["User"][] = [
@@ -27,7 +27,7 @@ export const authHandlers = [
           message: "Неверный email или пароль",
           code: "INVALID_CREDENTIALS",
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -37,7 +37,7 @@ export const authHandlers = [
         accessToken: token,
         user,
       },
-      { status: 200 }
+      { status: 200 },
     );
   }),
 
@@ -50,7 +50,7 @@ export const authHandlers = [
           message: "Пользователь уже существует",
           code: "USER_EXISTS",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -69,7 +69,7 @@ export const authHandlers = [
         accessToken: token,
         user: newUser,
       },
-      { status: 201 }
+      { status: 201 },
     );
   }),
 ];
