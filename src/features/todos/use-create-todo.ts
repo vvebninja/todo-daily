@@ -10,7 +10,7 @@ export function useCreateTodo() {
   });
 
   function createTodo(todo: ApiSchemas["TodoCreate"]) {
-    mutate({ body: { ...todo } });
+    mutate({ body: { title: todo.title, description: todo.description } });
   }
 
   return {

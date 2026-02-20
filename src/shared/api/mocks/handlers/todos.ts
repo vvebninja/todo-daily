@@ -35,11 +35,17 @@ export const todosHandlers = [
   }),
   http.post("/todos", async (ctx) => {
     const data = await ctx.request.json();
-    const todo = {
+
+    const todo: ApiSchemas["Todo"] = {
       id: crypto.randomUUID(),
       title: data.title,
       isCompleted: false,
     };
+
+    if (data.description) {
+      todo.description = data.description;
+    }
+
     todos.push(todo);
     return HttpResponse.json({ message: "OK", code: "OK" });
   }),

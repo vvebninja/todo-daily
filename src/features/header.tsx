@@ -21,7 +21,11 @@ export function Header() {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full hover:cursor-pointer">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:cursor-pointer focus-visible:scale-130"
+            >
               <Avatar size="lg">
                 <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" />
                 <AvatarFallback>LR</AvatarFallback>
