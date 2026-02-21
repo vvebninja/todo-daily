@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router";
 import { Header } from "@/features/header";
 import { ROUTES } from "@/shared/model/routes";
-import { Providers } from "./providers/providers";
+import { Providers } from "./providers";
 
 export function App() {
   const location = useLocation();
