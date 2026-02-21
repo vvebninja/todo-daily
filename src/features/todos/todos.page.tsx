@@ -67,7 +67,7 @@ function TodosPage() {
             </Button>
           </DialogTrigger>
 
-          <DialogContent showCloseButton={false} className="w-full">
+          <DialogContent showCloseButton={false} className="w-full pt-3 md:top-[43%]">
             <DialogHeader className="font-secondary text-primary flex-row items-center justify-center gap-3 text-center text-2xl font-normal">
               Add todo <EditIcon />
             </DialogHeader>
@@ -79,12 +79,13 @@ function TodosPage() {
                   placeholder="Title"
                   required
                   autoFocus={isAddTodoDialogOpen}
-                  className="focus-visible:bg-muted/70 h-12 rounded-none border-0 focus-visible:ring-0 md:text-lg"
+                  className="focus-visible:bg-primary/10 h-12 rounded-none border-0 focus-visible:ring-0 md:text-lg"
                 />
                 <Textarea
                   name="description"
+                  rows={3}
                   placeholder="Description"
-                  className="focus-visible:bg-muted/70 rounded-none border-0 text-lg focus-visible:ring-0 md:text-lg"
+                  className="focus-visible:bg-primary/10 rounded-none border-0 text-lg focus-visible:ring-0 md:text-lg"
                 />
               </div>
               <div className="grid gap-1 sm:grid-cols-2">
