@@ -48,9 +48,14 @@ export function Header() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-primary focus:text-primary hover:text-primary">
-              <LogOutIcon className="text-primary" />
-              Logout
+            <DropdownMenuItem
+              asChild
+              className="text-primary focus:text-primary hover:text-primary"
+            >
+              <Link to={ROUTES.LOGIN}>
+                <LogOutIcon className="text-primary" />
+                Logout
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
