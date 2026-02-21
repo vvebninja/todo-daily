@@ -10,7 +10,7 @@ const LoginPage = () => {
       form={<LoginForm />}
       footer={
         <Fragment>
-          Not have an account?{" "}
+          Not have an account?
           <Link to="/register" className="text-primary">
             Register
           </Link>

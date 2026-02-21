@@ -96,7 +96,7 @@ function TodosPage() {
                   variant="outline"
                   disabled={isPendingCreate}
                   onClick={() => setIsAddTodoDialogOpen(false)}
-                  className="border-primary text-primary focus:text-primaty hover:text-primary"
+                  className="border-primary text-primary focus:text-primary hover:text-primary"
                 >
                   Cancel
                 </Button>

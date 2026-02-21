@@ -10,7 +10,7 @@ const RegisterPage = () => {
       form={<RegisterForm />}
       footer={
         <Fragment>
-          Have an account?{" "}
+          Have an account?
           <Link to="/login" className="text-primary">
             Login
           </Link>

@@ -10,7 +10,7 @@ export function AuthLayout(props: { title: ReactNode; form: ReactNode; footer: R
           <AppLogo variant="secondary" />
           <CardTitle className="font-secondary text-2xl font-bold">{props.title}</CardTitle>
         </CardHeader>
-        <CardContent className="">{props.form}</CardContent>
+        <CardContent>{props.form}</CardContent>
         <CardFooter className="flex items-center justify-center">
           <p className="text-muted-foreground text-lg">{props.footer}</p>
         </CardFooter>
