@@ -51,7 +51,9 @@ function TodosPage() {
   return (
     <div className="px-4 pt-5 lg:pt-9 lg:pl-10">
       <h1 className="text-primary mb-2 text-3xl font-bold lg:mb-6 lg:text-5xl">Today</h1>
-      <p className="mb-4 text-lg text-gray-500 lg:mb-7 lg:text-2xl">completed 4/6</p>
+      <p className="mb-4 text-lg text-gray-500 lg:mb-7 lg:text-2xl">
+        completed {todos?.filter((todo) => todo.isCompleted).length}/{todos?.length}
+      </p>
 
       <div className="mb-2">
         <Dialog
@@ -122,7 +124,7 @@ function TodosPage() {
                   onCheckedChange={(checked) => toggleCompleted(todo.id, Boolean(checked))}
                   className={cn(
                     "h-6 w-6 rounded-full bg-white max-md:absolute max-md:-translate-x-[50%]",
-                    todo.isCompleted && "opacity-50",
+                    todo.isCompleted && "opacity-50"
                   )}
                 />
                 <Card

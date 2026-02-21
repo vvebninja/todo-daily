@@ -1,36 +1,33 @@
 import { rqClient } from "@/shared/api/instance";
 import { queryClient } from "@/shared/api/query-client";
+import type { ApiSchemas } from "@/shared/api/schema";
 
 export function useToggleTodo() {
   const toggleCompletedMutation = rqClient.useMutation("patch", "/todos/{todoId}", {
-    async onMutate(variables) {
-      await queryClient.cancelQueries(rqClient.queryOptions("get", "/todos"));
+    onMutate: async (variables) => {
+      const options = rqClient.queryOptions("get", "/todos");
 
-      const previousTodos = queryClient.getQueryData(
-        rqClient.queryOptions("get", "/todos").queryKey,
-      );
+      await queryClient.cancelQueries(options);
 
-      queryClient.setQueryData(rqClient.queryOptions("get", "/todos").queryKey, (old) =>
+      const previousTodos = queryClient.getQueryData<ApiSchemas["Todo"][]>(options.queryKey);
+
+      queryClient.setQueryData<ApiSchemas["Todo"][]>(options.queryKey, (old) =>
         old?.map((todo) =>
-          todo.id === variables.params.path.todoId
-            ? { ...todo, isCompleted: variables.body.isCompleted }
-            : todo,
-        ),
+          todo.id === variables.params.path.todoId ? { ...todo, ...variables.body } : todo
+        )
       );
 
       return { previousTodos };
     },
-
-    onError(_, __, context) {
-      if (context?.previousTodos) {
+    onError: (_, __, context) => {
+      if (context.previousTodos) {
         queryClient.setQueryData(
           rqClient.queryOptions("get", "/todos").queryKey,
-          context.previousTodos,
+          context.previousTodos
         );
       }
     },
-
-    async onSettled() {
+    onSettled: async () => {
       await queryClient.invalidateQueries(rqClient.queryOptions("get", "/todos"));
     },
   });

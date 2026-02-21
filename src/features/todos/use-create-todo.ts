@@ -4,7 +4,7 @@ import type { ApiSchemas } from "@/shared/api/schema";
 
 export function useCreateTodo() {
   const { mutateAsync, isPending } = rqClient.useMutation("post", "/todos", {
-    onSuccess() {
+    onSuccess: () => {
       queryClient.invalidateQueries(rqClient.queryOptions("get", "/todos"));
     },
   });

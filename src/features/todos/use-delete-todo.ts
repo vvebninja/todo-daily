@@ -1,15 +1,20 @@
 import { rqClient } from "@/shared/api/instance";
 import { queryClient } from "@/shared/api/query-client";
+import type { ApiSchemas } from "@/shared/api/schema";
 
 export function useDeleteTodo() {
   const { mutate, isPending, variables } = rqClient.useMutation("delete", `/todos/{todoId}`, {
-    async onSettled() {
+    onSettled: async () => {
       await queryClient.invalidateQueries(rqClient.queryOptions("get", "/todos"));
     },
-    async onSuccess(_, varialbes) {
-      queryClient.setQueryData(rqClient.queryOptions("get", "/todos").queryKey, (oldTodos) => {
-        return oldTodos.filter((todo) => todo.id !== varialbes.params.path.todoId);
-      });
+
+    onSuccess: async (_, variables) => {
+      queryClient.setQueryData<ApiSchemas["Todo"][]>(
+        rqClient.queryOptions("get", "/todos").queryKey,
+        (oldTodos) => {
+          return oldTodos?.filter((todo) => todo.id !== variables.params.path.todoId);
+        }
+      );
     },
   });
 
