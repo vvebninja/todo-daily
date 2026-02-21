@@ -5,8 +5,10 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import { eslintBoundariesConfig } from "./eslint.boundaries.js";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 export default defineConfig([
+  ...pluginQuery.configs["flat/recommended"],
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],

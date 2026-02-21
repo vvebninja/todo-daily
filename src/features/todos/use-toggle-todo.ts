@@ -1,7 +1,7 @@
 import { rqClient } from "@/shared/api/instance";
 import { queryClient } from "@/shared/api/query-client";
 
-export function useToggleTodoCompleted() {
+export function useToggleTodo() {
   const toggleCompletedMutation = rqClient.useMutation("patch", "/todos/{todoId}", {
     async onMutate(variables) {
       await queryClient.cancelQueries(rqClient.queryOptions("get", "/todos"));
@@ -21,7 +21,7 @@ export function useToggleTodoCompleted() {
       return { previousTodos };
     },
 
-    onError(error, variables, context) {
+    onError(_, __, context) {
       if (context?.previousTodos) {
         queryClient.setQueryData(
           rqClient.queryOptions("get", "/todos").queryKey,

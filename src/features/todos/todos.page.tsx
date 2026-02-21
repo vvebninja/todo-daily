@@ -17,18 +17,17 @@ import { useState } from "react";
 import { useCreateTodo } from "./use-create-todo";
 import { useDeleteTodo } from "./use-delete-todo";
 import { useTodos } from "./use-todos";
-import { useToggleTodoCompleted } from "./use-toggle-todo-completed";
-import { Field } from "@/shared/ui/kit/field";
+import { useToggleTodo } from "./use-toggle-todo";
 
 function TodosPage() {
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [isAddTodoDialogOpen, setIsAddTodoDialogOpen] = useState(false);
 
   const { todos, isLoading, error } = useTodos();
   const { createTodo, isPending: isPendingCreate } = useCreateTodo();
-  const { deleteTodo } = useDeleteTodo();
-  const { toggleCompleted } = useToggleTodoCompleted();
+  const { deleteTodo, getIsPending } = useDeleteTodo();
+  const { toggleCompleted } = useToggleTodo();
 
-  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const todo = new FormData(e.target);
     const title = String(todo.get("title"));
@@ -36,10 +35,9 @@ function TodosPage() {
 
     if (!title && !description) return;
 
-    createTodo({ title, description });
-    console.log({ title, description });
+    await createTodo({ title, description });
 
-    e.currentTarget.reset();
+    e.target.reset();
   }
 
   if (isLoading) {
@@ -56,7 +54,10 @@ function TodosPage() {
       <p className="mb-4 text-lg text-gray-500 lg:mb-7 lg:text-2xl">completed 4/6</p>
 
       <div className="mb-2">
-        <Dialog open={isDialogVisible} onOpenChange={() => setIsDialogVisible(!isDialogVisible)}>
+        <Dialog
+          open={isAddTodoDialogOpen}
+          onOpenChange={() => setIsAddTodoDialogOpen(!isAddTodoDialogOpen)}
+        >
           <DialogTrigger asChild>
             <Button
               variant="secondary"
@@ -65,24 +66,25 @@ function TodosPage() {
               + Add todo
             </Button>
           </DialogTrigger>
+
           <DialogContent showCloseButton={false} className="w-full">
             <DialogHeader className="font-secondary text-primary flex-row items-center justify-center gap-3 text-center text-2xl font-normal">
               Add todo <EditIcon />
             </DialogHeader>
             <form onSubmit={handleSubmit} className="w-full max-w-250">
-              <div className="mb-4 border border-gray-300 rounded-sm overflow-hidden">
+              <div className="mb-4 overflow-hidden rounded-sm border border-gray-300">
                 <Input
                   type="text"
                   name="title"
                   placeholder="Title"
                   required
-                  autoFocus={isDialogVisible}
-                  className="h-12 border-0 rounded-none focus-visible:ring-0 focus-visible:bg-muted/70 md:text-lg"
+                  autoFocus={isAddTodoDialogOpen}
+                  className="focus-visible:bg-muted/70 h-12 rounded-none border-0 focus-visible:ring-0 md:text-lg"
                 />
                 <Textarea
                   name="description"
                   placeholder="Description"
-                  className="text-lg border-0 rounded-none focus-visible:ring-0 focus-visible:bg-muted/70 md:text-lg"
+                  className="focus-visible:bg-muted/70 rounded-none border-0 text-lg focus-visible:ring-0 md:text-lg"
                 />
               </div>
               <div className="grid gap-1 sm:grid-cols-2">
@@ -90,7 +92,7 @@ function TodosPage() {
                   type="button"
                   variant="outline"
                   disabled={isPendingCreate}
-                  onClick={() => setIsDialogVisible(false)}
+                  onClick={() => setIsAddTodoDialogOpen(false)}
                   className="border-primary text-primary focus:text-primaty hover:text-primary"
                 >
                   Cancel
@@ -108,53 +110,59 @@ function TodosPage() {
         </Dialog>
       </div>
 
-      <ul className={cn("grid gap-2.5", isDialogVisible && "opacity-50")}>
-        {todos?.map((todo) => (
-          <li key={todo.id}>
-            <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
-              <Checkbox
-                checked={todo.isCompleted}
-                onCheckedChange={(checked) => toggleCompleted(todo.id, Boolean(checked))}
-                className={cn(
-                  "h-6 w-6 rounded-full bg-white max-md:absolute max-md:-translate-x-[50%]",
-                  todo.isCompleted && "opacity-50",
-                )}
-              />
-              <Card
-                className={cn("w-full max-w-250 pt-2 pb-4.5", todo.isCompleted && "opacity-50")}
-              >
-                <CardHeader>
-                  <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
-                  {todo.description && (
-                    <CardDescription className="text-lg font-normal md:text-[22px]">
-                      {todo.description}
-                    </CardDescription>
+      <ul className={cn("grid gap-2.5", isAddTodoDialogOpen && "opacity-50")}>
+        {todos
+          ?.toSorted((a, b) => Number(a.isCompleted) - Number(b.isCompleted))
+          .map((todo) => (
+            <li key={todo.id}>
+              <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
+                <Checkbox
+                  checked={todo.isCompleted}
+                  onCheckedChange={(checked) => toggleCompleted(todo.id, Boolean(checked))}
+                  className={cn(
+                    "h-6 w-6 rounded-full bg-white max-md:absolute max-md:-translate-x-[50%]",
+                    todo.isCompleted && "opacity-50",
                   )}
-                  <CardAction className="pl-1">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem
-                            onClick={() => deleteTodo(todo.id)}
-                            className="text-primary focus:text-primary"
-                          >
-                            <Trash2Icon className="text-primary stroke-[1.5px]" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </CardAction>
-                </CardHeader>
-              </Card>
-            </div>
-          </li>
-        ))}
+                />
+                <Card
+                  className={cn("w-full max-w-250 pt-2 pb-4.5", todo.isCompleted && "opacity-50")}
+                >
+                  <CardHeader>
+                    <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
+                    {todo.description && (
+                      <CardDescription className="text-lg font-normal md:text-[22px]">
+                        {todo.description}
+                      </CardDescription>
+                    )}
+                    <CardAction className="pl-1">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" disabled={getIsPending(todo.id)}>
+                            {getIsPending(todo.id) ? (
+                              <span className="text-primary animate-pulse pr-5">Deleting...</span>
+                            ) : (
+                              <MoreHorizontal />
+                            )}
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem
+                              onClick={() => deleteTodo(todo.id)}
+                              className="text-primary focus:text-primary"
+                            >
+                              <Trash2Icon className="text-primary stroke-[1.5px]" />
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </CardAction>
+                  </CardHeader>
+                </Card>
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   );

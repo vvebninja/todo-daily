@@ -13,16 +13,12 @@ export function useDeleteTodo() {
     },
   });
 
-  function deleteTodo(id: string) {
-    mutate({ params: { path: { todoId: id } } });
-  }
-
-  function getIsPending(id: string) {
-    return isPending && variables?.params.path.todoId === id;
-  }
-
   return {
-    deleteTodo,
-    getIsPending,
+    deleteTodo(id: string) {
+      mutate({ params: { path: { todoId: id } } });
+    },
+    getIsPending(id: string) {
+      return isPending && variables?.params.path.todoId === id;
+    },
   };
 }
