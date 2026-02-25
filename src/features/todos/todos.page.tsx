@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/ui/kit/dropdown-menu";
+import { Field, FieldError } from "@/shared/ui/kit/field";
 import { Input } from "@/shared/ui/kit/input";
 import { Textarea } from "@/shared/ui/kit/textarea";
 import { EditIcon, MoreHorizontal, Trash2Icon } from "lucide-react";
@@ -23,22 +24,9 @@ function TodosPage() {
   const [isAddTodoDialogOpen, setIsAddTodoDialogOpen] = useState(false);
 
   const { todos, isLoading, error } = useTodos();
-  const { createTodo, isPending: isPendingCreate } = useCreateTodo();
+  const createTodo = useCreateTodo();
   const { deleteTodo, getIsPending } = useDeleteTodo();
   const { toggleCompleted } = useToggleTodo();
-
-  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const todo = new FormData(e.target);
-    const title = String(todo.get("title"));
-    const description = String(todo.get("description"));
-
-    if (!title && !description) return;
-
-    await createTodo({ title, description });
-
-    e.target.reset();
-  }
 
   if (isLoading) {
     return <div className="text-primary text-2xl font-normal italic">Loading todos...</div>;
@@ -52,13 +40,16 @@ function TodosPage() {
     <div className="px-4 pt-5 lg:pt-9 lg:pl-10">
       <h1 className="text-primary mb-2 text-3xl font-bold lg:mb-6 lg:text-5xl">Today</h1>
       <p className="mb-4 text-lg text-gray-500 lg:mb-7 lg:text-2xl">
-        completed {todos?.filter((todo) => todo.isCompleted).length}/{todos?.length}
+        completed {todos?.filter(todo => todo.isCompleted).length}/{todos?.length}
       </p>
 
       <div className="mb-2">
         <Dialog
           open={isAddTodoDialogOpen}
-          onOpenChange={() => setIsAddTodoDialogOpen(!isAddTodoDialogOpen)}
+          onOpenChange={open => {
+            setIsAddTodoDialogOpen(open);
+            if (!open && createTodo.fieldError) createTodo.clearError();
+          }}
         >
           <DialogTrigger asChild>
             <Button
@@ -73,28 +64,52 @@ function TodosPage() {
             <DialogHeader className="font-secondary text-primary flex-row items-center justify-center gap-3 text-center text-2xl font-normal">
               Add todo <EditIcon />
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="w-full max-w-250">
+            <form onSubmit={createTodo.handleSubmit} className="w-full max-w-250">
               <div className="mb-4 overflow-hidden rounded-sm border border-gray-300">
-                <Input
-                  type="text"
-                  name="title"
-                  placeholder="Title"
-                  required
-                  autoFocus={isAddTodoDialogOpen}
-                  className="focus-visible:bg-primary/10 h-12 rounded-none border-0 focus-visible:ring-0 md:text-lg"
-                />
-                <Textarea
-                  name="description"
-                  rows={3}
-                  placeholder="Description"
-                  className="focus-visible:bg-primary/10 rounded-none border-0 text-lg focus-visible:ring-0 md:text-lg"
-                />
+                <Field data-invalid={!!createTodo.fieldError} className="relative">
+                  <Input
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    aria-invalid
+                    autoFocus={isAddTodoDialogOpen}
+                    className={cn(
+                      "focus-visible:bg-primary/10 h-12 rounded-none border-0 focus-visible:ring-0 md:text-lg",
+                      createTodo.fieldError && "placeholder:text-destructive"
+                    )}
+                    onChange={createTodo.clearError}
+                  />
+                  {createTodo.fieldError && (
+                    <FieldError
+                      errors={[{ message: createTodo.fieldError }]}
+                      className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-md"
+                    />
+                  )}
+                </Field>
+                <Field data-invalid={!!createTodo.fieldError} className="relative">
+                  <Textarea
+                    name="description"
+                    rows={3}
+                    placeholder="Description"
+                    onChange={createTodo.clearError}
+                    className={cn(
+                      "focus-visible:bg-primary/10 rounded-none border-0 text-lg focus-visible:ring-0 md:text-lg",
+                      createTodo.fieldError && "placeholder:text-destructive"
+                    )}
+                  />
+                  {createTodo.fieldError && (
+                    <FieldError
+                      errors={[{ message: createTodo.fieldError }]}
+                      className="pointer-events-none absolute right-2 inline-flex items-center justify-end pt-3 text-end text-shadow-md"
+                    />
+                  )}
+                </Field>
               </div>
               <div className="grid gap-1 sm:grid-cols-2">
                 <Button
                   type="button"
                   variant="outline"
-                  disabled={isPendingCreate}
+                  disabled={createTodo.isPending}
                   onClick={() => setIsAddTodoDialogOpen(false)}
                   className="border-primary text-primary focus:text-primary hover:text-primary"
                 >
@@ -102,10 +117,10 @@ function TodosPage() {
                 </Button>
                 <Button
                   type="submit"
-                  disabled={isPendingCreate}
-                  className="text-primary-foreground bg-primary text-[16px]"
+                  disabled={createTodo.isPending}
+                  className="text-primary-foreground bg-primary text-[16px] disabled:opacity-30"
                 >
-                  {isPendingCreate ? "Adding.." : "Add"}
+                  Add
                 </Button>
               </div>
             </form>
@@ -114,58 +129,56 @@ function TodosPage() {
       </div>
 
       <ul className={cn("grid gap-2.5", isAddTodoDialogOpen && "opacity-50")}>
-        {todos
-          ?.toSorted((a, b) => Number(a.isCompleted) - Number(b.isCompleted))
-          .map((todo) => (
-            <li key={todo.id}>
-              <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
-                <Checkbox
-                  checked={todo.isCompleted}
-                  onCheckedChange={(checked) => toggleCompleted(todo.id, Boolean(checked))}
-                  className={cn(
-                    "h-6 w-6 rounded-full bg-white max-md:absolute max-md:-translate-x-[50%]",
-                    todo.isCompleted && "opacity-50"
+        {todos?.map(todo => (
+          <li key={todo.id}>
+            <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
+              <Checkbox
+                checked={todo.isCompleted}
+                onCheckedChange={checked => toggleCompleted(todo.id, Boolean(checked))}
+                className={cn(
+                  "h-6 w-6 rounded-full bg-white max-md:absolute max-md:-translate-x-[50%]",
+                  todo.isCompleted && "opacity-50"
+                )}
+              />
+              <Card
+                className={cn("w-full max-w-250 pt-2 pb-4.5", todo.isCompleted && "opacity-50")}
+              >
+                <CardHeader>
+                  <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
+                  {todo.description && (
+                    <CardDescription className="text-lg font-normal md:text-[22px]">
+                      {todo.description}
+                    </CardDescription>
                   )}
-                />
-                <Card
-                  className={cn("w-full max-w-250 pt-2 pb-4.5", todo.isCompleted && "opacity-50")}
-                >
-                  <CardHeader>
-                    <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
-                    {todo.description && (
-                      <CardDescription className="text-lg font-normal md:text-[22px]">
-                        {todo.description}
-                      </CardDescription>
-                    )}
-                    <CardAction className="pl-1">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" disabled={getIsPending(todo.id)}>
-                            {getIsPending(todo.id) ? (
-                              <span className="text-primary animate-pulse pr-5">Deleting...</span>
-                            ) : (
-                              <MoreHorizontal />
-                            )}
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuGroup>
-                            <DropdownMenuItem
-                              onClick={() => deleteTodo(todo.id)}
-                              className="text-primary focus:text-primary"
-                            >
-                              <Trash2Icon className="text-primary stroke-[1.5px]" />
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuGroup>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </CardAction>
-                  </CardHeader>
-                </Card>
-              </div>
-            </li>
-          ))}
+                  <CardAction className="pl-1">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" disabled={getIsPending(todo.id)}>
+                          {getIsPending(todo.id) ? (
+                            <span className="text-primary animate-pulse pr-5">Deleting...</span>
+                          ) : (
+                            <MoreHorizontal />
+                          )}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            onClick={() => deleteTodo(todo.id)}
+                            className="text-primary focus:text-primary"
+                          >
+                            <Trash2Icon className="text-primary stroke-[1.5px]" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </CardAction>
+                </CardHeader>
+              </Card>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );
