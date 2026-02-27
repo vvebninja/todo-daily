@@ -9,9 +9,10 @@ export function useDeleteTodo() {
   });
 
   return {
-    deleteTodo(id: string) {
+    handleDelete(id: string) {
       mutation.mutate({ params: { path: { todoId: id } } });
     },
+    isPending: mutation.isPending,
     getIsPending(id: string) {
       return mutation.isPending && mutation.variables?.params.path.todoId === id;
     },

@@ -1,10 +1,10 @@
 import { rqClient } from "@/shared/api/instance";
 
 export function useTodos() {
-  const { data: todos, error, isLoading } = rqClient.useQuery("get", "/todos");
+  const { data, error, isLoading } = rqClient.useQuery("get", "/todos");
 
   return {
-    todos,
+    data,
     error,
     isLoading,
   };

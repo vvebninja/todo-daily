@@ -13,34 +13,37 @@ import {
 import { Field, FieldError } from "@/shared/ui/kit/field";
 import { Input } from "@/shared/ui/kit/input";
 import { Textarea } from "@/shared/ui/kit/textarea";
-import { EditIcon, MoreHorizontal, Trash2Icon } from "lucide-react";
+import { CirclePlus, EditIcon, MoreHorizontal, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { useCreateTodo } from "./use-create-todo";
 import { useDeleteTodo } from "./use-delete-todo";
 import { useTodos } from "./use-todos";
 import { useToggleTodo } from "./use-toggle-todo";
+import { Spinner } from "@/shared/ui/kit/spinner";
 
 function TodosPage() {
   const [isAddTodoDialogOpen, setIsAddTodoDialogOpen] = useState(false);
 
-  const { todos, isLoading, error } = useTodos();
+  const todos = useTodos();
   const createTodo = useCreateTodo();
-  const { deleteTodo, getIsPending } = useDeleteTodo();
+  const deleteTodo = useDeleteTodo();
   const { toggleCompleted } = useToggleTodo();
 
-  if (isLoading) {
+  const checkedTodos = todos.data?.filter(todo => todo.isCompleted).length;
+
+  if (todos.isLoading) {
     return <div className="text-primary text-2xl font-normal italic">Loading todos...</div>;
   }
 
-  if (error) {
-    return <div>{JSON.stringify(error)}</div>;
+  if (todos.error) {
+    return <div>{JSON.stringify(todos.error.message)}</div>;
   }
 
   return (
     <div className="px-4 pt-5 lg:pt-9 lg:pl-10">
       <h1 className="text-primary mb-2 text-3xl font-bold lg:mb-6 lg:text-5xl">Today</h1>
       <p className="mb-4 text-lg text-gray-500 lg:mb-7 lg:text-2xl">
-        completed {todos?.filter(todo => todo.isCompleted).length}/{todos?.length}
+        completed {checkedTodos}/{todos.data?.length}
       </p>
 
       <div className="mb-2">
@@ -52,12 +55,12 @@ function TodosPage() {
           }}
         >
           <DialogTrigger asChild>
-            <Button
-              variant="secondary"
-              className="text-primary hover:text-accent-foreground mb-2 px-0 text-lg md:text-2xl"
+            <button
+              type="button"
+              className="text-primary hover:text-accent-foreground mb-6 flex items-center gap-3 p-0 px-0 text-lg md:text-2xl"
             >
-              + Add todo
-            </Button>
+              <CirclePlus size={24} /> Add todo
+            </button>
           </DialogTrigger>
 
           <DialogContent showCloseButton={false} className="w-full pt-3 md:top-[43%]">
@@ -116,9 +119,10 @@ function TodosPage() {
                 </Button>
                 <Button
                   type="submit"
+                  disabled={createTodo.isPending}
                   className="text-primary-foreground bg-primary text-[16px] disabled:opacity-30"
                 >
-                  Add
+                  {createTodo.isPending && <Spinner />} Add
                 </Button>
               </div>
             </form>
@@ -127,7 +131,7 @@ function TodosPage() {
       </div>
 
       <ul className={cn("grid gap-2.5", isAddTodoDialogOpen && "opacity-50")}>
-        {todos?.map(todo => (
+        {todos.data?.map(todo => (
           <li key={todo.id}>
             <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
               <Checkbox
@@ -139,7 +143,11 @@ function TodosPage() {
                 )}
               />
               <Card
-                className={cn("w-full max-w-250 pt-2 pb-4.5", todo.isCompleted && "opacity-50")}
+                className={cn(
+                  "w-full max-w-250 pt-2 pb-4.5",
+                  todo.isCompleted && "bg-muted opacity-50",
+                  deleteTodo.getIsPending(todo.id) && "bg-muted animate-pulse opacity-50"
+                )}
               >
                 <CardHeader>
                   <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
@@ -151,19 +159,21 @@ function TodosPage() {
                   <CardAction className="pl-1">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" disabled={getIsPending(todo.id)}>
-                          {getIsPending(todo.id) ? (
-                            <span className="text-primary animate-pulse pr-5">Deleting...</span>
+                        <Button variant="ghost" size="icon">
+                          {deleteTodo.getIsPending(todo.id) ? (
+                            <span className="text-destructive -ml-4 animate-pulse">
+                              Deleting...
+                            </span>
                           ) : (
                             <MoreHorizontal />
                           )}
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuContent align="end" className="shadow-lg">
                         <DropdownMenuGroup>
                           <DropdownMenuItem
-                            onClick={() => deleteTodo(todo.id)}
-                            className="text-primary focus:text-primary"
+                            onClick={() => deleteTodo.handleDelete(todo.id)}
+                            className="text-primary focus:text-primary h-10 w-35"
                           >
                             <Trash2Icon className="text-primary stroke-[1.5px]" />
                             Delete
