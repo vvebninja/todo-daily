@@ -26,10 +26,10 @@ export const router = createBrowserRouter([
             path: ROUTES.TODOS,
             lazy: () => import("@/features/todos/todos.page"),
           },
-          // {
-          //   path: ROUTES.PROFILE,
-          //   lazy: () => import("@/features/profile/profile.page"),
-          // },
+          {
+            path: ROUTES.PROFILE,
+            lazy: () => import("@/features/profile/profile.page"),
+          },
         ],
       },
     ],
