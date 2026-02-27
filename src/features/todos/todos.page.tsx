@@ -109,7 +109,6 @@ function TodosPage() {
                 <Button
                   type="button"
                   variant="outline"
-                  disabled={createTodo.isPending}
                   onClick={() => setIsAddTodoDialogOpen(false)}
                   className="border-primary text-primary focus:text-primary hover:text-primary"
                 >
@@ -117,7 +116,6 @@ function TodosPage() {
                 </Button>
                 <Button
                   type="submit"
-                  disabled={createTodo.isPending}
                   className="text-primary-foreground bg-primary text-[16px] disabled:opacity-30"
                 >
                   Add
