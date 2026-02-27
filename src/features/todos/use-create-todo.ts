@@ -1,14 +1,12 @@
-import { rqClient } from "@/shared/api/instance";
-import { queryClient } from "@/shared/api/query-client";
+import { rqClient as rqc } from "@/shared/api/instance";
+import { queryClient as qc } from "@/shared/api/query-client";
 import { useState } from "react";
 
 export function useCreateTodo() {
   const [fieldError, setFieldError] = useState<null | string>(null);
 
-  const mutation = rqClient.useMutation("post", "/todos", {
-    onSettled: async () => {
-      await queryClient.invalidateQueries(rqClient.queryOptions("get", "/todos"));
-    },
+  const mutation = rqc.useMutation("post", "/todos", {
+    onSettled: () => qc.invalidateQueries(rqc.queryOptions("get", "/todos")),
   });
 
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
