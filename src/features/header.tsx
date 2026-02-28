@@ -40,12 +40,6 @@ export function Header() {
                   Profile
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to={ROUTES.PROFILE}>
-                  <SlidersHorizontal />
-                  Settings
-                </Link>
-              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
