@@ -13,23 +13,48 @@ import {
 import { Field, FieldError } from "@/shared/ui/kit/field";
 import { Input } from "@/shared/ui/kit/input";
 import { Textarea } from "@/shared/ui/kit/textarea";
-import { CirclePlus, EditIcon, MoreHorizontal, Trash2Icon } from "lucide-react";
+import { CirclePlus, EditIcon, MoreHorizontal, SquarePen, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { useCreateTodo } from "./use-create-todo";
 import { useDeleteTodo } from "./use-delete-todo";
 import { useTodos } from "./use-todos";
 import { useToggleTodo } from "./use-toggle-todo";
 import { Spinner } from "@/shared/ui/kit/spinner";
+import type { ApiSchemas } from "@/shared/api/schema";
 
 function TodosPage() {
-  const [isAddTodoDialogOpen, setIsAddTodoDialogOpen] = useState(false);
-
   const todos = useTodos();
+  const [isAddTodoDialogOpen, setIsAddTodoDialogOpen] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+  const [todoId, setTodoId] = useState<string | null>(null);
+  const [todoTitle, setTodoTitle] = useState("");
+
   const createTodo = useCreateTodo();
   const deleteTodo = useDeleteTodo();
   const { toggleCompleted } = useToggleTodo();
 
   const checkedTodos = todos.data?.filter(todo => todo.isCompleted).length;
+  const totalTodos = todos.data?.length;
+
+  function handleAddTodoDialogChange(open: boolean) {
+    setIsAddTodoDialogOpen(open);
+    if (!open && createTodo.fieldError) createTodo.clearError();
+  }
+
+  function closeAddTodoDialog() {
+    setIsAddTodoDialogOpen(false);
+  }
+
+  function handleToggleModifiable(todo: ApiSchemas["Todo"]) {
+    return () => {
+      if (todoId === todo.id) {
+        setIsEditable(!isEditable);
+        return;
+      }
+      setTodoId(todo.id);
+      setIsEditable(true);
+    };
+  }
 
   if (todos.isLoading) {
     return <div className="text-primary text-2xl font-normal italic">Loading todos...</div>;
@@ -43,17 +68,11 @@ function TodosPage() {
     <div className="px-4 pt-5 lg:pt-9 lg:pl-10">
       <h1 className="text-primary mb-2 text-3xl font-bold lg:mb-6 lg:text-5xl">Today</h1>
       <p className="mb-4 text-lg text-gray-500 lg:mb-7 lg:text-2xl">
-        completed {checkedTodos}/{todos.data?.length}
+        completed {checkedTodos}/{totalTodos}
       </p>
 
       <div className="mb-2">
-        <Dialog
-          open={isAddTodoDialogOpen}
-          onOpenChange={open => {
-            setIsAddTodoDialogOpen(open);
-            if (!open && createTodo.fieldError) createTodo.clearError();
-          }}
-        >
+        <Dialog open={isAddTodoDialogOpen} onOpenChange={handleAddTodoDialogChange}>
           <DialogTrigger asChild>
             <button
               type="button"
@@ -112,7 +131,7 @@ function TodosPage() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setIsAddTodoDialogOpen(false)}
+                  onClick={closeAddTodoDialog}
                   className="border-primary text-primary focus:text-primary hover:text-primary"
                 >
                   Cancel
@@ -150,24 +169,38 @@ function TodosPage() {
                 )}
               >
                 <CardHeader>
-                  <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
+                  {isEditable ? (
+                    <Input type="text" name="title" />
+                  ) : (
+                    <CardTitle className="text-xl font-normal md:text-2xl">{todo.title}</CardTitle>
+                  )}
                   {todo.description && (
                     <CardDescription className="text-lg font-normal md:text-[22px]">
                       {todo.description}
                     </CardDescription>
                   )}
-                  <CardAction className="pl-1">
+                  <CardAction className="flex items-center gap-4 pl-1">
+                    <button
+                      type="button"
+                      onClick={handleToggleModifiable(todo)}
+                      className="hover:text-primary text-gray-600 transition-colors hover:cursor-pointer"
+                    >
+                      <SquarePen
+                        className={cn(
+                          "stroke-[1.5px]",
+                          todoId === todo.id && isEditable && "text-primary/80"
+                        )}
+                      />
+                    </button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
+                        <button type="button" className="hover:text-primary p-0">
                           {deleteTodo.getIsPending(todo.id) ? (
-                            <span className="text-destructive -ml-4 animate-pulse">
-                              Deleting...
-                            </span>
+                            <Trash2Icon className="text-destructive animate-pulse" />
                           ) : (
-                            <MoreHorizontal />
+                            <MoreHorizontal className="text-gray-600" />
                           )}
-                        </Button>
+                        </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="shadow-lg">
                         <DropdownMenuGroup>
@@ -175,8 +208,7 @@ function TodosPage() {
                             onClick={() => deleteTodo.handleDelete(todo.id)}
                             className="text-primary focus:text-primary h-10 w-35"
                           >
-                            <Trash2Icon className="text-primary stroke-[1.5px]" />
-                            Delete
+                            <Trash2Icon className="text-primary stroke-[1.5px]" /> Delete
                           </DropdownMenuItem>
                         </DropdownMenuGroup>
                       </DropdownMenuContent>

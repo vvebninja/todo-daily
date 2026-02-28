@@ -21,6 +21,4 @@ export const profileHandlers = [
       { status: 200 }
     );
   }),
-
-  http.put("/profile/avatar", async ctx => {}),
 ];
