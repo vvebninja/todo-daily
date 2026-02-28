@@ -1,3 +1,4 @@
+//mocks/handlers/auth.ts
 import { HttpResponse } from "msw";
 import type { ApiSchemas } from "../../schema";
 import { http } from "../http";
@@ -18,16 +19,16 @@ export const authHandlers = [
   http.post("/auth/login", async ({ request }) => {
     const body = await request.json();
 
-    const user = mockUsers.find((u) => u.email === body.email);
+    const user = mockUsers.find(u => u.email === body.email);
     const storedPassword = userPasswords.get(body.email);
 
     if (!user || !storedPassword || storedPassword !== body.password) {
       return HttpResponse.json(
         {
-          message: "Неверный email или пароль",
+          message: "Incorrect email or password",
           code: "INVALID_CREDENTIALS",
         },
-        { status: 401 },
+        { status: 401 }
       );
     }
 
@@ -37,20 +38,20 @@ export const authHandlers = [
         accessToken: token,
         user,
       },
-      { status: 200 },
+      { status: 200 }
     );
   }),
 
   http.post("/auth/register", async ({ request }) => {
     const body = await request.json();
 
-    if (mockUsers.some((u) => u.email === body.email)) {
+    if (mockUsers.some(u => u.email === body.email)) {
       return HttpResponse.json(
         {
-          message: "Пользователь уже существует",
+          message: "User already exists",
           code: "USER_EXISTS",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -69,7 +70,7 @@ export const authHandlers = [
         accessToken: token,
         user: newUser,
       },
-      { status: 201 },
+      { status: 201 }
     );
   }),
 ];

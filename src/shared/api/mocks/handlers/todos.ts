@@ -1,3 +1,4 @@
+//mocks/handlers/todos.ts
 import { delay, HttpResponse } from "msw";
 import type { ApiSchemas } from "../../schema";
 import { http } from "../http";
@@ -52,9 +53,9 @@ export const todosHandlers = [
     return HttpResponse.json({ message: "OK", code: "OK" });
   }),
 
-  http.patch("/todos/{todoId}", async ({ request, params }) => {
-    const data = await request.json();
-    const index = todos.findIndex(todo => todo.id === params.todoId);
+  http.patch("/todos/{todoId}", async ctx => {
+    const data = await ctx.request.json();
+    const index = todos.findIndex(todo => todo.id === ctx.params.todoId);
 
     if (index === -1) {
       await delay(2000);
@@ -75,8 +76,8 @@ export const todosHandlers = [
     });
   }),
 
-  http.delete("/todos/{todoId}", async ({ params }) => {
-    const { todoId } = params;
+  http.delete("/todos/{todoId}", async ctx => {
+    const { todoId } = ctx.params;
     const index = todos.findIndex(todo => todo.id === todoId);
 
     if (index === -1) {

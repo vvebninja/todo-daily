@@ -33,6 +33,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^7.6.1",
     "@eslint/js": "^9.39.1",
     "@tanstack/eslint-plugin-query": "^5.91.4",
     "@types/node": "^24.10.9",

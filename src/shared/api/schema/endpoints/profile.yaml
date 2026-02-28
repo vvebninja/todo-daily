@@ -1,0 +1,26 @@
+#schema/endpoints/profile.yaml
+uploadProfileImage:
+  summary: Upload user profile image
+  operationId: uploadProfileImage
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            avatar:
+              type: string
+              format: binary
+              description: The image file to upload (jpg, png)
+  responses:
+    "200":
+      description: Profile image updated successfully
+      content:
+        application/json:
+          schema:
+            $ref: "../models/profile.yaml#/ProfileImageResponse"
+    "400":
+      $ref: "../shared/responses.yaml#/BadRequestError"
+    "401":
+      $ref: "../shared/responses.yaml#/UnauthorizedError"

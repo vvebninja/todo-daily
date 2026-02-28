@@ -1,0 +1,11 @@
+# schema/models/profile.yaml
+
+ProfileImageResponse:
+  type: object
+  properties:
+    avatarUrl:
+      type: string
+      format: uri
+      example: "https://api.example.com/static/avatars/user_123.jpg"
+  required:
+    - avatarUrl

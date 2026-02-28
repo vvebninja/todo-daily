@@ -13,6 +13,10 @@ paths:
     post:
       $ref: "./endpoints/auth.yaml#/register"
 
+  /profile/avatar:
+    post:
+      $ref: "./endpoints/profile.yaml#/uploadProfileImage"
+
   /todos:
     get:
       $ref: "./endpoints/todos.yaml#/getAllTodos"

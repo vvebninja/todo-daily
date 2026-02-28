@@ -27,14 +27,14 @@ export function ProtectedRoutesLayout() {
     <div className="container mx-auto grow">
       <div className="fixed top-[40%] left-2 hidden md:hidden">
         <DropdownMenu>
-          <DropdownMenuTrigger className="opacity-50 hover:opacity-100 focus:opacity-100">
+          <DropdownMenuTrigger asChild className="opacity-50 hover:opacity-100 focus:opacity-100">
             <Button size="icon">
               <Calendar1 />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="bg-muted">
             <DropdownMenuGroup>
-              {menuItems.map((item) => (
+              {menuItems.map(item => (
                 <DropdownMenuItem key={item.label} className="focus:text-primary">
                   <item.icon className="hover:text-primary" /> {item.label}
                 </DropdownMenuItem>

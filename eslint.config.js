@@ -1,28 +1,43 @@
-import js from "@eslint/js";
-import { defineConfig, globalIgnores } from "eslint/config";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import { eslintBoundariesConfig } from "./eslint.boundaries.js";
-import pluginQuery from "@tanstack/eslint-plugin-query";
+import antfu from "@antfu/eslint-config";
 
-export default defineConfig([
-  ...pluginQuery.configs["flat/recommended"],
-  globalIgnores(["dist"]),
+export default antfu(
   {
-    files: ["**/*.{ts,tsx}"],
-
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+    react: true,
+    typescript: true,
+    stylistic: {
+      indent: 2,
+      quotes: "single",
     },
   },
-  eslintBoundariesConfig,
-]);
+  {
+    rules: {
+      // 1. Порожні рядки між логічними блоками (PRO стандарт)
+      "style/padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "*", next: "return" }, // Завжди порожній рядок перед return
+        { blankLine: "always", prev: ["const", "let", "var"], next: "*" }, // Після оголошення змінних
+        { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"] }, // Дозволяє змінні в купі
+        { blankLine: "always", prev: "*", next: "if" }, // Завжди перед if
+        { blankLine: "always", prev: "if", next: "*" }, // Завжди після if
+        { blankLine: "always", prev: "*", next: "function" }, // Перед функціями
+        { blankLine: "always", prev: "function", next: "*" }, // Після функцій
+      ],
+
+      // 2. Заборона "магічних" чисел (краще виносити в константи)
+      "ts/no-magic-numbers": ["warn", { ignore: [0, 1], ignoreArrayIndexes: true }],
+
+      // 3. Сортування імпортів (щоб не було хаосу на початку файлу)
+      "perfectionist/sort-imports": [
+        "error",
+        {
+          type: "alphabetical",
+          order: "asc",
+          groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
+        },
+      ],
+
+      // 4. Обмеження складності функцій (якщо функція занадто велика — рефактор)
+      complexity: ["warn", 10],
+    },
+  }
+);
