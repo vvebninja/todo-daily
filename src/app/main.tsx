@@ -8,13 +8,13 @@ async function enableMocking() {
   if (import.meta.env.PROD) return;
 
   const { worker } = await import("@/shared/api/mocks/browser");
-  worker.start();
+  await worker.start();
 }
 
 enableMocking().then(() => {
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <RouterProvider router={router} />
-    </StrictMode>,
+    </StrictMode>
   );
 });
