@@ -1,11 +1,11 @@
 import type { ApiSchemas } from "@/shared/api/schema";
-import { useDeleteTodo } from "../use-delete-todo";
-import { useToggleTodo } from "../use-toggle-todo";
-import { TodoItem } from "./todo-item";
+import { useDeleteTodo } from "../model/use-delete-todo.ts";
+import { useToggleTodo } from "../model/use-toggle-todo.ts";
+import { TodoItem } from "./item.tsx";
 
-interface TodoListProps {
+type TodoListProps = Readonly<{
   items?: ApiSchemas["Todo"][];
-}
+}>;
 
 export function TodoList({ items }: TodoListProps) {
   const deleteTodo = useDeleteTodo();

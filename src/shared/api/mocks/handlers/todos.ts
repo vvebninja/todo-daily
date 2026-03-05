@@ -6,26 +6,26 @@ import { http } from "../http";
 const todos: ApiSchemas["Todo"][] = [
   {
     id: "1",
-    title: "Dont forget to buy milk",
-    description: "Dont forget to buy milk",
+    title: "Don't forget to buy milk",
+    description: "Don't forget to buy milk",
     isCompleted: false,
   },
   {
     id: "2",
-    title: "Dont forget to buy milk",
-    description: "Dont forget to buy milk",
+    title: "Don't forget to buy milk",
+    description: "Don't forget to buy milk",
     isCompleted: false,
   },
   {
     id: "3",
-    title: "Dont forget to buy milk",
-    description: "Dont forget to buy milk",
+    title: "Don't forget to buy milk",
+    description: "Don't forget to buy milk",
     isCompleted: false,
   },
   {
     id: "4",
-    title: "Dont forget to buy milk",
-    description: "Dont forget to buy milk",
+    title: "Don't forget to buy milk",
+    description: "Don't forget to buy milk",
     isCompleted: false,
   },
 ];

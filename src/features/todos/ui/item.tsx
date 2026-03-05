@@ -3,19 +3,16 @@ import { cn } from "@/shared/lib/css";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui/kit/card";
 import { Checkbox } from "@/shared/ui/kit/checkbox";
 import { Typography } from "@/shared/ui/typography";
-import { TodoActions } from "./todo-actions";
+import { TodoActions } from "./actions";
 
-export function TodoItem({
-  todo,
-  isPending,
-  onDelete,
-  toggleCompleted,
-}: {
+type TodoItemProps = Readonly<{
   todo: ApiSchemas["Todo"];
   isPending: boolean;
   onDelete: (id: string) => void;
   toggleCompleted: (id: string, completed: boolean) => void;
-}) {
+}>;
+
+export function TodoItem({ todo, isPending, onDelete, toggleCompleted }: TodoItemProps) {
   return (
     <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
       <Checkbox
@@ -35,13 +32,15 @@ export function TodoItem({
       >
         <CardHeader>
           <CardTitle>
-            <Typography as="span" variant="h2" size="lg">
+            <Typography as="h3" variant="h3" size="lg">
               {todo.title}
             </Typography>
           </CardTitle>
           {todo.description && (
             <CardDescription>
-              <Typography color="muted">{todo.description}</Typography>
+              <Typography as="p" size="md" color="muted">
+                {todo.description}
+              </Typography>
             </CardDescription>
           )}
           <TodoActions todoId={todo.id} isPending={isPending} onDelete={onDelete} />

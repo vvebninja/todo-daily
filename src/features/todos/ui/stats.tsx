@@ -1,9 +1,9 @@
 import { Typography } from "@/shared/ui/typography";
 
-interface TodoStatsProps {
+type TodoStatsProps = Readonly<{
   completed?: number;
   count?: number;
-}
+}>;
 
 export function TodoStats({ completed = 0, count = 0 }: TodoStatsProps) {
   const label = count > 0 ? `Completed ${completed}/${count}` : "No todos yet";

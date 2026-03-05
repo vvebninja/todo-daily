@@ -1,4 +1,4 @@
-import { CircleUserRound, LogOutIcon, SlidersHorizontal } from "lucide-react";
+import { CircleUserRound, LogOutIcon  } from "lucide-react";
 import { Link } from "react-router";
 import { ROUTES } from "@/shared/model/routes";
 import AppLogo from "@/shared/ui/app-logo";

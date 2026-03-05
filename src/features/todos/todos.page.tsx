@@ -1,8 +1,8 @@
 import { Typography } from "@/shared/ui/typography";
-import { AddTodoDialog } from "./ui/add-todo-dialog";
-import { TodoList } from "./ui/todo-list";
-import { TodoStats } from "./ui/todo-stats";
-import { useTodos } from "./use-todos";
+import { useTodos } from "./model/use-todos.ts";
+import { AddTodoDialog } from "./ui/add-dialog.tsx";
+import { TodoList } from "./ui/list.tsx";
+import { TodoStats } from "./ui/stats.tsx";
 
 function TodosPage() {
   const todos = useTodos();

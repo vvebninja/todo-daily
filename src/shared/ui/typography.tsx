@@ -2,52 +2,68 @@ import { cn } from "@/shared/lib/css";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-const typographyVariants = cva(
-  "text-foreground transition-colors", // Базові стилі для тексту
-  {
-    variants: {
-      variant: {
-        h1: "font-bold tracking-tight",
-        h2: "text-2xl font-semibold tracking-tight",
-        p: "leading-7 [&:not(:first-child)]:mt-6",
-        blockquote: "mt-6 border-l-2 pl-6 italic",
-      },
-      color: {
-        default: "text-foreground",
-        muted: "text-muted-foreground",
-        primary: "text-primary",
-      },
-      size: {
-        default: "text-base",
-        sm: "text-sm",
-        lg: "text-lg lg:text-2xl",
-        xl: "text-3xl lg:text-5xl",
-      },
+export const typographyVariants = cva("text-foreground transition-colors", {
+  variants: {
+    variant: {
+      h1: "font-bold tracking-tight",
+      h2: "font-medium tracking-tight",
+      h3: "font-normal tracking-tight",
+      p: "font-normal leading-7",
     },
-    defaultVariants: {
-      variant: "p",
-      color: "default",
-      size: "default",
+    font: {
+      default: "font-primary",
+      secondary: "font-secondary",
     },
-  }
-);
+    color: {
+      default: "text-foreground",
+      muted: "text-muted-foreground",
+      primary: "text-primary",
+      destructive: "text-destructive",
+      inherit: "text-inherit",
+    },
+    size: {
+      default: "text-base",
+      xs: "text-xs",
+      sm: "text-sm",
+      md: "text-lg md:text-[22px]",
+      lg: "text-xl md:text-2xl",
+      xl: "text-3xl md:text-5xl",
+    },
+  },
+  defaultVariants: {
+    variant: "p",
+    font: "default",
+    color: "default",
+    size: "default",
+  },
+});
 
-interface TypographyProps
-  extends
-    Omit<React.HTMLAttributes<HTMLElement>, "color">,
-    VariantProps<typeof typographyVariants> {
-  as?: React.ElementType;
-}
+export type TypographyProps<T extends React.ElementType = "p"> = VariantProps<
+  typeof typographyVariants
+> &
+  Omit<React.ComponentPropsWithoutRef<T>, "color" | "className"> & {
+    as?: T;
+    className?: string;
+    ref?: React.ComponentPropsWithRef<T>["ref"];
+  };
 
-export const Typography = React.forwardRef<HTMLElement, TypographyProps>(
-  ({ className, variant, size, color, as: Component = "p", ...props }, ref) => {
-    return (
-      <Component
-        ref={ref}
-        className={cn(typographyVariants({ variant, size, color, className }))}
-        {...props}
-      />
-    );
-  }
-);
-Typography.displayName = "Typography";
+export const Typography = <T extends React.ElementType = "p">({
+  as,
+  variant,
+  font,
+  size,
+  color,
+  className,
+  ref,
+  ...props
+}: TypographyProps<T>) => {
+  const Component = as ?? "p";
+
+  return (
+    <Component
+      ref={ref}
+      className={cn(typographyVariants({ variant, size, color, className }))}
+      {...props}
+    />
+  );
+};

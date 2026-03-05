@@ -1,5 +1,5 @@
-import { rqClient as rqc } from "@/shared/api/instance";
-import { queryClient as qc } from "@/shared/api/query-client";
+import { rqClient as rqc } from "@/shared/api/instance.ts";
+import { queryClient as qc } from "@/shared/api/query-client.ts";
 
 export function useDeleteTodo() {
   const mutation = rqc.useMutation("delete", `/todos/{todoId}`, {

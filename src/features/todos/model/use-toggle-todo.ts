@@ -1,5 +1,5 @@
-import { rqClient as rqc } from "@/shared/api/instance";
-import { queryClient as qc } from "@/shared/api/query-client";
+import { rqClient as rqc } from "@/shared/api/instance.ts";
+import { queryClient as qc } from "@/shared/api/query-client.ts";
 import type { ApiSchemas } from "@/shared/api/schema";
 
 export function useToggleTodo() {
@@ -20,7 +20,7 @@ export function useToggleTodo() {
       return { previousTodos };
     },
     onError: (_, __, context) => {
-      if (context.previousTodos) {
+      if (context?.previousTodos) {
         qc.setQueryData(rqc.queryOptions("get", "/todos").queryKey, context.previousTodos);
       }
     },

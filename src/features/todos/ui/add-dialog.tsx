@@ -5,9 +5,10 @@ import { Field, FieldError } from "@/shared/ui/kit/field";
 import { Input } from "@/shared/ui/kit/input";
 import { Spinner } from "@/shared/ui/kit/spinner";
 import { Textarea } from "@/shared/ui/kit/textarea";
+import { Typography } from "@/shared/ui/typography.tsx";
 import { CirclePlus, EditIcon } from "lucide-react";
 import { useState } from "react";
-import { useCreateTodo } from "../use-create-todo";
+import { useCreateTodo } from "../model/use-create-todo.ts";
 
 export function AddTodoDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -28,15 +29,21 @@ export function AddTodoDialog() {
         <DialogTrigger asChild>
           <button
             type="button"
-            className="text-primary hover:text-accent-foreground mb-6 flex items-center gap-3 p-0 px-0 text-lg md:text-2xl"
+            className="text-primary mb-6 flex items-center gap-2 hover:text-black"
           >
-            <CirclePlus size={24} /> Add todo
+            <CirclePlus size={24} className="transition-colors" />
+            <Typography as="span" size="lg" color="inherit">
+              Add todo
+            </Typography>
           </button>
         </DialogTrigger>
 
         <DialogContent showCloseButton={false} className="w-full pt-3 md:top-[43%]">
-          <DialogHeader className="font-secondary text-primary flex-row items-center justify-center gap-3 text-center text-2xl font-normal">
-            Add todo <EditIcon />
+          <DialogHeader className="font-secondary flex-row items-center justify-center gap-3 text-center">
+            <Typography as="h3" variant="h3" size="lg" color="primary">
+              Add todo
+              <EditIcon />
+            </Typography>
           </DialogHeader>
           <form onSubmit={createTodo.handleSubmit} className="w-full max-w-250">
             <div className="mb-4 overflow-hidden rounded-sm border border-gray-300">

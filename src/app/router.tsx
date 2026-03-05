@@ -1,5 +1,5 @@
-import { createBrowserRouter, redirect } from "react-router";
 import { ROUTES } from "@/shared/model/routes";
+import { createBrowserRouter, redirect } from "react-router";
 import { App } from "./app";
 import { ProtectedRoutesLayout } from "./protected-routes-layout";
 
@@ -11,14 +11,14 @@ export const router = createBrowserRouter([
         path: ROUTES.HOME,
         loader: () => redirect(ROUTES.TODOS),
       },
-      // {
-      //   path: ROUTES.REGISTER,
-      //   lazy: () => import("@/features/auth/register.page"),
-      // },
-      // {
-      //   path: ROUTES.LOGIN,
-      //   lazy: () => import("@/features/auth/login.page"),
-      // },
+      {
+        path: ROUTES.REGISTER,
+        lazy: () => import("@/features/auth/register.page"),
+      },
+      {
+        path: ROUTES.LOGIN,
+        lazy: () => import("@/features/auth/login.page"),
+      },
       {
         element: <ProtectedRoutesLayout />,
         children: [
