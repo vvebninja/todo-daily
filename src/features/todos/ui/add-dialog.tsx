@@ -1,6 +1,5 @@
-import { cn } from "@/shared/lib/css";
-import { Button } from "@/shared/ui/kit/button";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/shared/ui/kit/dialog";
+import { Button } from "@/shared/ui/kit/button";
 import { Field, FieldError } from "@/shared/ui/kit/field";
 import { Input } from "@/shared/ui/kit/input";
 import { Spinner } from "@/shared/ui/kit/spinner";
