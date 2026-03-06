@@ -1,4 +1,10 @@
-export function UploadIcon({ size = 68, className }: { size?: number; className?: string }) {
+export function UploadIcon({
+  size = 68,
+  className,
+}: {
+  size?: number
+  className?: string
+}) {
   return (
     <svg
       width={size}
@@ -15,5 +21,5 @@ export function UploadIcon({ size = 68, className }: { size?: number; className?
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

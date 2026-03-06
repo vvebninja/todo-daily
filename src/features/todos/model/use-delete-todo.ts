@@ -1,20 +1,20 @@
-import { rqClient as rqc } from "@/shared/api/instance.ts";
-import { queryClient as qc } from "@/shared/api/query-client.ts";
+import { rqClient as rqc } from '@/shared/api/instance.ts'
+import { queryClient as qc } from '@/shared/api/query-client.ts'
 
 export function useDeleteTodo() {
-  const mutation = rqc.useMutation("delete", `/todos/{todoId}`, {
+  const mutation = rqc.useMutation('delete', `/todos/{todoId}`, {
     onSettled: async () => {
-      await qc.invalidateQueries(rqc.queryOptions("get", "/todos"));
+      await qc.invalidateQueries(rqc.queryOptions('get', '/todos'))
     },
-  });
+  })
 
   return {
     handleDelete(id: string) {
-      mutation.mutate({ params: { path: { todoId: id } } });
+      mutation.mutate({ params: { path: { todoId: id } } })
     },
     isPending: mutation.isPending,
     getIsPending(id: string) {
-      return mutation.isPending && mutation.variables?.params.path.todoId === id;
+      return mutation.isPending && mutation.variables?.params.path.todoId === id
     },
-  };
+  }
 }

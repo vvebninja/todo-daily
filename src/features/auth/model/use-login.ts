@@ -1,25 +1,28 @@
-import { useNavigate } from "react-router";
-import { rqClient } from "@/shared/api/instance";
-import type { ApiSchemas } from "@/shared/api/schema";
-import { ROUTES } from "@/shared/model/routes";
+import type { ApiSchemas } from '@/shared/api/schema'
 
-export const useLogin = () => {
-  const navigate = useNavigate();
+import { useNavigate } from 'react-router'
+import { rqClient } from '@/shared/api/instance'
+import { ROUTES } from '@/shared/model/routes'
 
-  const loginMutation = rqClient.useMutation("post", "/auth/login", {
+export function useLogin() {
+  const navigate = useNavigate()
+
+  const loginMutation = rqClient.useMutation('post', '/auth/login', {
     onSuccess() {
-      navigate(ROUTES.HOME);
+      navigate(ROUTES.HOME)
     },
-  });
+  })
 
-  const login = (userCredentials: ApiSchemas["LoginRequest"]) =>
-    loginMutation.mutate({ body: userCredentials });
+  const login = (userCredentials: ApiSchemas['LoginRequest']) =>
+    loginMutation.mutate({ body: userCredentials })
 
-  const errorMessage = loginMutation.isError ? loginMutation.error.message : undefined;
+  const errorMessage = loginMutation.isError
+    ? loginMutation.error.message
+    : undefined
 
   return {
     login,
     errorMessage,
     isPending: loginMutation.isPending,
-  };
-};
+  }
+}

@@ -1,36 +1,44 @@
-import { CardAction } from "@/shared/ui/kit/card";
+import { MoreHorizontal, Trash2Icon } from 'lucide-react'
+
+import { CardAction } from '@/shared/ui/kit/card'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/ui/kit/dropdown-menu";
-import { Typography } from "@/shared/ui/typography";
-import { MoreHorizontal, Trash2Icon } from "lucide-react";
+} from '@/shared/ui/kit/dropdown-menu'
+import { Typography } from '@/shared/ui/typography'
 
 type TodoActionsProps = Readonly<{
-  todoId: string;
-  isPending: boolean;
-  onDelete: (id: string) => void;
-}>;
+  todoId: string
+  isPending: boolean
+  onDelete: (id: string) => void
+}>
 
 export function TodoActions({ todoId, isPending, onDelete }: TodoActionsProps) {
   return (
     <CardAction className="flex items-center gap-4 pl-1">
       <button
         type="button"
-        className="hover:text-primary text-gray-600 transition-colors hover:cursor-pointer"
-      ></button>
+        className="text-gray-600 transition-colors hover:cursor-pointer hover:text-primary"
+      >
+      </button>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button type="button" disabled={isPending} className="hover:text-primary p-0">
-            {isPending ? (
-              <Trash2Icon className="text-destructive animate-pulse" />
-            ) : (
-              <MoreHorizontal className="text-gray-600" />
-            )}
+          <button
+            type="button"
+            disabled={isPending}
+            className="p-0 hover:text-primary"
+          >
+            {isPending
+              ? (
+                  <Trash2Icon className="animate-pulse text-destructive" />
+                )
+              : (
+                  <MoreHorizontal className="text-gray-600" />
+                )}
           </button>
         </DropdownMenuTrigger>
 
@@ -38,9 +46,9 @@ export function TodoActions({ todoId, isPending, onDelete }: TodoActionsProps) {
           <DropdownMenuGroup>
             <DropdownMenuItem
               onClick={() => onDelete(todoId)}
-              className="text-primary focus:text-primary h-10 w-35"
+              className="h-10 w-35 text-primary focus:text-primary"
             >
-              <Trash2Icon className="text-primary stroke-[1.5px]" />
+              <Trash2Icon className="stroke-[1.5px] text-primary" />
               <Typography as="span" variant="p" color="primary">
                 Delete
               </Typography>
@@ -49,5 +57,5 @@ export function TodoActions({ todoId, isPending, onDelete }: TodoActionsProps) {
         </DropdownMenuContent>
       </DropdownMenu>
     </CardAction>
-  );
+  )
 }

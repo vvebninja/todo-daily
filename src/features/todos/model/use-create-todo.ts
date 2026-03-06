@@ -1,36 +1,38 @@
-import { rqClient as rqc } from "@/shared/api/instance.ts";
-import { queryClient as qc } from "@/shared/api/query-client.ts";
-import { useState } from "react";
+import { useState } from 'react'
+
+import { rqClient as rqc } from '@/shared/api/instance.ts'
+import { queryClient as qc } from '@/shared/api/query-client.ts'
 
 export function useCreateTodo() {
-  const [fieldError, setFieldError] = useState<null | string>(null);
+  const [fieldError, setFieldError] = useState<null | string>(null)
 
-  const mutation = rqc.useMutation("post", "/todos", {
-    onSettled: () => qc.invalidateQueries(rqc.queryOptions("get", "/todos")),
-  });
+  const mutation = rqc.useMutation('post', '/todos', {
+    onSettled: () => qc.invalidateQueries(rqc.queryOptions('get', '/todos')),
+  })
 
   function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const title = formData.get("title")?.toString() || "";
-    const description = formData.get("description")?.toString() || "";
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const title = formData.get('title')?.toString() || ''
+    const description = formData.get('description')?.toString() || ''
 
     if (!title && !description) {
-      setFieldError("Fill at least one field");
-      return;
+      setFieldError('Fill at least one field')
+
+      return
     }
 
     mutation.mutate(
       { body: { title, description } },
       {
         onSuccess: () => {
-          setFieldError(null);
-          form.reset();
+          setFieldError(null)
+          form.reset()
         },
-      }
-    );
+      },
+    )
   }
 
   return {
@@ -38,7 +40,8 @@ export function useCreateTodo() {
     isPending: mutation.isPending,
     handleSubmit,
     clearError: () => {
-      if (fieldError) setFieldError(null);
+      if (fieldError)
+        setFieldError(null)
     },
-  };
+  }
 }

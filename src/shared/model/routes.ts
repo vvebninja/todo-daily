@@ -1,25 +1,25 @@
-import "react-router";
+import 'react-router'
 
 export const ROUTES = {
-  REGISTER: "/register",
-  LOGIN: "/login",
-  HOME: "/",
-  TODOS: "/todos",
-  TODO: "/todos/:todoId",
-  LANDING: "/landing",
-  PROFILE: "/profile",
-} as const;
+  REGISTER: '/register',
+  LOGIN: '/login',
+  HOME: '/',
+  TODOS: '/todos',
+  TODO: '/todos/:todoId',
+  LANDING: '/landing',
+  PROFILE: '/profile',
+} as const
 
-export type PathParams = {
+export interface PathParams {
   [ROUTES.TODO]: {
     params: {
-      todoId: string;
-    };
-  };
-};
+      todoId: string
+    }
+  }
+}
 
-declare module "react-router" {
+declare module 'react-router' {
   interface Register {
-    pages: PathParams;
+    pages: PathParams
   }
 }

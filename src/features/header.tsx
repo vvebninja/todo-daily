@@ -1,9 +1,10 @@
-import { CircleUserRound, LogOutIcon  } from "lucide-react";
-import { Link } from "react-router";
-import { ROUTES } from "@/shared/model/routes";
-import AppLogo from "@/shared/ui/app-logo";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/kit/avatar";
-import { Button } from "@/shared/ui/kit/button";
+import { CircleUserRound, LogOutIcon } from 'lucide-react'
+import { Link } from 'react-router'
+
+import { ROUTES } from '@/shared/model/routes'
+import AppLogo from '@/shared/ui/app-logo'
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/kit/avatar'
+import { Button } from '@/shared/ui/kit/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,12 +12,12 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/shared/ui/kit/dropdown-menu";
+} from '@/shared/ui/kit/dropdown-menu'
 
 export function Header() {
   return (
     <header className="bg-primary">
-      <div className="bg-primary container mx-auto flex h-21 items-center justify-between px-4">
+      <div className="container mx-auto flex h-21 items-center justify-between bg-primary px-4">
         <AppLogo />
 
         <DropdownMenu>
@@ -44,7 +45,7 @@ export function Header() {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               asChild
-              className="text-primary focus:text-primary hover:text-primary"
+              className="text-primary hover:text-primary focus:text-primary"
             >
               <Link to={ROUTES.LOGIN}>
                 <LogOutIcon className="text-primary" />
@@ -55,5 +56,5 @@ export function Header() {
         </DropdownMenu>
       </div>
     </header>
-  );
+  )
 }

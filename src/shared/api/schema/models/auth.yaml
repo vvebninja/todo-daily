@@ -45,4 +45,4 @@ AuthResponse:
     accessToken:
       type: string
     user:
-      $ref: "#/User"
+      $ref: '#/User'

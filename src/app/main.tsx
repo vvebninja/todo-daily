@@ -1,20 +1,23 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router";
-import "./index.css";
-import { router } from "./router";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { RouterProvider } from 'react-router'
+
+import { router } from './router'
+import './index.css'
 
 async function enableMocking() {
-  if (import.meta.env.PROD) return;
+  if (import.meta.env.PROD)
+    return
 
-  const { worker } = await import("@/shared/api/mocks/browser");
-  worker.start();
+  const { worker } = await import('@/shared/api/mocks/browser')
+
+  worker.start()
 }
 
 enableMocking().then(() => {
-  createRoot(document.getElementById("root")!).render(
+  createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <RouterProvider router={router} />
-    </StrictMode>
-  );
-});
+    </StrictMode>,
+  )
+})

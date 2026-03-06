@@ -3,18 +3,18 @@ UnauthorizedError:
   content:
     application/json:
       schema:
-        $ref: "../models/error.yaml#/Error"
+        $ref: '../models/error.yaml#/Error'
 
 NotFoundError:
   description: Resource not found
   content:
     application/json:
       schema:
-        $ref: "../models/error.yaml#/Error"
+        $ref: '../models/error.yaml#/Error'
 
 BadRequestError:
   description: Bad Request - Validation failed
   content:
     application/json:
       schema:
-        $ref: "../models/error.yaml#/Error"
+        $ref: '../models/error.yaml#/Error'

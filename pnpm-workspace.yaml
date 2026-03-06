@@ -1,4 +1,5 @@
-onlyBuiltDependencies:
-  - esbuild
-  - msw
-  - unrs-resolver
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
+onlyBuiltDependencies: -simple - git - hooks;

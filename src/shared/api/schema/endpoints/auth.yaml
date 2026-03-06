@@ -5,16 +5,16 @@ login:
     content:
       application/json:
         schema:
-          $ref: "../models/auth.yaml#/LoginRequest"
+          $ref: '../models/auth.yaml#/LoginRequest'
   responses:
-    "200":
+    '200':
       description: Login successful
       content:
         application/json:
           schema:
-            $ref: "../models/auth.yaml#/AuthResponse"
-    "401":
-      $ref: "../shared/responses.yaml#/UnauthorizedError"
+            $ref: '../models/auth.yaml#/AuthResponse'
+    '401':
+      $ref: '../shared/responses.yaml#/UnauthorizedError'
 
 register:
   summary: Register new user
@@ -23,13 +23,13 @@ register:
     content:
       application/json:
         schema:
-          $ref: "../models/auth.yaml#/RegisterRequest"
+          $ref: '../models/auth.yaml#/RegisterRequest'
   responses:
-    "201":
+    '201':
       description: Registration successful
       content:
         application/json:
           schema:
-            $ref: "../models/auth.yaml#/AuthResponse"
-    "400":
-      $ref: "../shared/responses.yaml#/BadRequestError"
+            $ref: '../models/auth.yaml#/AuthResponse'
+    '400':
+      $ref: '../shared/responses.yaml#/BadRequestError'

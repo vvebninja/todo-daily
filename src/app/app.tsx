@@ -1,12 +1,12 @@
-import { Outlet, useLocation } from "react-router";
-
-import { Header } from "@/features/header";
-import { ROUTES } from "@/shared/model/routes";
-import { Providers } from "./providers";
+import { Outlet, useLocation } from 'react-router'
+import { Header } from '@/features/header'
+import { ROUTES } from '@/shared/model/routes'
+import { Providers } from './providers'
 
 export function App() {
-  const location = useLocation();
-  const isPrivateRoute = location.pathname === ROUTES.TODOS || location.pathname === ROUTES.PROFILE;
+  const location = useLocation()
+  const isPrivateRoute
+    = location.pathname === ROUTES.TODOS || location.pathname === ROUTES.PROFILE
 
   return (
     <Providers>
@@ -15,5 +15,5 @@ export function App() {
         <Outlet />
       </div>
     </Providers>
-  );
+  )
 }

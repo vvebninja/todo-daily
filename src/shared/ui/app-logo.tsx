@@ -1,41 +1,43 @@
-import { cva, type VariantProps } from "class-variance-authority";
-import { Menu } from "lucide-react";
-import { Link } from "react-router";
-import { cn } from "../lib/css";
-import { ROUTES } from "../model/routes";
+import type { VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
+import { Menu } from 'lucide-react'
+import { Link } from 'react-router'
+
+import { cn } from '../lib/css'
+import { ROUTES } from '../model/routes'
 
 const logoVariants = cva(
-  "inline-flex items-center gap-2 min-h:11 py-4 font-secondary text-3xl text-primary-foreground font-extrabold md:text-4xl",
+  'min-h:11 inline-flex items-center gap-2 py-4 font-secondary text-3xl font-extrabold text-primary-foreground md:text-4xl',
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground",
-        secondary: "bg-secondary text-secondary-foreground",
+        default: 'bg-primary text-primary-foreground',
+        secondary: 'bg-secondary text-secondary-foreground',
         defaultVariants: {
-          variant: "default",
+          variant: 'default',
         },
       },
     },
   },
-);
+)
 
 const logoBoxVariants = cva(
-  "flex items-center w-8 h-8 pl-3 pr-1 rounded-[4px] md:w-10 md:h-10",
+  'flex h-8 w-8 items-center rounded-[4px] pr-1 pl-3 md:h-10 md:w-10',
   {
     variants: {
       variant: {
-        default: "bg-secondary text-secondary-foreground",
-        secondary: "bg-primary text-primary-foreground",
+        default: 'bg-secondary text-secondary-foreground',
+        secondary: 'bg-primary text-primary-foreground',
         defaultVariants: {
-          variant: "default",
+          variant: 'default',
         },
       },
     },
   },
-);
+)
 
 export default function AppLogo({
-  variant = "default",
+  variant = 'default',
   className,
 }: { className?: string } & VariantProps<typeof logoVariants>) {
   return (
@@ -45,5 +47,5 @@ export default function AppLogo({
       </div>
       Todo Daily
     </Link>
-  );
+  )
 }

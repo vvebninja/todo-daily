@@ -1,5 +1,5 @@
-const LandingPage = () => {
-  return <div>LandingPage</div>;
-};
+function LandingPage() {
+  return <div>LandingPage</div>
+}
 
-export const Component = LandingPage;
+export const Component = LandingPage

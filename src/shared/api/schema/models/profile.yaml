@@ -6,6 +6,6 @@ ProfileImageResponse:
     avatarUrl:
       type: string
       format: uri
-      example: "https://api.example.com/static/avatars/user_123.jpg"
+      example: 'https://api.example.com/static/avatars/user_123.jpg'
   required:
     - avatarUrl

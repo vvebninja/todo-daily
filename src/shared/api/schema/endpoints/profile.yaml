@@ -1,4 +1,4 @@
-#schema/endpoints/profile.yaml
+# schema/endpoints/profile.yaml
 uploadProfileImage:
   summary: Upload user profile image
   operationId: uploadProfileImage
@@ -14,13 +14,13 @@ uploadProfileImage:
               format: binary
               description: The image file to upload (jpg, png)
   responses:
-    "200":
+    '200':
       description: Profile image updated successfully
       content:
         application/json:
           schema:
-            $ref: "../models/profile.yaml#/ProfileImageResponse"
-    "400":
-      $ref: "../shared/responses.yaml#/BadRequestError"
-    "401":
-      $ref: "../shared/responses.yaml#/UnauthorizedError"
+            $ref: '../models/profile.yaml#/ProfileImageResponse'
+    '400':
+      $ref: '../shared/responses.yaml#/BadRequestError'
+    '401':
+      $ref: '../shared/responses.yaml#/UnauthorizedError'

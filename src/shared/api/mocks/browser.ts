@@ -1,6 +1,11 @@
-import { setupWorker } from "msw/browser";
-import { authHandlers } from "./handlers/auth";
-import { profileHandlers } from "./handlers/profile";
-import { todosHandlers } from "./handlers/todos";
+import { setupWorker } from 'msw/browser'
 
-export const worker = setupWorker(...authHandlers, ...todosHandlers, ...profileHandlers);
+import { authHandlers } from './handlers/auth'
+import { profileHandlers } from './handlers/profile'
+import { todosHandlers } from './handlers/todos'
+
+export const worker = setupWorker(
+  ...authHandlers,
+  ...todosHandlers,
+  ...profileHandlers,
+)

@@ -7,24 +7,24 @@ info:
 paths:
   /auth/login:
     post:
-      $ref: "./endpoints/auth.yaml#/login"
+      $ref: './endpoints/auth.yaml#/login'
 
   /auth/register:
     post:
-      $ref: "./endpoints/auth.yaml#/register"
+      $ref: './endpoints/auth.yaml#/register'
 
   /profile/avatar:
     post:
-      $ref: "./endpoints/profile.yaml#/uploadProfileImage"
+      $ref: './endpoints/profile.yaml#/uploadProfileImage'
 
   /todos:
     get:
-      $ref: "./endpoints/todos.yaml#/getAllTodos"
+      $ref: './endpoints/todos.yaml#/getAllTodos'
     post:
-      $ref: "./endpoints/todos.yaml#/createTodo"
+      $ref: './endpoints/todos.yaml#/createTodo'
 
   /todos/{todoId}:
     patch:
-      $ref: "./endpoints/todos.yaml#/updateTodo"
+      $ref: './endpoints/todos.yaml#/updateTodo'
     delete:
-      $ref: "./endpoints/todos.yaml#/deleteTodo"
+      $ref: './endpoints/todos.yaml#/deleteTodo'

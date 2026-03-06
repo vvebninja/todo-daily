@@ -1,35 +1,44 @@
-import { rqClient as rqc } from "@/shared/api/instance.ts";
-import { queryClient as qc } from "@/shared/api/query-client.ts";
-import type { ApiSchemas } from "@/shared/api/schema";
+import type { ApiSchemas } from '@/shared/api/schema'
+import { rqClient as rqc } from '@/shared/api/instance.ts'
+import { queryClient as qc } from '@/shared/api/query-client.ts'
 
 export function useToggleTodo() {
-  const toggleCompletedMutation = rqc.useMutation("patch", "/todos/{todoId}", {
-    onMutate: async variables => {
-      const options = rqc.queryOptions("get", "/todos");
+  const toggleCompletedMutation = rqc.useMutation('patch', '/todos/{todoId}', {
+    onMutate: async (variables) => {
+      const options = rqc.queryOptions('get', '/todos')
 
-      await qc.cancelQueries(options);
+      await qc.cancelQueries(options)
 
-      const previousTodos = qc.getQueryData<ApiSchemas["Todo"][]>(options.queryKey);
+      const previousTodos = qc.getQueryData<ApiSchemas['Todo'][]>(
+        options.queryKey,
+      )
 
-      qc.setQueryData<ApiSchemas["Todo"][]>(options.queryKey, old =>
+      qc.setQueryData<ApiSchemas['Todo'][]>(options.queryKey, old =>
         old?.map(todo =>
-          todo.id === variables.params.path.todoId ? { ...todo, ...variables.body } : todo
-        )
-      );
+          todo.id === variables.params.path.todoId
+            ? { ...todo, ...variables.body }
+            : todo,
+        ))
 
-      return { previousTodos };
+      return { previousTodos }
     },
     onError: (_, __, context) => {
       if (context?.previousTodos) {
-        qc.setQueryData(rqc.queryOptions("get", "/todos").queryKey, context.previousTodos);
+        qc.setQueryData(
+          rqc.queryOptions('get', '/todos').queryKey,
+          context.previousTodos,
+        )
       }
     },
-    onSettled: () => qc.invalidateQueries(rqc.queryOptions("get", "/todos")),
-  });
+    onSettled: () => qc.invalidateQueries(rqc.queryOptions('get', '/todos')),
+  })
 
   return {
     toggleCompleted: (todoId: string, isCompleted: boolean) => {
-      toggleCompletedMutation.mutate({ params: { path: { todoId } }, body: { isCompleted } });
+      toggleCompletedMutation.mutate({
+        params: { path: { todoId } },
+        body: { isCompleted },
+      })
     },
-  };
+  }
 }
