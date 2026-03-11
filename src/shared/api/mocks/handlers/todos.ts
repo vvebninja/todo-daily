@@ -32,7 +32,8 @@ const todos: ApiSchemas['Todo'][] = [
 ]
 
 export const todosHandlers = [
-  http.get('/todos', () => {
+  http.get('/todos', async () => {
+    await delay(1000)
     return HttpResponse.json(todos)
   }),
 
@@ -83,8 +84,6 @@ export const todosHandlers = [
     const index = todos.findIndex(todo => todo.id === todoId)
 
     if (index === -1) {
-      await delay(2000)
-
       return HttpResponse.json({
         message: 'Todo not found',
         code: 'NOT_FOUND',

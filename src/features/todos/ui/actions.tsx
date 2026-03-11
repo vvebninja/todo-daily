@@ -1,5 +1,4 @@
 import { MoreHorizontal, Trash2Icon } from 'lucide-react'
-
 import { CardAction } from '@/shared/ui/kit/card'
 import {
   DropdownMenu,
@@ -12,32 +11,37 @@ import { Typography } from '@/shared/ui/typography'
 
 type TodoActionsProps = Readonly<{
   todoId: string
-  isPending: boolean
+  isDeleting: boolean
   onDelete: (id: string) => void
 }>
 
-export function TodoActions({ todoId, isPending, onDelete }: TodoActionsProps) {
+export function TodoActions({
+  todoId,
+  isDeleting,
+  onDelete,
+}: TodoActionsProps) {
+  function handleDelete() {
+    onDelete(todoId)
+  }
+
   return (
     <CardAction className="flex items-center gap-4 pl-1">
-      <button
-        type="button"
-        className="text-gray-600 transition-colors hover:cursor-pointer hover:text-primary"
-      >
-      </button>
-
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <button
             type="button"
-            disabled={isPending}
+            disabled={isDeleting}
             className="p-0 hover:text-primary"
           >
-            {isPending
+            {isDeleting
               ? (
-                  <Trash2Icon className="animate-pulse text-destructive" />
+                  <Trash2Icon
+                    size={20}
+                    className="animate-bounce stroke-[1.5px] text-destructive"
+                  />
                 )
               : (
-                  <MoreHorizontal className="text-gray-600" />
+                  <MoreHorizontal className="text-gray-600 transition-colors hover:text-primary" />
                 )}
           </button>
         </DropdownMenuTrigger>
@@ -45,7 +49,7 @@ export function TodoActions({ todoId, isPending, onDelete }: TodoActionsProps) {
         <DropdownMenuContent align="end" className="shadow-lg">
           <DropdownMenuGroup>
             <DropdownMenuItem
-              onClick={() => onDelete(todoId)}
+              onClick={handleDelete}
               className="h-10 w-35 text-primary focus:text-primary"
             >
               <Trash2Icon className="stroke-[1.5px] text-primary" />

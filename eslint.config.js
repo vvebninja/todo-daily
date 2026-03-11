@@ -5,18 +5,6 @@ import boundaries from 'eslint-plugin-boundaries'
 export default antfu(
   {
     react: true,
-    typescript: true,
-    tailwind: true,
-    stylistic: {
-      indent: 2,
-      quotes: 'single',
-      semi: false,
-    },
-    formatters: {
-      css: true,
-      html: true,
-      tailwind: 'prettier',
-    },
   },
   ...pluginQuery.configs['flat/recommended'],
   {

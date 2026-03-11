@@ -9,21 +9,13 @@ function TodosPage() {
 
   const completedCount = todos.data?.filter(todo => todo.isCompleted).length
 
-  if (todos.isLoading) {
-    return (
-      <div className="text-2xl font-normal text-primary italic">
-        Loading todos...
-      </div>
-    )
-  }
-
   if (todos.error) {
     return <div>{JSON.stringify(todos.error.message)}</div>
   }
 
   return (
-    <div className="px-4 pt-5 lg:pt-9 lg:pl-10">
-      <header>
+    <div className="px-4 pt-5 lg:pt-9">
+      <header className="mb-4 md:mb-8">
         <Typography
           variant="h1"
           color="primary"
@@ -37,7 +29,7 @@ function TodosPage() {
 
       <AddTodoDialog />
 
-      <TodoList items={todos.data} />
+      <TodoList items={todos.data} isLoading={todos.isLoading} />
     </div>
   )
 }

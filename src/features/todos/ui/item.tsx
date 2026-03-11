@@ -1,63 +1,59 @@
 import type { ApiSchemas } from '@/shared/api/schema'
 import { cn } from '@/shared/lib/css'
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/shared/ui/kit/card'
+import { Card, CardHeader } from '@/shared/ui/kit/card'
 import { Checkbox } from '@/shared/ui/kit/checkbox'
-import { Typography } from '@/shared/ui/typography'
 
+import { Typography } from '@/shared/ui/typography'
 import { TodoActions } from './actions'
 
 type TodoItemProps = Readonly<{
   todo: ApiSchemas['Todo']
-  isPending: boolean
+  isDeleting: boolean
   onDelete: (id: string) => void
   toggleCompleted: (id: string, completed: boolean) => void
 }>
 
 export function TodoItem({
   todo,
-  isPending,
+  isDeleting,
   onDelete,
   toggleCompleted,
 }: TodoItemProps) {
+  function handleCompletedChange(isCompleted: boolean) {
+    toggleCompleted(todo.id, isCompleted)
+  }
+
   return (
-    <div className="flex items-center gap-2 max-md:relative max-md:pl-3 md:gap-2">
+    <div className="relative flex items-center pl-3">
       <Checkbox
         checked={todo.isCompleted}
-        onCheckedChange={checked =>
-          toggleCompleted(todo.id, Boolean(checked))}
+        onCheckedChange={handleCompletedChange}
+        disabled={isDeleting}
         className={cn(
-          'h-6 w-6 rounded-full bg-white max-md:absolute max-md:-translate-x-[50%]',
+          'absolute z-1 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary',
           todo.isCompleted && 'opacity-50',
+          isDeleting && 'bg-muted opacity-50',
         )}
       />
       <Card
         className={cn(
-          'w-full max-w-250 pt-2 pb-4.5',
+          'w-full rounded-sm pt-2 pb-4.5',
           todo.isCompleted && 'bg-muted opacity-50',
-          isPending && 'animate-pulse bg-muted opacity-50',
+          isDeleting && 'animate-pulse bg-muted opacity-50',
         )}
       >
         <CardHeader>
-          <CardTitle>
-            <Typography as="h3" variant="h3" size="lg">
-              {todo.title}
-            </Typography>
-          </CardTitle>
+          <Typography as="h3" variant="h3" size="lg">
+            {todo.title}
+          </Typography>
           {todo.description && (
-            <CardDescription>
-              <Typography as="p" size="md" color="muted">
-                {todo.description}
-              </Typography>
-            </CardDescription>
+            <Typography as="p" size="md" color="muted">
+              {todo.description}
+            </Typography>
           )}
           <TodoActions
             todoId={todo.id}
-            isPending={isPending}
+            isDeleting={isDeleting}
             onDelete={onDelete}
           />
         </CardHeader>

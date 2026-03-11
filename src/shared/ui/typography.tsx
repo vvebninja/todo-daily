@@ -17,11 +17,12 @@ const typographyVariants = cva('text-foreground transition-colors', {
       secondary: 'font-secondary',
     },
     color: {
-      default: 'text-foreground',
-      muted: 'text-muted-foreground',
-      primary: 'text-primary',
-      destructive: 'text-destructive',
-      inherit: 'text-inherit',
+      'default': 'text-foreground',
+      'muted': 'text-muted-foreground',
+      'primary': 'text-primary',
+      'primary-foreground': 'text-primary-foreground',
+      'destructive': 'text-destructive',
+      'inherit': 'text-inherit',
     },
     size: {
       default: 'text-base',

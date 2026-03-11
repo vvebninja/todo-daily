@@ -1,5 +1,22 @@
 shellEmulator: true
 
 trustPolicy: no-downgrade
-
-onlyBuiltDependencies: -simple - git - hooks;
+onlyBuiltDependencies:
+  - ' '
+  - '-'
+  - ;
+  - e
+  - esbuild
+  - g
+  - h
+  - i
+  - k
+  - l
+  - m
+  - msw
+  - o
+  - p
+  - s
+  - simple-git-hooks
+  - t
+  - unrs-resolver

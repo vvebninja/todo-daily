@@ -1,6 +1,6 @@
 import { CirclePlus, EditIcon } from 'lucide-react'
 import { useState } from 'react'
-
+import { cn } from '@/shared/lib/css.ts'
 import { Button } from '@/shared/ui/kit/button'
 import {
   Dialog,
@@ -12,8 +12,8 @@ import { Field, FieldError } from '@/shared/ui/kit/field'
 import { Input } from '@/shared/ui/kit/input'
 import { Spinner } from '@/shared/ui/kit/spinner'
 import { Textarea } from '@/shared/ui/kit/textarea'
-import { Typography } from '@/shared/ui/typography.tsx'
 
+import { Typography } from '@/shared/ui/typography.tsx'
 import { useCreateTodo } from '../model/use-create-todo.ts'
 
 export function AddTodoDialog() {
@@ -37,9 +37,9 @@ export function AddTodoDialog() {
         <DialogTrigger asChild>
           <button
             type="button"
-            className="mb-6 flex items-center gap-2 text-primary hover:text-black"
+            className="mb-6 flex items-center gap-2 text-primary hover:text-muted-foreground"
           >
-            <CirclePlus size={24} className="transition-colors" />
+            <CirclePlus size={24} />
             <Typography as="span" size="lg" color="inherit">
               Add todo
             </Typography>
@@ -50,10 +50,16 @@ export function AddTodoDialog() {
           showCloseButton={false}
           className="w-full pt-3 md:top-[43%]"
         >
-          <DialogHeader className="flex-row items-center justify-center gap-3 text-center font-secondary">
-            <Typography as="h3" variant="h3" size="lg" color="primary">
+          <DialogHeader>
+            <Typography
+              as="h3"
+              variant="h3"
+              size="lg"
+              color="primary"
+              className="flex items-center justify-center gap-2 text-center font-secondary"
+            >
               Add todo
-              <EditIcon />
+              <EditIcon size={28} />
             </Typography>
           </DialogHeader>
           <form onSubmit={createTodo.handleSubmit} className="w-full max-w-250">
@@ -77,7 +83,7 @@ export function AddTodoDialog() {
                 {createTodo.fieldError && (
                   <FieldError
                     errors={[{ message: createTodo.fieldError }]}
-                    className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-md"
+                    className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-sm"
                   />
                 )}
               </Field>
@@ -91,14 +97,14 @@ export function AddTodoDialog() {
                   placeholder="Description"
                   onChange={createTodo.clearError}
                   className={cn(
-                    'rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
+                    'resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
                     createTodo.fieldError && 'placeholder:text-destructive',
                   )}
                 />
                 {createTodo.fieldError && (
                   <FieldError
                     errors={[{ message: createTodo.fieldError }]}
-                    className="pointer-events-none absolute right-2 inline-flex items-center justify-end pt-3 text-end text-shadow-md"
+                    className="pointer-events-none absolute right-2 inline-flex items-center justify-end pt-3 text-end text-shadow-sm"
                   />
                 )}
               </Field>
@@ -108,18 +114,21 @@ export function AddTodoDialog() {
                 type="button"
                 variant="outline"
                 onClick={closeDialog}
-                className="border-primary text-primary hover:text-primary focus:text-primary"
+                className="border-primary hover:text-primary focus:text-primary"
               >
-                Cancel
+                <Typography as="span" size="default" color="primary">
+                  Close
+                </Typography>
               </Button>
               <Button
                 type="submit"
                 disabled={createTodo.isPending}
-                className="bg-primary text-[16px] text-primary-foreground disabled:opacity-30"
+                className="bg-primary disabled:opacity-30"
               >
                 {createTodo.isPending && <Spinner />}
-                {' '}
-                Add
+                <Typography as="span" size="default" color="primary-foreground">
+                  Add
+                </Typography>
               </Button>
             </div>
           </form>

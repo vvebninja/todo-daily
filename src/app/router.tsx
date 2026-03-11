@@ -4,10 +4,15 @@ import { ROUTES } from '@/shared/model/routes'
 
 import { App } from './app'
 import { ProtectedRoutesLayout } from './protected-routes-layout'
+import { Providers } from './providers'
 
 export const router = createBrowserRouter([
   {
-    element: <App />,
+    element: (
+      <Providers>
+        <App />
+      </Providers>
+    ),
     children: [
       {
         path: ROUTES.HOME,

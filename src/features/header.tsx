@@ -20,12 +20,12 @@ export function Header() {
       <div className="container mx-auto flex h-21 items-center justify-between bg-primary px-4">
         <AppLogo />
 
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              size="icon"
-              className="rounded-full hover:cursor-pointer focus-visible:scale-130"
+              size="icon-lg"
+              className="overflow-hidden rounded-full border border-transparent hover:border-muted focus-visible:border-muted"
             >
               <Avatar size="lg">
                 <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" />
@@ -33,7 +33,7 @@ export function Header() {
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40">
+          <DropdownMenuContent align="end" className="w-40 transition-all">
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
                 <Link to={ROUTES.PROFILE}>
