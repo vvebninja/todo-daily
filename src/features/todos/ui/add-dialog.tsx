@@ -39,7 +39,10 @@ export function AddTodoDialog() {
             type="button"
             className="mb-6 flex items-center gap-2 text-primary hover:text-muted-foreground"
           >
-            <CirclePlus size={24} />
+            <CirclePlus
+              size={28}
+              className="fill-current stroke-white stroke-[1.5px]"
+            />
             <Typography as="span" size="lg" color="inherit">
               Add todo
             </Typography>
@@ -59,7 +62,7 @@ export function AddTodoDialog() {
               className="flex items-center justify-center gap-2 text-center font-secondary"
             >
               Add todo
-              <EditIcon size={28} />
+              <EditIcon size={24} />
             </Typography>
           </DialogHeader>
           <form onSubmit={createTodo.handleSubmit} className="w-full max-w-250">

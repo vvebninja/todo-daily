@@ -6,7 +6,6 @@ export function App() {
   const location = useLocation()
   const isPrivateRoute
     = location.pathname === ROUTES.TODOS || location.pathname === ROUTES.PROFILE
-
   return (
     <>
       {isPrivateRoute && <Header />}

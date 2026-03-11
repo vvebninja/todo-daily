@@ -2,7 +2,6 @@ import type { ApiSchemas } from '@/shared/api/schema'
 import { cn } from '@/shared/lib/css'
 import { Card, CardHeader } from '@/shared/ui/kit/card'
 import { Checkbox } from '@/shared/ui/kit/checkbox'
-
 import { Typography } from '@/shared/ui/typography'
 import { TodoActions } from './actions'
 
@@ -24,22 +23,24 @@ export function TodoItem({
   }
 
   return (
-    <div className="relative flex items-center pl-3">
+    <div
+      className={cn(
+        'relative flex items-center pl-3',
+        (todo.isCompleted || isDeleting) && 'bg-muted opacity-50',
+      )}
+    >
       <Checkbox
         checked={todo.isCompleted}
         onCheckedChange={handleCompletedChange}
         disabled={isDeleting}
         className={cn(
-          'absolute z-1 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary',
-          todo.isCompleted && 'opacity-50',
-          isDeleting && 'bg-muted opacity-50',
+          'absolute z-10 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary',
         )}
       />
       <Card
         className={cn(
           'w-full rounded-sm pt-2 pb-4.5',
-          todo.isCompleted && 'bg-muted opacity-50',
-          isDeleting && 'animate-pulse bg-muted opacity-50',
+          (todo.isCompleted || isDeleting) && 'ring-primary',
         )}
       >
         <CardHeader>
