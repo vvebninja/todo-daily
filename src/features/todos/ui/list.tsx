@@ -14,9 +14,6 @@ type TodoListProps = Readonly<{
 }>
 
 export function TodoList({ items, isLoading, className }: TodoListProps) {
-  const deleteTodo = useDeleteTodo()
-  const { toggleCompleted } = useToggleTodo()
-
   const listClassNames = cn('grid max-w-250 gap-2.5', className)
 
   if (isLoading) {
@@ -45,12 +42,7 @@ export function TodoList({ items, isLoading, className }: TodoListProps) {
     <ul className={listClassNames}>
       {items.map(todo => (
         <li key={todo.id}>
-          <TodoItem
-            todo={todo}
-            isDeleting={deleteTodo.getIsPending(todo.id)}
-            onDelete={deleteTodo.handleDelete}
-            toggleCompleted={toggleCompleted}
-          />
+          <TodoItem todo={todo} />
         </li>
       ))}
     </ul>

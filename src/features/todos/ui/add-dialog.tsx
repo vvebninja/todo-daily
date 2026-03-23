@@ -32,111 +32,103 @@ export function AddTodoDialog() {
   }
 
   return (
-    <div className="mb-2">
-      <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
-        <DialogTrigger asChild>
-          <button
-            type="button"
-            className="mb-6 flex items-center gap-2 text-primary hover:text-muted-foreground"
-          >
-            <CirclePlus
-              size={28}
-              className="fill-current stroke-white stroke-[1.5px]"
-            />
-            <Typography as="span" size="lg" color="inherit">
-              Add todo
-            </Typography>
-          </button>
-        </DialogTrigger>
-
-        <DialogContent
-          showCloseButton={false}
-          className="w-full pt-3 md:top-[43%]"
+    <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className="mb-6 flex items-center gap-2 text-primary hover:text-muted-foreground"
         >
-          <DialogHeader>
-            <Typography
-              as="h3"
-              variant="h3"
-              size="lg"
-              color="primary"
-              className="flex items-center justify-center gap-2 text-center font-secondary"
+          <CirclePlus
+            size={28}
+            className="fill-current stroke-white stroke-[1.5px]"
+          />
+          <Typography as="span" size="lg" color="inherit">
+            Add todo
+          </Typography>
+        </button>
+      </DialogTrigger>
+
+      <DialogContent
+        showCloseButton={false}
+        className="w-full pt-3 md:top-[43%]"
+      >
+        <DialogHeader>
+          <Typography
+            as="h3"
+            variant="h3"
+            size="lg"
+            color="primary"
+            className="flex items-center justify-center gap-2 text-center font-secondary"
+          >
+            Add todo
+            <EditIcon size={24} />
+          </Typography>
+        </DialogHeader>
+        <form onSubmit={createTodo.handleSubmit} className="w-full max-w-250">
+          <div className="mb-4 overflow-hidden rounded-sm border border-gray-300">
+            <Field data-invalid={!!createTodo.fieldError} className="relative">
+              <Input
+                type="text"
+                name="title"
+                placeholder="Title"
+                aria-invalid
+                autoFocus={isDialogOpen}
+                className={cn(
+                  'h-12 rounded-none border-0 focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
+                  createTodo.fieldError && 'placeholder:text-destructive',
+                )}
+                onChange={createTodo.clearError}
+              />
+              {createTodo.fieldError && (
+                <FieldError
+                  errors={[{ message: createTodo.fieldError }]}
+                  className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-sm"
+                />
+              )}
+            </Field>
+            <Field data-invalid={!!createTodo.fieldError} className="relative">
+              <Textarea
+                name="description"
+                rows={3}
+                placeholder="Description"
+                onChange={createTodo.clearError}
+                className={cn(
+                  'resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
+                  createTodo.fieldError && 'placeholder:text-destructive',
+                )}
+              />
+              {createTodo.fieldError && (
+                <FieldError
+                  errors={[{ message: createTodo.fieldError }]}
+                  className="pointer-events-none absolute right-2 inline-flex items-center justify-end pt-3 text-end text-shadow-sm"
+                />
+              )}
+            </Field>
+          </div>
+          <div className="grid gap-1 sm:grid-cols-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={closeDialog}
+              className="border-primary hover:text-primary focus:text-primary"
             >
-              Add todo
-              <EditIcon size={24} />
-            </Typography>
-          </DialogHeader>
-          <form onSubmit={createTodo.handleSubmit} className="w-full max-w-250">
-            <div className="mb-4 overflow-hidden rounded-sm border border-gray-300">
-              <Field
-                data-invalid={!!createTodo.fieldError}
-                className="relative"
-              >
-                <Input
-                  type="text"
-                  name="title"
-                  placeholder="Title"
-                  aria-invalid
-                  autoFocus={isDialogOpen}
-                  className={cn(
-                    'h-12 rounded-none border-0 focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
-                    createTodo.fieldError && 'placeholder:text-destructive',
-                  )}
-                  onChange={createTodo.clearError}
-                />
-                {createTodo.fieldError && (
-                  <FieldError
-                    errors={[{ message: createTodo.fieldError }]}
-                    className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-sm"
-                  />
-                )}
-              </Field>
-              <Field
-                data-invalid={!!createTodo.fieldError}
-                className="relative"
-              >
-                <Textarea
-                  name="description"
-                  rows={3}
-                  placeholder="Description"
-                  onChange={createTodo.clearError}
-                  className={cn(
-                    'resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
-                    createTodo.fieldError && 'placeholder:text-destructive',
-                  )}
-                />
-                {createTodo.fieldError && (
-                  <FieldError
-                    errors={[{ message: createTodo.fieldError }]}
-                    className="pointer-events-none absolute right-2 inline-flex items-center justify-end pt-3 text-end text-shadow-sm"
-                  />
-                )}
-              </Field>
-            </div>
-            <div className="grid gap-1 sm:grid-cols-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={closeDialog}
-                className="border-primary hover:text-primary focus:text-primary"
-              >
-                <Typography as="span" size="default" color="primary">
-                  Close
-                </Typography>
-              </Button>
-              <Button
-                type="submit"
-                disabled={createTodo.isPending}
-                className="bg-primary disabled:opacity-30"
-              >
-                {createTodo.isPending && <Spinner />}
-                <Typography as="span" size="default" color="primary-foreground">
-                  Add
-                </Typography>
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
-    </div>
+              <Typography as="span" size="default" color="primary">
+                Close
+              </Typography>
+            </Button>
+            <Button
+              type="submit"
+              disabled={createTodo.isPending}
+              className="bg-primary disabled:opacity-30"
+            >
+              {createTodo.isPending && <Spinner />}
+              <Typography as="span" size="default" color="primary-foreground">
+                Add
+              </Typography>
+            </Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
   )
 }

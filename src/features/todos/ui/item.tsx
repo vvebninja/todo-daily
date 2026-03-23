@@ -3,59 +3,50 @@ import { cn } from '@/shared/lib/css'
 import { Card, CardHeader } from '@/shared/ui/kit/card'
 import { Checkbox } from '@/shared/ui/kit/checkbox'
 import { Typography } from '@/shared/ui/typography'
+import { useDeleteTodo } from '../model/use-delete-todo'
+import { useToggleTodo } from '../model/use-toggle-todo'
 import { TodoActions } from './actions'
 
 type TodoItemProps = Readonly<{
   todo: ApiSchemas['Todo']
-  isDeleting: boolean
-  onDelete: (id: string) => void
-  toggleCompleted: (id: string, completed: boolean) => void
 }>
 
-export function TodoItem({
-  todo,
-  isDeleting,
-  onDelete,
-  toggleCompleted,
-}: TodoItemProps) {
+export function TodoItem({ todo }: TodoItemProps) {
+  const { toggleCompleted } = useToggleTodo()
+  const { deleteTodo, isDeleting } = useDeleteTodo()
+
   function handleCompletedChange(isCompleted: boolean) {
     toggleCompleted(todo.id, isCompleted)
   }
 
+  function handleDeleteClick() {
+    deleteTodo(todo.id)
+  }
+
   return (
-    <div
-      className={cn(
-        'relative flex items-center pl-3',
-        (todo.isCompleted || isDeleting) && 'bg-muted opacity-50',
-      )}
-    >
+    <div className="relative flex items-center">
       <Checkbox
         checked={todo.isCompleted}
         onCheckedChange={handleCompletedChange}
         disabled={isDeleting}
-        className={cn(
-          'absolute z-10 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary',
-        )}
+        className="absolute z-10 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary"
       />
-      <Card
-        className={cn(
-          'w-full rounded-sm pt-2 pb-4.5',
-          (todo.isCompleted || isDeleting) && 'ring-primary',
-        )}
-      >
+      <Card className={cn('w-full rounded-sm pt-2 pb-4.5 pl-1')}>
         <CardHeader>
-          <Typography as="h3" variant="h3" size="lg">
-            {todo.title}
-          </Typography>
-          {todo.description && (
-            <Typography as="p" size="md" color="muted">
-              {todo.description}
+          <div className={cn(todo.isCompleted && 'opacity-50')}>
+            <Typography as="h3" variant="h3" size="lg">
+              {todo.title}
             </Typography>
-          )}
+            {todo.description && (
+              <Typography as="p" size="md" color="muted">
+                {todo.description}
+              </Typography>
+            )}
+          </div>
           <TodoActions
             todoId={todo.id}
             isDeleting={isDeleting}
-            onDelete={onDelete}
+            onDelete={handleDeleteClick}
           />
         </CardHeader>
       </Card>
