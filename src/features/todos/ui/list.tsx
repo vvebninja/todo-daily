@@ -1,11 +1,8 @@
 import type { ApiSchemas } from '@/shared/api/schema'
-
 import { cn } from '@/shared/lib/css.ts'
 import { Skeletons } from '@/shared/ui/skeletons.tsx'
 import { Typography } from '@/shared/ui/typography.tsx'
-import { useDeleteTodo } from '../model/use-delete-todo.ts'
-import { useToggleTodo } from '../model/use-toggle-todo.ts'
-import { TodoItem } from './item.tsx'
+import { TodoCard } from './card'
 
 type TodoListProps = Readonly<{
   items?: ApiSchemas['Todo'][]
@@ -42,7 +39,7 @@ export function TodoList({ items, isLoading, className }: TodoListProps) {
     <ul className={listClassNames}>
       {items.map(todo => (
         <li key={todo.id}>
-          <TodoItem todo={todo} />
+          <TodoCard todo={todo} />
         </li>
       ))}
     </ul>

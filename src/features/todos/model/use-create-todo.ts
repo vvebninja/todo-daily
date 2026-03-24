@@ -20,7 +20,6 @@ export function useCreateTodo() {
 
     if (!title && !description) {
       setFieldError('Fill at least one field')
-
       return
     }
 
@@ -37,7 +36,7 @@ export function useCreateTodo() {
 
   return {
     fieldError,
-    isPending: mutation.isPending,
+    isCreating: mutation.isPending,
     handleSubmit,
     clearError: () => {
       if (fieldError)

@@ -11,7 +11,7 @@ type TodoItemProps = Readonly<{
   todo: ApiSchemas['Todo']
 }>
 
-export function TodoItem({ todo }: TodoItemProps) {
+export function TodoCard({ todo }: TodoItemProps) {
   const { toggleCompleted } = useToggleTodo()
   const { deleteTodo, isDeleting } = useDeleteTodo()
 
@@ -29,9 +29,17 @@ export function TodoItem({ todo }: TodoItemProps) {
         checked={todo.isCompleted}
         onCheckedChange={handleCompletedChange}
         disabled={isDeleting}
-        className="absolute z-10 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary"
+        className={cn(
+          'absolute z-10 h-6 w-6 -translate-x-[50%] rounded-full bg-white transition-colors hover:border-primary',
+          isDeleting && 'pointer-events-none',
+        )}
       />
-      <Card className={cn('w-full rounded-sm pt-2 pb-4.5 pl-1')}>
+      <Card
+        className={cn(
+          'w-full rounded-sm pt-2 pb-4.5 pl-1',
+          isDeleting && 'bg-gray-200 opacity-50',
+        )}
+      >
         <CardHeader>
           <div className={cn(todo.isCompleted && 'opacity-50')}>
             <Typography as="h3" variant="h3" size="lg">

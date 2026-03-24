@@ -1,4 +1,6 @@
 import { MoreHorizontal, Trash2Icon } from 'lucide-react'
+import { cn } from '@/shared/lib/css'
+import { Button } from '@/shared/ui/kit/button.tsx'
 import { CardAction } from '@/shared/ui/kit/card'
 import {
   DropdownMenu,
@@ -28,10 +30,11 @@ export function TodoActions({
     <CardAction className="flex items-center gap-4 pl-1">
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <button
+          <Button
+            size="icon"
             type="button"
-            disabled={isDeleting}
-            className="p-0 hover:text-primary"
+            variant="ghost"
+            className={cn('h-7', isDeleting && 'pointer-events-none')}
           >
             {isDeleting
               ? (
@@ -41,9 +44,9 @@ export function TodoActions({
                   />
                 )
               : (
-                  <MoreHorizontal className="text-gray-600 transition-colors hover:text-primary" />
+                  <MoreHorizontal className="text-gray-600 transition-colors" />
                 )}
-          </button>
+          </Button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="shadow-lg">

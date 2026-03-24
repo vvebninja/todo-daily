@@ -3,7 +3,7 @@ import { rqClient as rqc } from '@/shared/api/instance.ts'
 import { queryClient as qc } from '@/shared/api/query-client.ts'
 
 export function useToggleTodo() {
-  const toggleCompletedMutation = rqc.useMutation('patch', '/todos/{todoId}', {
+  const mutation = rqc.useMutation('patch', '/todos/{todoId}', {
     onMutate: async (variables) => {
       const options = rqc.queryOptions('get', '/todos')
 
@@ -13,8 +13,8 @@ export function useToggleTodo() {
         options.queryKey,
       )
 
-      qc.setQueryData<ApiSchemas['Todo'][]>(options.queryKey, old =>
-        old?.map(todo =>
+      qc.setQueryData<ApiSchemas['Todo'][]>(options.queryKey, oldTodos =>
+        oldTodos?.map(todo =>
           todo.id === variables.params.path.todoId
             ? { ...todo, ...variables.body }
             : todo,
@@ -35,7 +35,7 @@ export function useToggleTodo() {
 
   return {
     toggleCompleted: (todoId: string, isCompleted: boolean) => {
-      toggleCompletedMutation.mutate({
+      mutation.mutate({
         params: { path: { todoId } },
         body: { isCompleted },
       })

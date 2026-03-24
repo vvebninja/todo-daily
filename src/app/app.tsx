@@ -6,12 +6,11 @@ export function App() {
   const location = useLocation()
   const isPrivateRoute
     = location.pathname === ROUTES.TODOS || location.pathname === ROUTES.PROFILE
+
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       {isPrivateRoute && <Header />}
-      <div className="flex min-h-screen flex-col">
-        <Outlet />
-      </div>
-    </>
+      <Outlet />
+    </div>
   )
 }

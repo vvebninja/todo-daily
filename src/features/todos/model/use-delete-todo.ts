@@ -21,11 +21,9 @@ export function useDeleteTodo() {
   })
 
   return {
-    handleDelete(id: string) {
+    deleteTodo(id: string) {
       mutation.mutate({ params: { path: { todoId: id } } })
     },
-    getIsPending(id: string) {
-      return mutation.isPending && mutation.variables?.params.path.todoId === id
-    },
+    isDeleting: mutation.isPending,
   }
 }
