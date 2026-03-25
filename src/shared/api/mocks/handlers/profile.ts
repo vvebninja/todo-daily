@@ -13,7 +13,6 @@ export const profileHandlers = [
         { status: 400 },
       )
     }
-
     await delay(1000)
 
     const mockAvatarUrl = URL.createObjectURL(avatar)
