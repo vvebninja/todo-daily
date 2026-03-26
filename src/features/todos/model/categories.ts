@@ -12,3 +12,5 @@ export const todoCategories = [
     icon: ListChecks,
   },
 ] as const
+
+export type TodoCategory = Omit<(typeof todoCategories)[number], 'icon'>

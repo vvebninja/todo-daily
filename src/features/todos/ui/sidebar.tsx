@@ -1,9 +1,9 @@
 import { cn } from '@/shared/lib/css'
 
-interface SidebarProps {
+type SidebarProps = Readonly<{
   todosCategories: React.ReactNode
   className?: string
-}
+}>
 
 export function Sidebar(props: SidebarProps) {
   return (

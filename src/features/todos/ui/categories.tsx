@@ -3,11 +3,11 @@ import { cn } from '@/shared/lib/css'
 import { Typography } from '@/shared/ui/typography'
 import { todoCategories } from '../model/categories'
 
-interface TodosCategoriesProps {
+type TodosCategoriesProps = Readonly<{
   onCategoryClick: (category: TodoCategory) => void
   selectedCategory: TodoCategory
   className?: string
-}
+}>
 
 export function TodosCategories({
   selectedCategory,

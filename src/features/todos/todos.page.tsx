@@ -1,33 +1,24 @@
-import { useState } from 'react'
 import { Sidebar } from '@/features/todos/ui/sidebar.tsx'
 import { Typography } from '@/shared/ui/typography.tsx'
-import { todoCategories } from './model/categories.ts'
 import { useTodos } from './model/use-todos.ts'
+import { useSelectedTodoCategory } from './model/useSelectedTodoCategory.tsx'
 import { TodosCategories } from './ui/categories.tsx'
 import { CreateTodoDialog } from './ui/create-dialog.tsx'
 import { TodoList } from './ui/list.tsx'
 import { TodoStats } from './ui/stats.tsx'
 
-export type TodoCategory = Omit<(typeof todoCategories)[number], 'icon'>
-
 function TodosPage() {
-  const [selectedCategory, setSelectedCategory] = useState<TodoCategory>(
-    todoCategories[0],
-  )
-  const todos = useTodos()
-  const completedCount = todos.data?.filter(todo => todo.isCompleted).length
+  const { selectedTodoCategory, handleSelectedTodoCategoryClick }
+    = useSelectedTodoCategory()
+  const {
+    todos,
+    completedCount,
+    error: todosError,
+    isLoading: isLoadingTodos,
+  } = useTodos({ category: selectedTodoCategory.value })
 
-  const todosByCategory = {
-    all: todos.data?.filter(todo => !todo.isCompleted),
-    completed: todos.data?.filter(todo => todo.isCompleted),
-  }
-
-  function handleTodosCategoryClick(category: TodoCategory) {
-    setSelectedCategory(category)
-  }
-
-  if (todos.error) {
-    return <div>{todos.error.message}</div>
+  if (todosError) {
+    return <div>{todosError.message}</div>
   }
 
   return (
@@ -35,8 +26,8 @@ function TodosPage() {
       <Sidebar
         todosCategories={(
           <TodosCategories
-            selectedCategory={selectedCategory}
-            onCategoryClick={handleTodosCategoryClick}
+            selectedCategory={selectedTodoCategory}
+            onCategoryClick={handleSelectedTodoCategoryClick}
             className="flex-col justify-start gap-1"
           />
         )}
@@ -51,24 +42,21 @@ function TodosPage() {
             size="xl"
             className="mb-2 md:mb-4"
           >
-            {selectedCategory.title}
+            {selectedTodoCategory.title}
           </Typography>
           <TodoStats
             completed={completedCount}
-            count={todos.data?.length}
+            count={todos?.length}
             className="mb-6"
           />
           <CreateTodoDialog />
         </header>
         <TodosCategories
-          selectedCategory={selectedCategory}
-          onCategoryClick={handleTodosCategoryClick}
+          selectedCategory={selectedTodoCategory}
+          onCategoryClick={handleSelectedTodoCategoryClick}
           className="mb-4 md:hidden"
         />
-        <TodoList
-          items={todosByCategory[selectedCategory.value]}
-          isLoading={todos.isLoading}
-        />
+        <TodoList items={todos} isLoading={isLoadingTodos} />
       </main>
     </div>
   )
