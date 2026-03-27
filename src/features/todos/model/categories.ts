@@ -2,8 +2,8 @@ import { CalendarDays, ListChecks } from 'lucide-react'
 
 export const todoCategories = [
   {
-    title: 'All',
-    value: 'all',
+    title: 'Active',
+    value: 'active',
     icon: CalendarDays,
   },
   {

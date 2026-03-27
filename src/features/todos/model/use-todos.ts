@@ -2,18 +2,25 @@ import type { TodoCategory } from './categories'
 import { rqClient } from '@/shared/api/instance.ts'
 
 export function useTodos({ category }: { category: TodoCategory['value'] }) {
-  const { data, error, isLoading } = rqClient.useQuery('get', '/todos')
+  const { data, error, isLoading } = rqClient.useQuery(
+    'get',
+    '/todos',
+    {},
+    {
+      select: (todos) => {
+        const active = todos.filter(todo => !todo.isCompleted)
+        const completed = todos.filter(todo => todo.isCompleted)
 
-  const completedCount = data?.filter(todo => todo.isCompleted).length
-
-  const todosByCategory = {
-    all: data?.filter(todo => !todo.isCompleted),
-    completed: data?.filter(todo => todo.isCompleted),
-  }
+        return {
+          todos: category === 'completed' ? completed : active,
+        }
+      },
+    },
+  )
 
   return {
-    todos: todosByCategory[category] ?? todosByCategory.all,
-    completedCount,
+    todos: data?.todos,
+    completedCount: data?.todos.length,
     error,
     isLoading,
   }

@@ -5,7 +5,7 @@ import { queryClient as qc } from '@/shared/api/query-client.ts'
 export function useToggleTodo() {
   const mutation = rqc.useMutation('patch', '/todos/{todoId}', {
     onMutate: async (variables) => {
-      const options = rqc.queryOptions('get', '/todos')
+      const options = rqc.queryOptions('get', '/todos', {})
 
       await qc.cancelQueries(options)
 
