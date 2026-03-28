@@ -16,7 +16,7 @@ export function TodoList({ items, isLoading, className }: TodoListProps) {
   if (isLoading) {
     return (
       <ul className={listClassNames}>
-        <Skeletons itemsCount={4} className="h-24 bg-gray-300" />
+        <Skeletons itemsCount={4} className="h-24" />
       </ul>
     )
   }

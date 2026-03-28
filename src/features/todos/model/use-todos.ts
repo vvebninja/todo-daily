@@ -1,6 +1,8 @@
 import type { TodoCategory } from './categories'
 import { rqClient } from '@/shared/api/instance.ts'
 
+rqClient.queryOptions('get', '/todos')
+
 export function useTodos({ category }: { category: TodoCategory['value'] }) {
   const { data, error, isLoading } = rqClient.useQuery(
     'get',
@@ -13,6 +15,10 @@ export function useTodos({ category }: { category: TodoCategory['value'] }) {
 
         return {
           todos: category === 'completed' ? completed : active,
+          counts: {
+            active: active.length,
+            completed: completed.length,
+          },
         }
       },
     },
@@ -20,7 +26,7 @@ export function useTodos({ category }: { category: TodoCategory['value'] }) {
 
   return {
     todos: data?.todos,
-    completedCount: data?.todos.length,
+    counts: data?.counts,
     error,
     isLoading,
   }

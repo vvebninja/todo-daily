@@ -13,4 +13,4 @@ export const todoCategories = [
   },
 ] as const
 
-export type TodoCategory = Omit<(typeof todoCategories)[number], 'icon'>
+export type TodoCategory = (typeof todoCategories)[number]

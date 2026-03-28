@@ -41,7 +41,7 @@ export function CreateTodoDialog() {
           className="mb-6 flex items-center gap-2 text-primary hover:text-muted-foreground"
         >
           <CirclePlus
-            size={28}
+            size={32}
             className="fill-current stroke-white stroke-[1.5px]"
           />
           <Typography as="span" size="lg" color="inherit">
