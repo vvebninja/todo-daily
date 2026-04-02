@@ -34,29 +34,26 @@ export function TodoActions({
             size="icon"
             type="button"
             variant="ghost"
-            className={cn('h-7', isDeleting && 'pointer-events-none')}
+            className={cn(isDeleting && 'pointer-events-none')}
           >
             {isDeleting
               ? (
-                  <Trash2Icon
-                    size={20}
-                    className="animate-bounce stroke-[1.5px] text-destructive"
-                  />
+                  <Trash2Icon className="size-6 animate-bounce stroke-[1.5px] text-destructive" />
                 )
               : (
-                  <MoreHorizontal className="text-gray-600 transition-colors" />
+                  <MoreHorizontal className="size-6 text-gray-600 transition-colors" />
                 )}
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" className="shadow-lg">
+        <DropdownMenuContent align="end" className="shadow-xl">
           <DropdownMenuGroup>
             <DropdownMenuItem
               onClick={handleDelete}
               className="h-10 w-35 text-primary focus:text-primary"
             >
               <Trash2Icon className="stroke-[1.5px] text-primary" />
-              <Typography as="span" variant="p" color="primary">
+              <Typography as="span" color="primary">
                 Delete
               </Typography>
             </DropdownMenuItem>

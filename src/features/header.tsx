@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/ui/kit/dropdown-menu'
+import { Typography } from '@/shared/ui/typography'
 
 export function Header() {
   return (
@@ -37,8 +38,8 @@ export function Header() {
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
                 <Link to={ROUTES.PROFILE}>
-                  <CircleUserRound />
-                  Profile
+                  <CircleUserRound className="size-5" />
+                  <Typography as="span">Profile</Typography>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -48,8 +49,10 @@ export function Header() {
               className="text-primary hover:text-primary focus:text-primary"
             >
               <Link to={ROUTES.LOGIN}>
-                <LogOutIcon className="text-primary" />
-                Logout
+                <LogOutIcon className="size-5 text-primary" />
+                <Typography as="span" color="primary">
+                  Logout
+                </Typography>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

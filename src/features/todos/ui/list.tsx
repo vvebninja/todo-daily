@@ -1,8 +1,19 @@
 import type { ApiSchemas } from '@/shared/api/schema'
-import { cn } from '@/shared/lib/css.ts'
-import { Skeletons } from '@/shared/ui/skeletons.tsx'
-import { Typography } from '@/shared/ui/typography.tsx'
+import { cva } from 'class-variance-authority'
+import { cn } from '@/shared/lib/css'
+import { Skeletons } from '@/shared/ui/skeletons'
+import { Typography } from '@/shared/ui/typography'
+import { useLayoutToggle } from '../model/use-layout-toggle'
 import { TodoCard } from './card'
+
+const layoutToggleVariants = cva('grid gap-2.5', {
+  variants: {
+    variant: {
+      list: 'grid',
+      grid: 'grid-cols-[repeat(auto-fill,minmax(min(100%,260px),1fr))] gap-4.5',
+    },
+  },
+})
 
 type TodoListProps = Readonly<{
   items?: ApiSchemas['Todo'][]
@@ -11,37 +22,36 @@ type TodoListProps = Readonly<{
 }>
 
 export function TodoList({ items, isLoading, className }: TodoListProps) {
-  const listClassNames = cn('grid max-w-250 gap-2.5', className)
+  const { variant, controls } = useLayoutToggle()
+
+  const listClassNames = cn(layoutToggleVariants({ variant }), className)
 
   if (isLoading) {
     return (
-      <ul className={listClassNames}>
+      <div className={listClassNames}>
         <Skeletons itemsCount={4} className="h-24" />
-      </ul>
+      </div>
     )
   }
 
   if (!items?.length) {
     return (
-      <Typography
-        as="p"
-        variant="p"
-        color="muted"
-        size="md"
-        className="flex items-center gap-4"
-      >
+      <Typography color="muted" size="md" className="py-10 text-center">
         No todos yet
       </Typography>
     )
   }
 
   return (
-    <ul className={listClassNames}>
-      {items.map(todo => (
-        <li key={todo.id}>
-          <TodoCard todo={todo} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      {controls}
+      <ul className={listClassNames}>
+        {items.map(todo => (
+          <li key={todo.id}>
+            <TodoCard todo={todo} />
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

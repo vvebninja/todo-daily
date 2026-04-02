@@ -1,18 +1,21 @@
 import type { TodoCategory } from '../model/categories'
 import { cn } from '@/shared/lib/css'
+import { Button } from '@/shared/ui/kit/button'
 import { Skeletons } from '@/shared/ui/skeletons'
 import { Typography } from '@/shared/ui/typography'
 
+type TodoCategoryText = Omit<TodoCategory, 'icon'>
+
 type TodosCategoriesProps = Readonly<{
   categories: readonly TodoCategory[]
-  onCategoryClick: (category: Omit<TodoCategory, 'icon'>) => void
-  selectedCategory: TodoCategory
+  onCategoryClick: (category: TodoCategoryText) => void
+  selectedCategory: TodoCategoryText
   counts: any
   isLoading?: boolean
   className?: string
 }>
 
-export function TodoCategories({
+export function TodoCategoriesList({
   categories,
   selectedCategory,
   onCategoryClick,
@@ -44,38 +47,39 @@ export function TodoCategories({
   )
 }
 
-type Props = Readonly<{
+type CategoryBtnProps = Readonly<{
   category: TodoCategory
   isSelected: boolean
   count: any
-  onClick: (category: Omit<TodoCategory, 'icon'>) => void
+  onClick: (category: TodoCategoryText) => void
 }>
 
-function CategoryBtn({ category, isSelected, count, onClick }: Props) {
+function CategoryBtn({
+  category,
+  isSelected,
+  count,
+  onClick,
+}: CategoryBtnProps) {
   const { value, title, icon } = category
   const Icon = icon
 
   return (
-    <button
+    <Button
       onClick={() => onClick({ value, title })}
+      variant="ghost"
       className={cn(
         'flex items-center gap-2 py-1 text-muted-foreground hover:text-primary focus-visible:text-primary',
+        'text-shadow-2xs',
         isSelected && 'text-primary',
       )}
     >
-      <Icon size={28} />
+      <Icon className="size-6" />
       <Typography as="span" size="md" color="inherit" className="flex gap-1">
         {title}
       </Typography>
-      <Typography
-        as="span"
-        variant="p"
-        size="md"
-        font="secondary"
-        color="inherit"
-      >
+      <Typography as="span" size="md" font="secondary" color="inherit">
         {count}
       </Typography>
-    </button>
+    </Button>
   )
 }

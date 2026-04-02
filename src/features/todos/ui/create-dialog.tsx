@@ -56,16 +56,16 @@ export function CreateTodoDialog() {
       >
         <form
           onSubmit={createTodo.handleSubmit}
-          className="flex w-full max-w-250 flex-col gap-6"
+          className="flex w-full max-w-250 flex-col gap-4"
         >
           <DialogHeader>
             <DialogTitle asChild>
               <Typography
                 as="h2"
                 variant="h2"
-                size="md"
+                size="lg"
                 color="primary"
-                className="flex items-center justify-center gap-2 text-center font-secondary"
+                className="flex items-center justify-center gap-2 text-center font-bold"
               >
                 Add todo
                 <EditIcon size={24} />
@@ -80,11 +80,11 @@ export function CreateTodoDialog() {
                 placeholder="Title"
                 aria-invalid
                 autoFocus={isDialogOpen}
+                onChange={createTodo.clearError}
                 className={cn(
                   'h-12 rounded-none border-0 focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
                   createTodo.fieldError && 'placeholder:text-destructive',
                 )}
-                onChange={createTodo.clearError}
               />
               {createTodo.fieldError && (
                 <FieldError
@@ -96,11 +96,10 @@ export function CreateTodoDialog() {
             <Field data-invalid={!!createTodo.fieldError} className="relative">
               <Textarea
                 name="description"
-                rows={3}
                 placeholder="Description"
                 onChange={createTodo.clearError}
                 className={cn(
-                  'resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
+                  'h-30 resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
                   createTodo.fieldError && 'placeholder:text-destructive',
                 )}
               />
@@ -120,7 +119,7 @@ export function CreateTodoDialog() {
                 onClick={closeDialog}
                 className="border-primary hover:text-primary focus:text-primary"
               >
-                <Typography as="span" size="default" color="primary">
+                <Typography as="span" color="primary">
                   Cancel
                 </Typography>
               </Button>
@@ -131,7 +130,7 @@ export function CreateTodoDialog() {
               className="bg-primary disabled:opacity-30"
             >
               {createTodo.isCreating && <Spinner />}
-              <Typography as="span" size="default" color="primary-foreground">
+              <Typography as="span" color="primary-foreground">
                 Add
               </Typography>
             </Button>

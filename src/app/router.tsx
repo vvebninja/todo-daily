@@ -1,7 +1,8 @@
 import { createBrowserRouter, redirect } from 'react-router'
 
-import { ROUTES } from '@/shared/model/routes'
+import { Supabase } from '@/features/auth/ui/supabase.tsx'
 
+import { ROUTES } from '@/shared/model/routes'
 import { App } from './app'
 import { ProtectedRoutesLayout } from './protected-routes-layout'
 import { Providers } from './providers'
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
       </Providers>
     ),
     children: [
+      {
+        path: '/supabase',
+        element: <Supabase />,
+      },
       {
         path: ROUTES.HOME,
         loader: () => redirect(ROUTES.TODOS),
