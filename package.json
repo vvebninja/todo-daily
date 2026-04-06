@@ -81,5 +81,9 @@
       "prettier --write",
       "eslint --fix"
     ]
+  },
+  "volta": {
+    "node": "24.14.1",
+    "pnpm": "10.33.0"
   }
 }
