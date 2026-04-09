@@ -1,10 +1,10 @@
 import type { TodoCategory } from './categories'
-import { rqClient } from '@/shared/api/instance.ts'
+import { rqClientInstance } from '@/shared/api/instances.ts'
 
-rqClient.queryOptions('get', '/todos')
+rqClientInstance.queryOptions('get', '/todos')
 
 export function useTodos({ category }: { category: TodoCategory['value'] }) {
-  const { data, error, isLoading } = rqClient.useQuery(
+  const { data, error, isLoading } = rqClientInstance.useQuery(
     'get',
     '/todos',
     {},

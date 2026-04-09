@@ -1,16 +1,11 @@
-import { Outlet, useLocation } from 'react-router'
-import { Header } from '@/features/header'
-import { ROUTES } from '@/shared/model/routes'
+import { Outlet } from 'react-router'
+import { Toaster } from 'sonner'
 
-export function App() {
-  const location = useLocation()
-  const isPrivateRoute
-    = location.pathname === ROUTES.TODOS || location.pathname === ROUTES.PROFILE
-
+export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
-      {isPrivateRoute && <Header />}
       <Outlet />
+      <Toaster position="top-center" richColors />
     </div>
   )
 }

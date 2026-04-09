@@ -1,3 +1,5 @@
 export const CONFIG = {
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+  SUPABASE_BASE_URL: import.meta.env.VITE_SUPABASE_URL,
+  SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
 }

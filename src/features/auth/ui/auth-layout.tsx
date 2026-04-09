@@ -9,15 +9,17 @@ import {
   CardTitle,
 } from '@/shared/ui/kit/card'
 
-export function AuthLayout(props: {
+type AuthLayoutProps = Readonly<{
   title: ReactNode
   form: ReactNode
-  footer: ReactNode
-}) {
+  footer?: ReactNode
+}>
+
+export function AuthLayout(props: AuthLayoutProps) {
   return (
-    <main className="flex grow flex-col items-center px-4 pt-25">
+    <main className="flex grow flex-col items-center px-4 pt-50">
       <Card className="w-full max-w-125 gap-8 rounded-[6px] p-10 pb-24">
-        <CardHeader className="gap-10">
+        <CardHeader className="mb-8 gap-10">
           <AppLogo variant="secondary" />
           <CardTitle className="font-secondary text-2xl font-bold">
             {props.title}

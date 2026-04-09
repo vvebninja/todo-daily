@@ -1,6 +1,6 @@
 import { useState } from 'react'
-
-import { rqClient as rqc } from '@/shared/api/instance.ts'
+import { toast } from 'sonner'
+import { rqClientInstance as rqc } from '@/shared/api/instances.ts'
 import { queryClient as qc } from '@/shared/api/query-client.ts'
 
 export function useCreateTodo() {
@@ -27,6 +27,7 @@ export function useCreateTodo() {
       { body: { title, description } },
       {
         onSuccess: () => {
+          toast.success('Todo created')
           setFieldError(null)
           form.reset()
         },
@@ -36,7 +37,7 @@ export function useCreateTodo() {
 
   return {
     fieldError,
-    isCreating: mutation.isPending,
+    isCreatingTodo: mutation.isPending,
     handleSubmit,
     clearError: () => {
       if (fieldError)

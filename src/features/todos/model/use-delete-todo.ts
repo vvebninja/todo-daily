@@ -1,5 +1,6 @@
 import type { ApiSchemas } from '@/shared/api/schema'
-import { rqClient as rqc } from '@/shared/api/instance.ts'
+import { toast } from 'sonner'
+import { rqClientInstance as rqc } from '@/shared/api/instances.ts'
 import { queryClient as qc } from '@/shared/api/query-client.ts'
 
 export function useDeleteTodo() {
@@ -13,8 +14,8 @@ export function useDeleteTodo() {
           )
         },
       )
+      toast.error('Todo deleted')
     },
-
     onSettled: async () => {
       await qc.invalidateQueries(rqc.queryOptions('get', '/todos'))
     },

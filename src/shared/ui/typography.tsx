@@ -28,6 +28,7 @@ const typographyVariants = cva(
       },
       size: {
         default: 'text-base',
+        inherit: 'inherit',
         xs: 'text-xs',
         sm: 'text-sm',
         md: 'text-lg md:text-[22px]',

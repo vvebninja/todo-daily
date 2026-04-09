@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { rqClient as rqc } from '@/shared/api/instance'
+import { rqClient as rqc } from '@/shared/api/instances.ts'
 
 export function useAvatarUpload() {
   const [preview, setPreview] = React.useState<string | null>(null)

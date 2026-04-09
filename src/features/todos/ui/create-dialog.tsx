@@ -20,13 +20,14 @@ import { useCreateTodo } from '../model/use-create-todo.ts'
 
 export function CreateTodoDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const createTodo = useCreateTodo()
+  const { isCreatingTodo, fieldError, handleSubmit, clearError }
+    = useCreateTodo()
 
   function handleDialogChange(open: boolean) {
     setIsDialogOpen(open)
 
-    if (!open && createTodo.fieldError)
-      createTodo.clearError()
+    if (!open && fieldError)
+      clearError()
   }
 
   function closeDialog() {
@@ -55,7 +56,7 @@ export function CreateTodoDialog() {
         className="w-full pt-3 md:top-[43%]"
       >
         <form
-          onSubmit={createTodo.handleSubmit}
+          onSubmit={handleSubmit}
           className="flex w-full max-w-250 flex-col gap-4"
         >
           <DialogHeader>
@@ -73,39 +74,39 @@ export function CreateTodoDialog() {
             </DialogTitle>
           </DialogHeader>
           <FieldGroup className="gap-0 overflow-hidden rounded-sm border border-gray-300">
-            <Field data-invalid={!!createTodo.fieldError} className="relative">
+            <Field data-invalid={!!fieldError} className="relative">
               <Input
                 type="text"
                 name="title"
                 placeholder="Title"
                 aria-invalid
                 autoFocus={isDialogOpen}
-                onChange={createTodo.clearError}
+                onChange={clearError}
                 className={cn(
                   'h-12 rounded-none border-0 focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
-                  createTodo.fieldError && 'placeholder:text-destructive',
+                  fieldError && 'placeholder:text-destructive',
                 )}
               />
-              {createTodo.fieldError && (
+              {fieldError && (
                 <FieldError
-                  errors={[{ message: createTodo.fieldError }]}
+                  errors={[{ message: fieldError }]}
                   className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-sm"
                 />
               )}
             </Field>
-            <Field data-invalid={!!createTodo.fieldError} className="relative">
+            <Field data-invalid={!!fieldError} className="relative">
               <Textarea
                 name="description"
                 placeholder="Description"
-                onChange={createTodo.clearError}
+                onChange={clearError}
                 className={cn(
                   'h-30 resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
-                  createTodo.fieldError && 'placeholder:text-destructive',
+                  fieldError && 'placeholder:text-destructive',
                 )}
               />
-              {createTodo.fieldError && (
+              {fieldError && (
                 <FieldError
-                  errors={[{ message: createTodo.fieldError }]}
+                  errors={[{ message: fieldError }]}
                   className="pointer-events-none absolute right-2 inline-flex items-center justify-end pt-3 text-end text-shadow-sm"
                 />
               )}
@@ -126,10 +127,10 @@ export function CreateTodoDialog() {
             </DialogClose>
             <Button
               type="submit"
-              disabled={createTodo.isCreating}
+              disabled={isCreatingTodo}
               className="bg-primary disabled:opacity-30"
             >
-              {createTodo.isCreating && <Spinner />}
+              {isCreatingTodo && <Spinner />}
               <Typography as="span" color="primary-foreground">
                 Add
               </Typography>

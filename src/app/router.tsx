@@ -1,8 +1,8 @@
 import { createBrowserRouter, redirect } from 'react-router'
-
+import { AuthGuard } from '@/features/auth/ui/auth-guard'
+import { Header } from '@/features/header'
 import { ROUTES } from '@/shared/model/routes'
-import { App } from './app'
-import { ProtectedRoutesLayout } from './protected-routes-layout'
+import App from './app'
 import { Providers } from './providers'
 
 export const router = createBrowserRouter([
@@ -18,15 +18,16 @@ export const router = createBrowserRouter([
         loader: () => redirect(ROUTES.TODOS),
       },
       {
-        path: ROUTES.REGISTER,
-        lazy: () => import('@/features/auth/register.page'),
-      },
-      {
         path: ROUTES.LOGIN,
-        lazy: () => import('@/features/auth/login.page'),
+        lazy: () => import('@/features/auth/log.in.page'),
       },
       {
-        element: <ProtectedRoutesLayout />,
+        element: (
+          <>
+            <Header />
+            <AuthGuard />
+          </>
+        ),
         children: [
           {
             path: ROUTES.TODOS,

@@ -1,3 +1,4 @@
+import { cn } from '../lib/css'
 import { Skeleton } from './kit/skeleton'
 
 type SkeletonsProps = Readonly<{
@@ -12,7 +13,7 @@ export function Skeletons({ itemsCount = 1, className = '' }: SkeletonsProps) {
       <Skeleton
         // eslint-disable-next-line react/no-array-index-key
         key={index}
-        className={className}
+        className={cn(className)}
       />
     ))
 }

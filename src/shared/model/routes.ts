@@ -3,6 +3,7 @@ import 'react-router'
 export const ROUTES = {
   REGISTER: '/register',
   LOGIN: '/login',
+  LOGIN_WITH_MAGIC: '/login-with-magic',
   HOME: '/',
   TODOS: '/todos',
   TODO: '/todos/:todoId',
