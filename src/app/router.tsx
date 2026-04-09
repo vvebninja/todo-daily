@@ -1,8 +1,8 @@
 import { createBrowserRouter, redirect } from 'react-router'
-import { AuthGuard } from '@/features/auth/ui/auth-guard'
 import { Header } from '@/features/header'
 import { ROUTES } from '@/shared/model/routes'
 import App from './app'
+import { AuthGuard } from './auth-guard'
 import { Providers } from './providers'
 
 export const router = createBrowserRouter([

@@ -18,7 +18,7 @@ import { useLogOut } from './auth/model/use-log-out'
 import { useUser } from './auth/model/use-user'
 
 export function Header() {
-  const { user, isLoadingUser } = useUser()
+  const { user, isLoading: isLoadingUser } = useUser()
   const { logOut, isLoggingOut } = useLogOut()
 
   const avatar = user?.user_metadata?.picture ?? 'https://github.com/shadcn.png'
