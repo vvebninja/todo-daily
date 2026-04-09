@@ -1,13 +1,12 @@
 import * as React from 'react'
-
-import { rqClient as rqc } from '@/shared/api/instances.ts'
+import { rqClientInstance } from '@/shared/api/instances'
 
 export function useAvatarUpload() {
   const [preview, setPreview] = React.useState<string | null>(null)
   const [file, setFile] = React.useState<File | null>(null)
   const fileInputRef = React.useRef<HTMLInputElement>(null)
 
-  const mutation = rqc.useMutation('post', '/profile/avatar')
+  const mutation = rqClientInstance.useMutation('post', '/profile/avatar')
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
