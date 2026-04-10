@@ -1,9 +1,16 @@
 import { supabaseClientInstance } from './instances'
 
 export const authService = {
-  signInWithGoogle: async () => {
+  signInWithGoogle: async ({
+    redirectTo = window.location.origin,
+  }: {
+    redirectTo?: string
+  }) => {
     const { error } = await supabaseClientInstance.auth.signInWithOAuth({
       provider: 'google',
+      options: {
+        redirectTo,
+      },
     })
 
     if (error) {

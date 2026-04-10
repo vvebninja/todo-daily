@@ -7,7 +7,10 @@ export function useLogIn() {
   const navigate = useNavigate()
 
   const mutation = useMutation({
-    mutationFn: authService.signInWithGoogle,
+    mutationFn: () =>
+      authService.signInWithGoogle({
+        redirectTo: `${window.location.origin}${ROUTES.TODOS}`,
+      }),
     onSuccess: () => navigate(ROUTES.TODOS, { replace: true }),
   })
 
