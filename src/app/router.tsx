@@ -1,5 +1,4 @@
 import { createBrowserRouter, redirect } from 'react-router'
-import { Header } from '@/features/header'
 import { ROUTES } from '@/shared/model/routes'
 import App from './app'
 import { AuthGuard } from './auth-guard'
@@ -24,7 +23,6 @@ export const router = createBrowserRouter([
       {
         element: (
           <>
-            <Header />
             <AuthGuard />
           </>
         ),

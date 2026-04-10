@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router'
 import { useUser } from '@/features/auth/model/use-user'
+import { Header } from '@/features/header'
 import { ROUTES } from '@/shared/model/routes'
 
 export function AuthGuard() {
@@ -13,5 +14,10 @@ export function AuthGuard() {
     return <Navigate to={ROUTES.LOGIN} replace />
   }
 
-  return <Outlet />
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  )
 }
