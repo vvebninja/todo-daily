@@ -1,9 +1,10 @@
+import { useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { rqClientInstance as rqc } from '@/shared/api/instances.ts'
-import { queryClient as qc } from '@/shared/api/query-client.ts'
+import { rqClientInstance as rqc } from '@/shared/api/instance'
 
 export function useCreateTodo() {
+  const qc = useQueryClient()
   const [fieldError, setFieldError] = useState<null | string>(null)
 
   const mutation = rqc.useMutation('post', '/todos', {

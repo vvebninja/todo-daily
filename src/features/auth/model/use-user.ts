@@ -1,26 +1,29 @@
-import { useQuery } from '@tanstack/react-query'
-import { supabaseClientInstance } from '@/shared/api/instances'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { authService } from '@/shared/api/auth-service'
 
 export function useUser() {
+  const queryClient = useQueryClient()
+
   const query = useQuery({
     queryKey: ['user'],
-    queryFn: async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabaseClientInstance.auth.getUser()
-
-      if (error) {
-        throw error
-      }
-
-      return user
-    },
+    queryFn: authService.getCurrentUser,
     staleTime: Infinity,
   })
 
+  useEffect(() => {
+    const subscription = authService.onAuthChange((user) => {
+      queryClient.setQueryData(['user'], user)
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [queryClient])
+
   return {
     user: query.data,
-    isLoading: query.isPending,
+    isLoading: query.isLoading,
+    error: query.error,
   }
 }

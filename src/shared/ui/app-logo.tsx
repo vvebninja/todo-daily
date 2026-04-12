@@ -41,7 +41,10 @@ export default function AppLogo({
   className,
 }: { className?: string } & VariantProps<typeof logoVariants>) {
   return (
-    <Link to={ROUTES.HOME} className={cn(logoVariants({ variant, className }))}>
+    <Link
+      to={ROUTES.TODOS}
+      className={cn(logoVariants({ variant, className }))}
+    >
       <div className={cn(logoBoxVariants({ variant }))}>
         <Menu className="stroke-4" />
       </div>

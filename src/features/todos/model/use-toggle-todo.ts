@@ -1,8 +1,9 @@
 import type { ApiSchemas } from '@/shared/api/schema'
-import { rqClientInstance as rqc } from '@/shared/api/instances.ts'
-import { queryClient as qc } from '@/shared/api/query-client.ts'
+import { useQueryClient } from '@tanstack/react-query'
+import { rqClientInstance as rqc } from '@/shared/api/instance'
 
 export function useToggleTodo() {
+  const qc = useQueryClient()
   const mutation = rqc.useMutation('patch', '/todos/{todoId}', {
     onMutate: async (variables) => {
       const options = rqc.queryOptions('get', '/todos', {})

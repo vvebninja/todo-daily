@@ -1,10 +1,10 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
 import { authService } from '@/shared/api/auth-service'
-import { queryClient } from '@/shared/api/query-client'
 import { ROUTES } from '@/shared/model/routes'
 
 export function useLogOut() {
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
 
   const mutation = useMutation({

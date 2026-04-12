@@ -1,10 +1,10 @@
 export function UploadIcon({
   size = 68,
   className,
-}: {
+}: Readonly<{
   size?: number
   className?: string
-}) {
+}>) {
   return (
     <svg
       width={size}

@@ -5,7 +5,7 @@ import { Typography } from '@/shared/ui/typography'
 import { useLogIn } from '../model/use-log-in'
 
 export function LogInWithGoogleBtn() {
-  const { logInWithGoogle, isLoggingIn, error } = useLogIn()
+  const { logInWithGoogle, isLoading, error } = useLogIn()
 
   if (error) {
     toast.error(error.message)
@@ -15,12 +15,12 @@ export function LogInWithGoogleBtn() {
     <Button
       variant="outline"
       onClick={logInWithGoogle}
-      disabled={isLoggingIn}
+      disabled={isLoading}
       className="h-12 w-full gap-4 text-lg transition-colors duration-300"
     >
       <GoogleIcon className="size-6" />
       <Typography as="span" size="inherit">
-        {isLoggingIn ? 'Signing in...' : 'Continue with Google'}
+        {isLoading ? 'Signing in...' : 'Continue with Google'}
       </Typography>
     </Button>
   )

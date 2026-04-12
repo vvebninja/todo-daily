@@ -1,22 +1,19 @@
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router'
+import { toast } from 'sonner'
 import { authService } from '@/shared/api/auth-service'
 import { ROUTES } from '@/shared/model/routes'
 
 export function useLogIn() {
-  const navigate = useNavigate()
-
   const mutation = useMutation({
-    mutationFn: () =>
-      authService.signInWithGoogle({
-        redirectTo: `${window.location.origin}${ROUTES.TODOS}`,
-      }),
-    onSuccess: () => navigate(ROUTES.TODOS, { replace: true }),
+    mutationFn: () => authService.signInWithGoogle(ROUTES.TODOS),
+    onError: () => {
+      toast.error('Log in failed. Please try again later.')
+    },
   })
 
   return {
     logInWithGoogle: () => mutation.mutate(),
-    isLoggingIn: mutation.isPending,
+    isLoading: mutation.isPending,
     error: mutation.error,
   }
 }

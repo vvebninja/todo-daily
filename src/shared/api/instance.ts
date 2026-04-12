@@ -7,9 +7,7 @@ import { CONFIG } from '../model/config'
 export const fetchClientInstance = createFetchClient<ApiPaths>({
   baseUrl: CONFIG.API_BASE_URL,
 })
-
 export const rqClientInstance = createReactQueryClient(fetchClientInstance)
-
 export const supabaseClientInstance = createClient(
   CONFIG.SUPABASE_BASE_URL,
   CONFIG.SUPABASE_ANON_KEY,

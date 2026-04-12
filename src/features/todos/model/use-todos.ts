@@ -1,5 +1,5 @@
 import type { TodoCategory } from './categories'
-import { rqClientInstance } from '@/shared/api/instances.ts'
+import { rqClientInstance } from '@/shared/api/instance'
 
 rqClientInstance.queryOptions('get', '/todos')
 

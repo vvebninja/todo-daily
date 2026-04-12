@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { rqClientInstance } from '@/shared/api/instances'
+import { rqClientInstance } from '@/shared/api/instance'
 
 export function useAvatarUpload() {
   const [preview, setPreview] = React.useState<string | null>(null)
@@ -11,7 +11,7 @@ export function useAvatarUpload() {
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
 
-    if (file && file.type.startsWith('image/')) {
+    if (file?.type.startsWith('image/')) {
       setFile(file)
       const reader = new FileReader()
 

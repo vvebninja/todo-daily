@@ -1,9 +1,10 @@
 import type { ApiSchemas } from '@/shared/api/schema'
+import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { rqClientInstance as rqc } from '@/shared/api/instances.ts'
-import { queryClient as qc } from '@/shared/api/query-client.ts'
+import { rqClientInstance as rqc } from '@/shared/api/instance'
 
 export function useDeleteTodo() {
+  const qc = useQueryClient()
   const mutation = rqc.useMutation('delete', `/todos/{todoId}`, {
     onSuccess: (_, variables) => {
       qc.setQueryData<ApiSchemas['Todo'][]>(
