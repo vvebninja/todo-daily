@@ -1,17 +1,19 @@
-import { useQueryClient } from '@tanstack/react-query'
+import type { SubmitEvent } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { rqClientInstance as rqc } from '@/shared/api/instance'
+import { queryClient } from '@/shared/api/query-client'
+import { todoService } from '@/shared/api/todoService'
 
 export function useCreateTodo() {
-  const qc = useQueryClient()
   const [fieldError, setFieldError] = useState<null | string>(null)
 
-  const mutation = rqc.useMutation('post', '/todos', {
-    onSettled: () => qc.invalidateQueries(rqc.queryOptions('get', '/todos')),
+  const mutation = useMutation({
+    mutationFn: todoService.create,
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
   })
 
-  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
 
     const form = e.currentTarget
@@ -25,7 +27,10 @@ export function useCreateTodo() {
     }
 
     mutation.mutate(
-      { body: { title, description } },
+      {
+        title,
+        description,
+      },
       {
         onSuccess: () => {
           toast.success('Todo created')
