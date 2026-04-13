@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { queryClient } from '@/shared/api/query-client'
-import { todoService } from '@/shared/api/todoService'
+import { todoService } from '@/shared/api/todo-service'
 
 export function useCreateTodo() {
   const [fieldError, setFieldError] = useState<null | string>(null)

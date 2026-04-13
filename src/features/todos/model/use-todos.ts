@@ -1,6 +1,6 @@
 import type { TodoCategory } from './categories'
 import { useQuery } from '@tanstack/react-query'
-import { todoService } from '@/shared/api/todoService'
+import { todoService } from '@/shared/api/todo-service'
 
 export function useTodos({ category }: { category: TodoCategory['value'] }) {
   const { data, error, isLoading } = useQuery({

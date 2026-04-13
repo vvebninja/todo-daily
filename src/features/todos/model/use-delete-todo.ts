@@ -2,7 +2,7 @@ import type { ApiSchemas } from '@/shared/api/schema'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { queryClient } from '@/shared/api/query-client'
-import { todoService } from '@/shared/api/todoService'
+import { todoService } from '@/shared/api/todo-service'
 
 export function useDeleteTodo() {
   const mutation = useMutation({

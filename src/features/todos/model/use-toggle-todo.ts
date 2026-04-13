@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '@/shared/api/query-client'
-import { todoService } from '@/shared/api/todoService'
+import { todoService } from '@/shared/api/todo-service'
 
 export type Todo = Readonly<{
   id: string
