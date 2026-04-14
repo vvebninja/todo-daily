@@ -1,12 +1,12 @@
+import { useSessionStore } from '@/shared/model/session.ts'
 import { Button } from '@/shared/ui/kit/button'
-import { Spinner } from '@/shared/ui/kit/spinner'
 
-import { useUser } from '../auth/model/use-user'
+import { Spinner } from '@/shared/ui/kit/spinner'
 import { UploadIcon } from './upload-icon'
 import { useUpdateAvatar } from './use-update-avatar'
 
 function ProfilePage() {
-  const { user } = useUser()
+  const user = useSessionStore(state => state.user)
   const {
     handleFileChange,
     handleFileUpload,
