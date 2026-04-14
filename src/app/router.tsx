@@ -26,19 +26,13 @@ export const router = createBrowserRouter([
           },
         ],
       },
-
       {
-        loader: () => {},
-        children: [
-          {
-            path: ROUTES.HOME,
-            loader: () => redirect(ROUTES.LOGIN),
-          },
-          {
-            path: ROUTES.LOGIN,
-            lazy: () => import('@/features/auth/log.in.page'),
-          },
-        ],
+        path: ROUTES.HOME,
+        loader: () => redirect(ROUTES.LOGIN),
+      },
+      {
+        path: ROUTES.LOGIN,
+        lazy: () => import('@/features/auth/log.in.page'),
       },
       {
         path: '*',
