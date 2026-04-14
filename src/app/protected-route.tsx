@@ -1,14 +1,14 @@
 import { Navigate, Outlet, redirect } from 'react-router'
-import { useUser } from '@/features/auth/model/use-user'
 import { Header } from '@/features/header'
 import { authService } from '@/shared/api/auth-service'
 import { ROUTES } from '@/shared/model/routes'
+import { useSessionStore } from '@/shared/model/session.ts'
 import { Spinner } from '@/shared/ui/kit/spinner'
 
 export function ProtectedRoute() {
-  const { user, isLoading } = useUser()
+  const { user, isInitialized } = useSessionStore()
 
-  if (isLoading) {
+  if (!isInitialized) {
     return <Spinner className="text-primary fixed inset-0 m-auto size-20" />
   }
 
@@ -26,8 +26,8 @@ export function ProtectedRoute() {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function protectedRouteLoader() {
-  const user = await authService.getCurrentUser()
+  const session = await authService.getSession()
 
-  if (!user)
+  if (!session)
     return redirect(ROUTES.LOGIN)
 }

@@ -27,9 +27,17 @@ export const storageService = {
 
     const { data, error } = await supabaseClientInstance.storage
       .from(AVATARS_BUCKET_NAME)
-      .createSignedUrl(filePath, 3600)
+      .createSignedUrl(filePath, 3600, {
+        transform: {
+          width: 40,
+          height: 40,
+          quality: 80,
+          resize: 'cover',
+        },
+      })
 
     if (error) {
+      console.error('Error generating signed URL:', error)
       throw error
     }
 

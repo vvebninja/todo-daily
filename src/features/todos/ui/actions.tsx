@@ -38,7 +38,7 @@ export function TodoActions({
           >
             {isDeleting
               ? (
-                  <Trash2Icon className="size-6 animate-bounce stroke-[1.5px] text-destructive" />
+                  <Trash2Icon className="text-destructive size-6 animate-bounce stroke-[1.5px]" />
                 )
               : (
                   <MoreHorizontal className="size-6 text-gray-600 transition-colors" />
@@ -50,9 +50,9 @@ export function TodoActions({
           <DropdownMenuGroup>
             <DropdownMenuItem
               onClick={handleDelete}
-              className="h-10 w-35 text-primary focus:text-primary"
+              className="text-primary focus:text-primary h-10 w-35"
             >
-              <Trash2Icon className="stroke-[1.5px] text-primary" />
+              <Trash2Icon className="text-primary stroke-[1.5px]" />
               <Typography as="span" color="primary">
                 Delete
               </Typography>

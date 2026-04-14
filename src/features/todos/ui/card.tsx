@@ -31,14 +31,14 @@ export function TodoCard({ todo }: TodoItemProps) {
         disabled={isDeleting}
         className={cn(
           'absolute z-10 h-6 w-6 -translate-x-[50%]',
-          'rounded-full bg-white shadow-xs shadow-primary/20 transition-colors hover:border-primary',
+          'shadow-primary/20 hover:border-primary rounded-full bg-white shadow-xs transition-colors',
           isDeleting && 'pointer-events-none',
         )}
       />
       <Card
         className={cn(
           'w-full pt-2 pb-4.5 pl-1',
-          'backdrop-filter-lg rounded-md bg-white/40 shadow-xs shadow-primary/20',
+          'backdrop-filter-lg shadow-primary/20 rounded-md bg-white/40 shadow-xs',
         )}
       >
         <CardHeader>

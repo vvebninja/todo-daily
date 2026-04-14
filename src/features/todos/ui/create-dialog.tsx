@@ -39,7 +39,7 @@ export function CreateTodoDialog() {
       <DialogTrigger asChild>
         <button
           type="button"
-          className="mb-6 flex items-center gap-2 text-primary hover:text-muted-foreground"
+          className="text-primary hover:text-muted-foreground mb-6 flex items-center gap-2"
         >
           <CirclePlus
             size={32}
@@ -83,7 +83,7 @@ export function CreateTodoDialog() {
                 autoFocus={isDialogOpen}
                 onChange={clearError}
                 className={cn(
-                  'h-12 rounded-none border-0 focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
+                  'focus-visible:bg-primary/10 h-12 rounded-none border-0 focus-visible:ring-0 md:text-lg',
                   fieldError && 'placeholder:text-destructive',
                 )}
               />
@@ -100,7 +100,7 @@ export function CreateTodoDialog() {
                 placeholder="Description"
                 onChange={clearError}
                 className={cn(
-                  'h-30 resize-none rounded-none border-0 text-lg focus-visible:bg-primary/10 focus-visible:ring-0 md:text-lg',
+                  'focus-visible:bg-primary/10 h-30 resize-none rounded-none border-0 text-lg focus-visible:ring-0 md:text-lg',
                   fieldError && 'placeholder:text-destructive',
                 )}
               />

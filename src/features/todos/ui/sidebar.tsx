@@ -9,7 +9,7 @@ export function Sidebar(props: SidebarProps) {
   return (
     <aside
       className={cn(
-        'grid justify-start bg-primary/5 pt-13 pl-5 shadow-xs shadow-primary/20',
+        'bg-primary/5 shadow-primary/20 grid justify-start pt-13 pl-5 shadow-xs',
         props.className,
       )}
     >

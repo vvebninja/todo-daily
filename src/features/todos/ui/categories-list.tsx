@@ -68,7 +68,7 @@ function CategoryBtn({
       onClick={() => onClick({ value, title })}
       variant="ghost"
       className={cn(
-        'flex items-center gap-2 py-1 text-muted-foreground hover:text-primary focus-visible:text-primary',
+        'text-muted-foreground hover:text-primary focus-visible:text-primary flex items-center gap-2 py-1',
         'text-shadow-2xs',
         isSelected && 'text-primary',
       )}

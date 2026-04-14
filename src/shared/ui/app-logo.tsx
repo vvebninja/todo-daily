@@ -7,7 +7,7 @@ import { cn } from '../lib/css'
 import { ROUTES } from '../model/routes'
 
 const logoVariants = cva(
-  'min-h:11 inline-flex items-center gap-2 py-4 font-secondary text-3xl font-extrabold text-primary-foreground md:text-4xl',
+  'min-h:11 font-secondary text-primary-foreground inline-flex items-center gap-2 py-4 text-3xl font-extrabold md:text-4xl',
   {
     variants: {
       variant: {

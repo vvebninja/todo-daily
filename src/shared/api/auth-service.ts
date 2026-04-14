@@ -9,18 +9,16 @@ export const authService = {
       },
     })
 
-    if (error) {
+    if (error)
       throw error
-    }
     return data
   },
 
   signOut: async () => {
     const { error } = await supabaseClientInstance.auth.signOut()
 
-    if (error) {
+    if (error)
       throw error
-    }
   },
 
   getCurrentUser: async () => {
@@ -29,16 +27,22 @@ export const authService = {
       error,
     } = await supabaseClientInstance.auth.getUser()
 
-    if (error) {
+    if (error)
       return null
-    }
     return user
+  },
+
+  getSession: async () => {
+    const {
+      data: { session },
+    } = await supabaseClientInstance.auth.getSession()
+    return session
   },
 
   onAuthChange: (callback: (user: any) => void) => {
     const {
       data: { subscription },
-    } = supabaseClientInstance.auth.onAuthStateChange((_e, session) => {
+    } = supabaseClientInstance.auth.onAuthStateChange((_event, session) => {
       callback(session?.user ?? null)
     })
 

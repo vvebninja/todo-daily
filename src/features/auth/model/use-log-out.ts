@@ -17,6 +17,6 @@ export function useLogOut() {
 
   return {
     logOut: () => mutation.mutate(),
-    isLoggingOut: mutation.isPending,
+    isLoading: mutation.isPending,
   }
 }
