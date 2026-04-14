@@ -2,7 +2,7 @@ import { CircleUserRound, LogOutIcon } from 'lucide-react'
 import { Link } from 'react-router'
 import { ROUTES } from '@/shared/model/routes'
 import AppLogo from '@/shared/ui/app-logo'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/kit/avatar'
+import { Avatar, AvatarImage } from '@/shared/ui/kit/avatar'
 import { Button } from '@/shared/ui/kit/button'
 import {
   DropdownMenu,
@@ -16,16 +16,24 @@ import { Skeleton } from '@/shared/ui/kit/skeleton'
 import { Typography } from '@/shared/ui/typography'
 import { useLogOut } from './auth/model/use-log-out'
 import { useUser } from './auth/model/use-user'
+import { useAvatarUrl } from './profile/use-avatar-url'
+import { useProfile } from './profile/use-profile'
 
 export function Header() {
   const { user, isLoading: isLoadingUser } = useUser()
+  const { profile, isLoading: isProfileLoading } = useProfile(user?.id)
+  const { avatarUrl, isLoading: isAvatarLoading } = useAvatarUrl(
+    profile?.avatar_url,
+  )
   const { logOut, isLoggingOut } = useLogOut()
 
-  const avatar = user?.user_metadata?.picture ?? 'https://github.com/shadcn.png'
+  const isLoading = isLoadingUser || isProfileLoading || isAvatarLoading
+
+  const avatar = avatarUrl || user?.user_metadata?.avatar_url
 
   return (
     <header className="bg-primary">
-      <div className="container mx-auto flex h-21 items-center justify-between bg-primary px-4">
+      <div className="bg-primary container mx-auto flex h-21 items-center justify-between px-4">
         <AppLogo />
 
         <DropdownMenu modal={false}>
@@ -33,20 +41,15 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon-lg"
-              className="overflow-hidden rounded-full border border-transparent hover:border-muted focus-visible:border-muted"
+              className="hover:border-muted focus-visible:border-muted overflow-hidden rounded-full border border-transparent"
             >
               <Avatar size="lg">
-                {isLoadingUser
+                {isLoading
                   ? (
                       <Skeleton className="h-full w-full" />
                     )
                   : (
-                      <>
-                        <AvatarImage src={avatar} alt="shadcn" />
-                        <AvatarFallback className="bg-purple-500">
-                          LR
-                        </AvatarFallback>
-                      </>
+                      <AvatarImage src={avatar} alt="User profile avatar" />
                     )}
               </Avatar>
             </Button>
@@ -72,7 +75,7 @@ export function Header() {
                 disabled={isLoggingOut}
                 className="flex w-full justify-start"
               >
-                <LogOutIcon className="size-5 text-primary" />
+                <LogOutIcon className="text-primary size-5" />
                 <Typography as="span" color="primary">
                   Logout
                 </Typography>

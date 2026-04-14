@@ -1,11 +1,20 @@
 import { Button } from '@/shared/ui/kit/button'
 import { Spinner } from '@/shared/ui/kit/spinner'
 
+import { useUser } from '../auth/model/use-user'
 import { UploadIcon } from './upload-icon'
-import { useAvatarUpload } from './use-avatar-upload'
+import { useUpdateAvatar } from './use-update-avatar'
 
 function ProfilePage() {
-  const avatarUpload = useAvatarUpload()
+  const { user } = useUser()
+  const {
+    handleFileChange,
+    handleFileUpload,
+    fileInputRef,
+    openFileDialog,
+    isPending,
+    preview,
+  } = useUpdateAvatar(user?.id ?? '')
 
   return (
     <div className="py-12 md:py-16">
@@ -18,14 +27,14 @@ function ProfilePage() {
         </div>
 
         <div
-          onClick={() => avatarUpload.fileInputRef.current?.click()}
-          className="group hover:to-gray-150 relative mx-auto mb-6 flex h-40 w-40 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-gray-300 bg-linear-to-br from-gray-50 to-gray-100 transition-all duration-200 hover:border-primary hover:from-gray-100"
+          onClick={openFileDialog}
+          className="group hover:to-gray-150 hover:border-primary relative mx-auto mb-6 flex h-40 w-40 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-gray-300 bg-linear-to-br from-gray-50 to-gray-100 transition-all duration-200 hover:from-gray-100"
         >
-          {avatarUpload.preview
+          {preview
             ? (
                 <>
                   <img
-                    src={avatarUpload.preview}
+                    src={preview}
                     alt="Profile"
                     className="h-full w-full object-cover"
                   />
@@ -45,21 +54,21 @@ function ProfilePage() {
 
           <input
             type="file"
-            ref={avatarUpload.fileInputRef}
-            onChange={avatarUpload.handleFileChange}
+            ref={fileInputRef}
+            onChange={handleFileChange}
             accept="image/*"
             className="hidden"
           />
         </div>
 
         <Button
-          disabled={!avatarUpload.preview || avatarUpload.isPending}
+          disabled={!preview || isPending}
           type="button"
           value="primary"
           className="w-full"
-          onClick={avatarUpload.handleFileUpload}
+          onClick={handleFileUpload}
         >
-          {avatarUpload.isPending
+          {isPending
             ? (
                 <>
                   <Spinner className="h-4 w-4" />
