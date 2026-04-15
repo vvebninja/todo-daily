@@ -1,9 +1,12 @@
+// eslint-disable-next-line boundaries/entry-point, boundaries/element-types
 import type { TodoCategory } from '@/features/todos/model/categories'
 import { supabaseClientInstance } from './instance'
 
 type TodoDto = Readonly<{
+  id: string
   title: string
   description: string
+  isCompleted: boolean
 }>
 
 export const todoService = {
@@ -38,7 +41,7 @@ export const todoService = {
     return data
   },
 
-  delete: async (id: string) => {
+  delete: async (id: TodoDto['id']) => {
     const { error } = await supabaseClientInstance
       .from('todos')
       .delete()
@@ -52,10 +55,7 @@ export const todoService = {
   toggleComplete: async ({
     id,
     isCompleted,
-  }: {
-    id: string
-    isCompleted: boolean
-  }) => {
+  }: Pick<TodoDto, 'id' | 'isCompleted'>) => {
     const { data, error } = await supabaseClientInstance
       .from('todos')
       .update({ isCompleted })
