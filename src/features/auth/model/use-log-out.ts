@@ -11,7 +11,7 @@ export function useLogOut() {
     mutationFn: authService.signOut,
     onSuccess: () => {
       queryClient.removeQueries()
-      navigate(ROUTES.LOGIN, { replace: true })
+      navigate(ROUTES.LOGIN, { replace: true, viewTransition: true })
     },
   })
 

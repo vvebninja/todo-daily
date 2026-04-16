@@ -5,7 +5,8 @@ import { ROUTES } from '@/shared/model/routes'
 
 export function useLogIn() {
   const mutation = useMutation({
-    mutationFn: () => authService.signInWithGoogle(ROUTES.TODOS),
+    mutationFn: () =>
+      authService.signInWithGoogle({ redirectTo: ROUTES.TODOS }),
     onError: () => {
       toast.error('Log in failed. Please try again later.')
     },

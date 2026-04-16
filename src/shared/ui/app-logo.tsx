@@ -43,6 +43,7 @@ export default function AppLogo({
   return (
     <Link
       to={ROUTES.TODOS}
+      viewTransition
       className={cn(logoVariants({ variant, className }))}
     >
       <div className={cn(logoBoxVariants({ variant }))}>

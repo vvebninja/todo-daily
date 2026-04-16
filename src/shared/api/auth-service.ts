@@ -1,7 +1,7 @@
 import { supabaseClientInstance } from './instance'
 
 export const authService = {
-  signInWithGoogle: async (redirectTo: string) => {
+  signInWithGoogle: async ({ redirectTo }: { redirectTo: string }) => {
     const { data, error } = await supabaseClientInstance.auth.signInWithOAuth({
       provider: 'google',
       options: {
