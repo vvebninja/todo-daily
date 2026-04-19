@@ -30,15 +30,15 @@ export function TodoCard({ todo }: TodoItemProps) {
         onCheckedChange={handleCompletedChange}
         disabled={isDeleting}
         className={cn(
-          'absolute z-10 h-6 w-6 -translate-x-[50%]',
-          'shadow-primary/20 hover:border-primary rounded-full bg-white shadow-xs transition-colors',
+          'bg-primary-foreground dark:bg-card absolute z-10 h-6 w-6 -translate-x-[50%]',
+          'shadow-primary/20 hover:border-primary rounded-full shadow-xs transition-colors',
           isDeleting && 'pointer-events-none',
         )}
       />
       <Card
         className={cn(
           'w-full pt-2 pb-4.5 pl-1',
-          'backdrop-filter-lg shadow-primary/20 rounded-md bg-white/40 shadow-xs',
+          'backdrop-filter-lg shadow-primary/20 dark:bg-card rounded-md bg-white/40 shadow-xs',
         )}
       >
         <CardHeader>

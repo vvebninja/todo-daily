@@ -10,7 +10,7 @@ import {
 } from '@/shared/ui/kit/card'
 
 type AuthLayoutProps = Readonly<{
-  title: ReactNode
+  title?: ReactNode
   form: ReactNode
   footer?: ReactNode
 }>
@@ -18,14 +18,17 @@ type AuthLayoutProps = Readonly<{
 export function AuthLayout(props: AuthLayoutProps) {
   return (
     <main className="flex grow flex-col items-center px-4 pt-50">
-      <Card className="w-full max-w-125 gap-8 rounded-[6px] p-10 pb-24">
-        <CardHeader className="mb-8 gap-10">
+      <Card className="w-full max-w-125 gap-8 rounded-[6px] p-10">
+        <CardHeader className="mb-10 justify-center gap-10">
           <AppLogo variant="secondary" />
-          <CardTitle className="font-secondary text-2xl font-bold">
-            {props.title}
-          </CardTitle>
+          {props.title && (
+            <CardTitle className="font-secondary text-2xl font-bold">
+              {props.title}
+            </CardTitle>
+          )}
         </CardHeader>
         <CardContent>{props.form}</CardContent>
+
         <CardFooter className="flex items-center justify-center">
           <p className="text-muted-foreground flex gap-2 text-lg">
             {props.footer}

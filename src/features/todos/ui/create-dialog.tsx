@@ -37,18 +37,16 @@ export function CreateTodoDialog() {
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
       <DialogTrigger asChild>
-        <button
+        <Button
           type="button"
+          variant="ghost"
           className="text-primary hover:text-muted-foreground mb-6 flex items-center gap-2"
         >
-          <CirclePlus
-            size={32}
-            className="fill-current stroke-white stroke-[1.5px]"
-          />
+          <CirclePlus className="size-7 stroke-[1.5px]" />
           <Typography as="span" size="lg" color="inherit">
             Add todo
           </Typography>
-        </button>
+        </Button>
       </DialogTrigger>
 
       <DialogContent
