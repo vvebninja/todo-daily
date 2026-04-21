@@ -2,7 +2,7 @@
 import type { TodoCategory } from '@/features/todos/model/categories'
 import { supabaseClientInstance } from './instance'
 
-type TodoDto = Readonly<{
+export type Todo = Readonly<{
   id: string
   title: string
   description: string
@@ -26,9 +26,7 @@ export const todoService = {
     return data || []
   },
 
-  create: async (
-    dto: Pick<TodoDto, 'title' | 'description'>,
-  ): Promise<TodoDto> => {
+  create: async (dto: Pick<Todo, 'title' | 'description'>): Promise<Todo> => {
     const { data, error } = await supabaseClientInstance
       .from('todos')
       .insert([dto])
@@ -41,7 +39,7 @@ export const todoService = {
     return data
   },
 
-  delete: async (id: TodoDto['id']) => {
+  delete: async (id: Todo['id']) => {
     const { error } = await supabaseClientInstance
       .from('todos')
       .delete()
@@ -55,7 +53,7 @@ export const todoService = {
   toggleComplete: async ({
     id,
     isCompleted,
-  }: Pick<TodoDto, 'id' | 'isCompleted'>) => {
+  }: Pick<Todo, 'id' | 'isCompleted'>) => {
     const { data, error } = await supabaseClientInstance
       .from('todos')
       .update({ isCompleted })

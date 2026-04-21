@@ -1,13 +1,7 @@
+import type { Todo } from '@/shared/api/todo-service'
 import { useMutation } from '@tanstack/react-query'
 import { queryClient } from '@/shared/api/query-client'
 import { todoService } from '@/shared/api/todo-service'
-
-export type Todo = Readonly<{
-  id: string
-  title: string
-  description: string
-  isCompleted: boolean
-}>
 
 const TODOS_QUERY_KEY = ['todos']
 

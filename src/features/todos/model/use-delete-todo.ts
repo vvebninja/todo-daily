@@ -1,4 +1,4 @@
-import type { ApiSchemas } from '@/shared/api/schema'
+import type { Todo } from '@/shared/api/todo-service'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { queryClient } from '@/shared/api/query-client'
@@ -8,7 +8,7 @@ export function useDeleteTodo() {
   const mutation = useMutation({
     mutationFn: todoService.delete,
     onSuccess: (_, id) => {
-      queryClient.setQueryData<ApiSchemas['Todo'][]>(['todos'], (todos) => {
+      queryClient.setQueryData<Todo[]>(['todos'], (todos) => {
         return todos?.filter(todo => todo.id !== id)
       })
       toast.info('Todo deleted')

@@ -6,10 +6,13 @@ import { queryClient } from '@/shared/api/query-client'
 import { todoService } from '@/shared/api/todo-service'
 
 export function useCreateTodo() {
-  const [fieldError, setFieldError] = useState<null | string>(null)
+  const [fieldError, setFieldError] = useState<boolean>(false)
 
   const mutation = useMutation({
     mutationFn: todoService.create,
+    onSuccess: () => {
+      setFieldError(false)
+    },
     onSettled: () => queryClient.invalidateQueries({ queryKey: ['todos'] }),
   })
 
@@ -18,27 +21,29 @@ export function useCreateTodo() {
 
     const form = e.currentTarget
     const formData = new FormData(form)
-    const title = formData.get('title')?.toString() || ''
-    const description = formData.get('description')?.toString() || ''
+    const title = formData.get('title')?.toString().trim() || ''
+    const description = formData.get('description')?.toString().trim() || ''
 
     if (!title && !description) {
-      setFieldError('Fill at least one field')
+      setFieldError(true)
       return
     }
 
-    mutation.mutate(
-      {
-        title,
-        description,
-      },
-      {
-        onSuccess: () => {
-          toast.success('Todo created')
-          setFieldError(null)
+    try {
+      const promise = mutation.mutateAsync({ title, description })
+      toast.promise(promise, {
+        loading: 'Creating todo...',
+        success: () => {
           form.reset()
+          return 'Todo created'
         },
-      },
-    )
+        error: 'Failed to create todo',
+      })
+    }
+    catch (error) {
+      console.error('Error:', error)
+      toast.error('Failed to create todo')
+    }
   }
 
   return {
@@ -46,8 +51,9 @@ export function useCreateTodo() {
     isCreatingTodo: mutation.isPending,
     handleSubmit,
     clearError: () => {
-      if (fieldError)
-        setFieldError(null)
+      if (fieldError) {
+        setFieldError(false)
+      }
     },
   }
 }
