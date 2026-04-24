@@ -1,20 +1,28 @@
 import type { SVGProps } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/shared/ui/kit/button'
 import { Typography } from '@/shared/ui/typography'
 import { useLogIn } from '../model/use-log-in'
 
 export function LogInWithGoogleBtn() {
-  const { logInWithGoogle, isLoading, error } = useLogIn()
+  const [isLoading, setIsLoading] = useState(false)
+  const { logInWithGoogle, error } = useLogIn()
+
+  function handleLogInWithGoogle() {
+    setIsLoading(true)
+    logInWithGoogle()
+  }
 
   if (error) {
+    setIsLoading(false)
     toast.error(error.message)
   }
 
   return (
     <Button
       variant="outline"
-      onClick={logInWithGoogle}
+      onClick={handleLogInWithGoogle}
       disabled={isLoading}
       className="h-12 w-full gap-4 text-lg transition-colors duration-300"
     >
