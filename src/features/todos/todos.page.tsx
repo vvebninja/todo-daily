@@ -22,7 +22,7 @@ function TodosPage() {
   }
 
   return (
-    <div className="container mx-auto grow lg:grid lg:grid-cols-[240px_1fr] lg:gap-x-5">
+    <div className="container mx-auto mb-20 grow lg:grid lg:grid-cols-[240px_1fr] lg:gap-x-5">
       <Sidebar
         todosCategories={(
           <TodoCategoriesList
