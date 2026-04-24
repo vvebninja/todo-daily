@@ -48,7 +48,7 @@ export function useCreateTodo() {
 
   return {
     fieldError,
-    isCreatingTodo: mutation.isPending,
+    isLoading: mutation.isPending,
     handleSubmit,
     clearError: () => {
       if (fieldError) {

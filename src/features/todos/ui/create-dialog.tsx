@@ -20,8 +20,12 @@ import { useCreateTodo } from '../model/use-create-todo.ts'
 
 export function CreateTodoDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const { isCreatingTodo, fieldError, handleSubmit, clearError }
-    = useCreateTodo()
+  const {
+    isLoading: isCreatingTodo,
+    fieldError,
+    handleSubmit,
+    clearError,
+  } = useCreateTodo()
 
   function handleDialogChange(open: boolean) {
     setIsDialogOpen(open)
@@ -41,13 +45,14 @@ export function CreateTodoDialog() {
           <Field data-invalid={!!fieldError} className="relative">
             <Input
               name="title"
+              disabled={isCreatingTodo}
               placeholder="Title..."
               onChange={clearError}
-              className="dark:focus-visible:shadow-primary/20 focus-visible:border-foreground/10 placeholder:text-muted-foreground/80 border-b-primary/20 transition-all duration-300 focus-visible:shadow-md focus-visible:ring-0 md:hidden"
+              className="dark:focus-visible:shadow-primary/20 focus-visible:border-foreground/10 placeholder:text-muted-foreground/80 border-b-primary/20 h-10 transition-all duration-300 focus-visible:shadow-md focus-visible:ring-0 md:hidden"
             />
             <FieldError
               errors={[{ message: fieldError ? 'Title is required' : '' }]}
-              className="pointer-events-none absolute inset-y-0 right-2 inline-flex items-center justify-end text-end text-shadow-sm"
+              className="pointer-events-none absolute inset-y-0 right-3 inline-flex items-center justify-end text-end text-shadow-sm"
             />
           </Field>
         </FieldGroup>
