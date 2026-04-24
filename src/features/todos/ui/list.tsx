@@ -1,30 +1,43 @@
-import type { ApiSchemas } from '@/shared/api/schema'
+import type { LucideIcon } from 'lucide-react'
+import type { Todo } from '@/shared/api/todo-service'
 import { cva } from 'class-variance-authority'
+import { LayoutGrid, List } from 'lucide-react'
+import { useState } from 'react'
 import { cn } from '@/shared/lib/css'
+import { Button } from '@/shared/ui/kit/button'
 import { Skeletons } from '@/shared/ui/skeletons'
 import { Typography } from '@/shared/ui/typography'
-import { useLayoutToggle } from '../model/use-layout-toggle'
 import { TodoCard } from './card'
 
-const layoutToggleVariants = cva('grid gap-2.5', {
+const layoutToggleVariants = cva('grid grid-flow-row-dense', {
   variants: {
     variant: {
-      list: 'grid',
+      list: 'grid gap-2.5',
       grid: 'grid-cols-[repeat(auto-fill,minmax(min(100%,260px),1fr))] gap-4.5',
     },
   },
 })
 
+const layouts = [
+  { layout: 'grid', Icon: LayoutGrid },
+  { layout: 'list', Icon: List },
+] as const
+
+type LayoutKey = (typeof layouts)[number]['layout']
+
 type TodoListProps = Readonly<{
-  items?: ApiSchemas['Todo'][]
-  isLoading: boolean
+  items?: Todo[]
+  isLoading?: boolean
   className?: string
 }>
 
 export function TodoList({ items, isLoading, className }: TodoListProps) {
-  const { variant, controls } = useLayoutToggle()
+  const [selectedLayout, setSelectedLayout] = useState<'list' | 'grid'>('grid')
 
-  const listClassNames = cn(layoutToggleVariants({ variant }), className)
+  const listClassNames = cn(
+    layoutToggleVariants({ variant: selectedLayout }),
+    className,
+  )
 
   if (isLoading) {
     return (
@@ -44,7 +57,12 @@ export function TodoList({ items, isLoading, className }: TodoListProps) {
 
   return (
     <div>
-      {controls}
+      <LayoutToggle
+        layouts={layouts}
+        selectedLayout={selectedLayout}
+        onClick={setSelectedLayout}
+        className="mb-2 max-md:hidden"
+      />
       <ul className={listClassNames}>
         {items.map(todo => (
           <li key={todo.id}>
@@ -53,5 +71,41 @@ export function TodoList({ items, isLoading, className }: TodoListProps) {
         ))}
       </ul>
     </div>
+  )
+}
+
+type LayoutToggleProps = Readonly<{
+  layouts: readonly { layout: LayoutKey, Icon: LucideIcon }[]
+  selectedLayout: LayoutKey
+  onClick: (layout: LayoutKey) => void
+  className?: string
+}>
+
+function LayoutToggle({
+  layouts,
+  selectedLayout,
+  onClick,
+  className,
+}: LayoutToggleProps) {
+  return (
+    <ul className={cn('flex justify-end gap-1', className)}>
+      {layouts.map(({ layout, Icon }) => (
+        <li key={layout} className="size-9">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onClick(layout)}
+            className={cn(
+              'size-8',
+              selectedLayout === layout
+                ? 'text-primary'
+                : 'text-muted-foreground',
+            )}
+          >
+            <Icon className="size-5" />
+          </Button>
+        </li>
+      ))}
+    </ul>
   )
 }
