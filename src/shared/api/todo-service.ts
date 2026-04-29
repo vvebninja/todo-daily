@@ -5,7 +5,7 @@ import { supabaseClientInstance } from './instance'
 export type Todo = Readonly<{
   id: string
   title: string
-  description: string
+  description?: string
   isCompleted: boolean
 }>
 
