@@ -1,47 +1,43 @@
-import type { LucideIcon } from 'lucide-react'
+import type { VariantProps } from 'class-variance-authority'
 import type { Todo } from '@/shared/api/todo-service'
 import { cva } from 'class-variance-authority'
-import { LayoutGrid, List } from 'lucide-react'
-import { useState } from 'react'
-import { cn } from '@/shared/lib/css'
-import { Button } from '@/shared/ui/kit/button'
+import { cn } from '@/shared/lib/css.ts'
 import { Skeletons } from '@/shared/ui/skeletons'
 import { Typography } from '@/shared/ui/typography'
 import { TodoCard } from './card'
 
-const layoutToggleVariants = cva('grid grid-flow-row-dense', {
+const layoutVariants = cva('', {
   variants: {
-    variant: {
-      list: 'grid gap-2.5',
-      grid: 'grid-cols-[repeat(auto-fill,minmax(min(100%,260px),1fr))] gap-4.5',
+    layout: {
+      list: 'grid',
+      columns: 'md:columns-2 lg:columns-3 xl:columns-4',
     },
   },
 })
 
-const layouts = [
-  { layout: 'grid', Icon: LayoutGrid },
-  { layout: 'list', Icon: List },
-] as const
+export type LayoutVariants = VariantProps<typeof layoutVariants>
 
-type LayoutKey = (typeof layouts)[number]['layout']
+type TodoListProps = Readonly<
+  {
+    items: Todo[]
+    gap?: string
+    isLoading?: boolean
+    className?: string
+  } & LayoutVariants
+>
 
-type TodoListProps = Readonly<{
-  items?: Todo[]
-  isLoading?: boolean
-  className?: string
-}>
-
-export function TodoList({ items, isLoading, className }: TodoListProps) {
-  const [selectedLayout, setSelectedLayout] = useState<'list' | 'grid'>('grid')
-
-  const listClassNames = cn(
-    layoutToggleVariants({ variant: selectedLayout }),
-    className,
-  )
+export function TodoList({
+  layout = 'columns',
+  gap = '4',
+  items,
+  isLoading,
+  className,
+}: TodoListProps) {
+  const classNames = cn(layoutVariants({ layout }), className, `gap-${gap}`)
 
   if (isLoading) {
     return (
-      <div className={listClassNames}>
+      <div className={classNames}>
         <Skeletons itemsCount={4} className="h-24" />
       </div>
     )
@@ -57,55 +53,18 @@ export function TodoList({ items, isLoading, className }: TodoListProps) {
 
   return (
     <div>
-      <LayoutToggle
-        layouts={layouts}
-        selectedLayout={selectedLayout}
-        onClick={setSelectedLayout}
-        className="mb-2 max-md:hidden"
-      />
-      <ul className={listClassNames}>
+      <ul className={classNames}>
         {items.map(todo => (
-          <li key={todo.id}>
+          <li
+            key={todo.id}
+            className={cn(
+              layout === 'columns' && `brake-inside-avoid pb-${gap}`,
+            )}
+          >
             <TodoCard todo={todo} />
           </li>
         ))}
       </ul>
     </div>
-  )
-}
-
-type LayoutToggleProps = Readonly<{
-  layouts: readonly { layout: LayoutKey, Icon: LucideIcon }[]
-  selectedLayout: LayoutKey
-  onClick: (layout: LayoutKey) => void
-  className?: string
-}>
-
-function LayoutToggle({
-  layouts,
-  selectedLayout,
-  onClick,
-  className,
-}: LayoutToggleProps) {
-  return (
-    <ul className={cn('flex justify-end gap-1', className)}>
-      {layouts.map(({ layout, Icon }) => (
-        <li key={layout} className="size-9">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onClick(layout)}
-            className={cn(
-              'size-8',
-              selectedLayout === layout
-                ? 'text-primary'
-                : 'text-muted-foreground',
-            )}
-          >
-            <Icon className="size-5" />
-          </Button>
-        </li>
-      ))}
-    </ul>
   )
 }
