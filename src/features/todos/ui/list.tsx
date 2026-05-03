@@ -19,7 +19,7 @@ export type LayoutVariants = VariantProps<typeof layoutVariants>
 
 type TodoListProps = Readonly<
   {
-    items: Todo[] | []
+    items: Todo[]
     gap?: string
     isLoading?: boolean
     className?: string

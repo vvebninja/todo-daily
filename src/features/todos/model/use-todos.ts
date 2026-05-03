@@ -1,12 +1,12 @@
 import type { TodoCategory } from './categories'
+import type { Todo } from '@/shared/api/todo-service'
 import { useQuery } from '@tanstack/react-query'
-import { todoService } from '@/shared/api/todo-service.ts'
+import { todoService } from '@/shared/api/todo-service'
 
 export function useTodos({ category }: { category: TodoCategory['value'] }) {
-  const { data, isPending, error } = useQuery({
+  const { data, error, isLoading } = useQuery({
     queryKey: ['todos'],
     queryFn: () => todoService.getAll(),
-
     select: (todos: Todo[]) => {
       const active = todos.filter(todo => !todo.isCompleted)
       const completed = todos.filter(todo => todo.isCompleted)
@@ -25,6 +25,6 @@ export function useTodos({ category }: { category: TodoCategory['value'] }) {
     todos: data?.todos || [],
     counts: data?.counts,
     error,
-    isPending,
+    isLoading,
   }
 }
