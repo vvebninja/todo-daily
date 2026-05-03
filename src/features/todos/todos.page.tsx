@@ -16,11 +16,12 @@ function TodosPage() {
     todos,
     counts,
     error: todosError,
-    isLoading: isLoadingTodos,
+    isPending: isLoadingTodos,
   } = useTodos({ category: selectedTodoCategory.value })
   const { ref: createFormRef, isIntersecting: isTopInputVisible }
     = useIsIntersecting()
   const { title, setTitle, submit, isPending } = useTodoDraft()
+
   if (todosError) {
     return <div>{todosError.message}</div>
   }
