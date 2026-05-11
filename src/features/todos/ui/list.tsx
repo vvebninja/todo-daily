@@ -6,7 +6,7 @@ import { Skeletons } from '@/shared/ui/skeletons'
 import { Typography } from '@/shared/ui/typography'
 import { TodoCard } from './card'
 
-const layoutVariants = cva('', {
+const layoutVariants = cva('space-y-4', {
   variants: {
     layout: {
       list: 'grid',
@@ -28,12 +28,11 @@ type TodoListProps = Readonly<
 
 export function TodoList({
   layout = 'columns',
-  gap = '4',
   items,
   isLoading,
   className,
 }: TodoListProps) {
-  const classNames = cn(layoutVariants({ layout }), className, `gap-${gap}`)
+  const classNames = cn(layoutVariants({ layout }), className)
 
   if (isLoading) {
     return (
@@ -57,9 +56,7 @@ export function TodoList({
         {items.map(todo => (
           <li
             key={todo.id}
-            className={cn(
-              layout === 'columns' && `brake-inside-avoid pb-${gap}`,
-            )}
+            className={cn(layout === 'columns' && `brake-inside-avoid`)}
           >
             <TodoCard todo={todo} />
           </li>
