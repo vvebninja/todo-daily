@@ -1,29 +1,23 @@
-// eslint-disable-next-line boundaries/entry-point, boundaries/element-types
-import type { TodoCategory } from '@/features/todos/model/categories'
 import { supabaseClientInstance } from './instance'
 
-export type Todo = Readonly<{
+export interface Todo {
   id: string
   title: string
   description?: string
   isCompleted: boolean
-}>
+}
 
 export const todoService = {
-  getAll: async (category?: TodoCategory['value']) => {
-    let query = supabaseClientInstance.from('todos').select('*')
-
-    if (category) {
-      const isCompleted = category === 'completed'
-      query = query.eq('isCompleted', isCompleted)
-    }
-
-    const { data, error } = await query
+  getAll: async () => {
+    const { data, error } = await supabaseClientInstance
+      .from('todos')
+      .select('*')
 
     if (error) {
       throw error
     }
-    return data || []
+
+    return data
   },
 
   create: async (dto: Pick<Todo, 'title' | 'description'>): Promise<Todo> => {

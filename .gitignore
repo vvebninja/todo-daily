@@ -24,4 +24,3 @@ dist-ssr
 *.sw?
 miro-materials-main
 .env
-.env.development

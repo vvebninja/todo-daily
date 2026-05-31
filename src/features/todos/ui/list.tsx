@@ -1,48 +1,30 @@
-import type { VariantProps } from 'class-variance-authority'
-import type { Todo } from '@/shared/api/todo-service'
-import { cva } from 'class-variance-authority'
-import { cn } from '@/shared/lib/css.ts'
+import type { TodoFilterValue } from '@/features/todos/model/filters.ts'
+import { useFilteredTodos } from '@/features/todos/model/use-filtered-todos.ts'
 import { Skeletons } from '@/shared/ui/skeletons'
 import { Typography } from '@/shared/ui/typography'
 import { TodoCard } from './card'
 
-const layoutVariants = cva('space-y-4', {
-  variants: {
-    layout: {
-      list: 'grid',
-      columns: 'md:columns-2 lg:columns-3 xl:columns-4',
-    },
-  },
-})
+interface TodoListProps {
+  filter: TodoFilterValue
+  className?: string
+}
 
-export type LayoutVariants = VariantProps<typeof layoutVariants>
-
-type TodoListProps = Readonly<
-  {
-    items: Todo[]
-    gap?: string
-    isLoading?: boolean
-    className?: string
-  } & LayoutVariants
->
-
-export function TodoList({
-  layout = 'columns',
-  items,
-  isLoading,
-  className,
-}: TodoListProps) {
-  const classNames = cn(layoutVariants({ layout }), className)
+export function TodoList({ filter = 'active' }: TodoListProps) {
+  const { filteredTodos, isLoading, error } = useFilteredTodos(filter)
 
   if (isLoading) {
     return (
-      <div className={classNames}>
+      <div className="">
         <Skeletons itemsCount={4} className="h-24" />
       </div>
     )
   }
 
-  if (!items?.length) {
+  if (error) {
+    return <div>{error.message}</div>
+  }
+
+  if (!filteredTodos?.length) {
     return (
       <Typography color="muted" size="md" className="py-10 text-center">
         No todos yet
@@ -52,12 +34,9 @@ export function TodoList({
 
   return (
     <div>
-      <ul className={classNames}>
-        {items.map(todo => (
-          <li
-            key={todo.id}
-            className={cn(layout === 'columns' && `brake-inside-avoid`)}
-          >
+      <ul className="md:brake-inside-avoid space-y-4 md:columns-2 lg:columns-3 xl:columns-4">
+        {filteredTodos.map(todo => (
+          <li key={todo.id}>
             <TodoCard todo={todo} />
           </li>
         ))}

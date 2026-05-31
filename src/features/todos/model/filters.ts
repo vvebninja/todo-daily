@@ -1,6 +1,6 @@
 import { CalendarDays, ListChecks } from 'lucide-react'
 
-export const todoCategories = [
+export const todoFilters = [
   {
     title: 'Active',
     value: 'active',
@@ -13,4 +13,8 @@ export const todoCategories = [
   },
 ] as const
 
-export type TodoCategory = (typeof todoCategories)[number]
+export type TodoFilter = (typeof todoFilters)[number]
+
+export type TodoFilterText = Omit<TodoFilter, 'icon'>
+
+export type TodoFilterValue = TodoFilter['value']
