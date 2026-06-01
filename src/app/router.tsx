@@ -1,5 +1,5 @@
 import { createBrowserRouter, redirect } from 'react-router'
-import { authService } from '@/shared/api/auth-service.ts'
+import { authService } from '@/shared/api/auth-service'
 import { ROUTES } from '@/shared/model/routes'
 import App from './app'
 import { ProtectedRoute, protectedRouteLoader } from './protected-route'
@@ -20,10 +20,6 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.TODOS,
             lazy: () => import('@/features/todos/todos.page'),
-          },
-          {
-            path: ROUTES.PROFILE,
-            lazy: () => import('@/features/profile/profile.page'),
           },
         ],
       },

@@ -11,24 +11,24 @@ import {
 } from '@/shared/ui/kit/dropdown-menu'
 import { Typography } from '@/shared/ui/typography'
 
-type TodoActionsProps = Readonly<{
+interface TodoActionsProps {
   todoId: string
   isDeleting: boolean
   onDelete: (id: string) => void
-}>
+}
 
 export function TodoActions({
   todoId,
   isDeleting,
   onDelete,
 }: TodoActionsProps) {
-  function handleDelete() {
+  const handleDelete = () => {
     onDelete(todoId)
   }
 
   return (
     <CardAction className="flex items-center gap-4 pl-1">
-      <DropdownMenu modal={false}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             size="icon"

@@ -1,7 +1,7 @@
-import { useTodosQuery } from '@/features/todos/model/use-todos-query.ts'
+import { useTodos } from '@/features/todos/model/use-todos.ts'
 
 export function useTodosCount() {
-  const { data } = useTodosQuery({
+  const { data } = useTodos({
     select: todos => ({
       active: todos.filter(todo => !todo.isCompleted).length,
       completed: todos.filter(todo => todo.isCompleted).length,

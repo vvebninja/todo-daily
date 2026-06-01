@@ -1,25 +1,25 @@
-import type { ApiSchemas } from '@/shared/api/schema'
+import type { Todo } from '@/shared/api/todo-service.ts'
+import { TodoActions } from '@/features/todos/ui/actions.tsx'
 import { cn } from '@/shared/lib/css'
 import { Card, CardHeader } from '@/shared/ui/kit/card'
 import { Checkbox } from '@/shared/ui/kit/checkbox'
 import { Typography } from '@/shared/ui/typography'
 import { useDeleteTodo } from '../model/use-delete-todo'
 import { useToggleTodo } from '../model/use-toggle-todo'
-import { TodoActions } from './actions'
 
-type TodoItemProps = Readonly<{
-  todo: ApiSchemas['Todo']
-}>
+interface TodoItemProps {
+  todo: Todo
+}
 
-export function TodoCard({ todo }: TodoItemProps) {
+export function TodoItem({ todo }: TodoItemProps) {
   const { toggleCompleted } = useToggleTodo()
   const { deleteTodo, isDeleting } = useDeleteTodo()
 
-  function handleCompletedChange(isCompleted: boolean) {
+  const handleCompletedChange = (isCompleted: boolean) => {
     toggleCompleted(todo.id, isCompleted)
   }
 
-  function handleDeleteClick() {
+  const handleDeleteClick = () => {
     deleteTodo(todo.id)
   }
 
@@ -30,7 +30,7 @@ export function TodoCard({ todo }: TodoItemProps) {
         onCheckedChange={handleCompletedChange}
         disabled={isDeleting}
         className={cn(
-          'bg-primary-foreground dark:bg-card absolute z-10 h-6 w-6 -translate-x-[50%]',
+          'bg-primary-foreground dark:bg-card absolute z-10 h-6 w-6 translate-x-[-50%]',
           'shadow-primary/20 hover:border-primary rounded-full shadow-xs transition-colors',
           isDeleting && 'pointer-events-none',
         )}

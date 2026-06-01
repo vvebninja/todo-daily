@@ -6,7 +6,7 @@ import { cn } from '@/shared/lib/css.ts'
 import { Button } from '@/shared/ui/kit/button.tsx'
 import { Typography } from '@/shared/ui/typography.tsx'
 
-interface CategoryBtnProps {
+interface FilterButtonProps {
   filter: TodoFilter
   count?: number
   isSelected: boolean
@@ -18,7 +18,7 @@ export function FilterButton({
   count,
   isSelected,
   onClick,
-}: CategoryBtnProps) {
+}: FilterButtonProps) {
   return (
     <Button
       onClick={() => onClick({ title, value })}

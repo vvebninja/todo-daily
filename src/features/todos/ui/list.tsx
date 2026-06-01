@@ -1,8 +1,8 @@
 import type { TodoFilterValue } from '@/features/todos/model/filters.ts'
 import { useFilteredTodos } from '@/features/todos/model/use-filtered-todos.ts'
-import { Skeletons } from '@/shared/ui/skeletons'
+import { TodoItem } from '@/features/todos/ui/item.tsx'
+import { Skeletons } from '@/shared/ui/skeletons.tsx'
 import { Typography } from '@/shared/ui/typography'
-import { TodoCard } from './card'
 
 interface TodoListProps {
   filter: TodoFilterValue
@@ -14,7 +14,7 @@ export function TodoList({ filter = 'active' }: TodoListProps) {
 
   if (isLoading) {
     return (
-      <div className="">
+      <div className="md:brake-inside-avoid space-y-4 md:columns-2 lg:columns-3 xl:columns-4">
         <Skeletons itemsCount={4} className="h-24" />
       </div>
     )
@@ -37,7 +37,7 @@ export function TodoList({ filter = 'active' }: TodoListProps) {
       <ul className="md:brake-inside-avoid space-y-4 md:columns-2 lg:columns-3 xl:columns-4">
         {filteredTodos.map(todo => (
           <li key={todo.id}>
-            <TodoCard todo={todo} />
+            <TodoItem todo={todo} />
           </li>
         ))}
       </ul>

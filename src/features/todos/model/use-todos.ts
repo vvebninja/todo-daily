@@ -6,12 +6,12 @@ interface UseTodosQueryOptions<TData = Todo[]> {
   select?: (data: Todo[]) => TData
 }
 
-export function useTodosQuery<TData = Todo[]>({
+export function useTodos<TData = Todo[]>({
   select,
 }: UseTodosQueryOptions<TData> = {}) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['todos'],
-    queryFn: () => todoService.getAll(),
+    queryFn: todoService.getAll,
     select,
   })
 

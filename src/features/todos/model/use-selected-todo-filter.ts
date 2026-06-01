@@ -1,7 +1,7 @@
 import type { TodoFilterText } from '@/features/todos/model/filters.ts'
 import { useState } from 'react'
 
-export function useSelectedFilter(initialFilter: TodoFilterText) {
+export function useSelectedTodoFilter(initialFilter: TodoFilterText) {
   const [selectedFilter, setSelectedFilter]
     = useState<TodoFilterText>(initialFilter)
 

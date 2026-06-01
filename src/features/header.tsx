@@ -1,26 +1,20 @@
-import { CircleUserRound, LogOutIcon } from 'lucide-react'
-import { Link } from 'react-router'
-import { ROUTES } from '@/shared/model/routes'
+import { LogOutIcon } from 'lucide-react'
+import { cn } from '@/shared/lib/css.ts'
 import { ThemeToggle } from '@/shared/theme'
 import AppLogo from '@/shared/ui/app-logo'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/kit/avatar'
+import { Avatar, AvatarImage } from '@/shared/ui/kit/avatar'
 import { Button } from '@/shared/ui/kit/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/ui/kit/dropdown-menu'
-import { Skeleton } from '@/shared/ui/kit/skeleton'
 import { Typography } from '@/shared/ui/typography'
 import { useLogOut } from './auth/model/use-log-out'
-import { useProfileAvatar } from './profile/use-profile-avatar'
 
 export function Header() {
-  const { logOut, isLoading: isLoggingOut } = useLogOut()
-  const { avatar } = useProfileAvatar()
+  const { logOut, isLoading } = useLogOut()
 
   return (
     <header className="bg-primary">
@@ -33,27 +27,23 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon-lg"
-                className="hover:border-muted focus-visible:border-muted overflow-hidden rounded-full border border-transparent"
+                className={cn(
+                  'from-primary to-primary border-2 bg-radial via-white',
+                  'hover:border-muted focus-visible:border-muted border-white',
+                  'overflow-hidden rounded-full',
+                )}
               >
                 <Avatar size="lg">
-                  <AvatarImage src={avatar} alt="User profile avatar" />
-                  <AvatarFallback asChild>
-                    <Skeleton className="h-full w-full rounded-full" />
-                  </AvatarFallback>
+                  <AvatarImage
+                    src="/public/user-avatar.jpg"
+                    alt="User profile avatar"
+                    className="object-cover"
+                  />
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="w-40 transition-all">
-              <DropdownMenuGroup>
-                <DropdownMenuItem asChild>
-                  <Link to={ROUTES.PROFILE} viewTransition>
-                    <CircleUserRound className="size-5" />
-                    <Typography as="span">Profile</Typography>
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
                 asChild
                 className="text-primary hover:text-primary focus:text-primary"
@@ -61,7 +51,7 @@ export function Header() {
                 <Button
                   variant="ghost"
                   onClick={logOut}
-                  disabled={isLoggingOut}
+                  disabled={isLoading}
                   className="flex w-full justify-start"
                 >
                   <LogOutIcon className="text-primary size-5" />
