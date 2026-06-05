@@ -1,5 +1,6 @@
 import type { TodoFilterValue } from '@/features/todos/model/filters.ts'
-import { useFilteredTodos } from '@/features/todos/model/use-filtered-todos.ts'
+import type { Todo } from '@/shared/api/todo-service.ts'
+import { useTodos } from '@/features/todos/model/use-todos.ts'
 import { TodoItem } from '@/features/todos/ui/item.tsx'
 import { Skeletons } from '@/shared/ui/skeletons.tsx'
 import { Typography } from '@/shared/ui/typography'
@@ -8,9 +9,19 @@ interface TodoListProps {
   filter: TodoFilterValue
   className?: string
 }
+function filterTodos(todos: Todo[], tab: 'active' | 'completed') {
+  if (tab === 'active') {
+    return todos.filter(todo => !todo.isCompleted)
+  }
+  if (tab === 'completed') {
+    return todos.filter(todo => todo.isCompleted)
+  }
+  return todos
+}
 
 export function TodoList({ filter = 'active' }: TodoListProps) {
-  const { filteredTodos, isLoading, error } = useFilteredTodos(filter)
+  const { data = [], isLoading, error } = useTodos()
+  const filteredTodos = filterTodos(data, filter)
 
   if (isLoading) {
     return (

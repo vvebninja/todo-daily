@@ -1,4 +1,5 @@
 import { MoreHorizontal, Trash2Icon } from 'lucide-react'
+import { useState } from 'react'
 import { cn } from '@/shared/lib/css'
 import { Button } from '@/shared/ui/kit/button.tsx'
 import { CardAction } from '@/shared/ui/kit/card'
@@ -22,12 +23,30 @@ export function TodoActions({
   isDeleting,
   onDelete,
 }: TodoActionsProps) {
+  const [isInteractive, setIsInteractive] = useState(false)
+
   const handleDelete = () => {
     onDelete(todoId)
   }
 
+  if (!isInteractive) {
+    return (
+      <CardAction className="flex items-center gap-4 pl-1">
+        <Button
+          size="icon"
+          type="button"
+          variant="ghost"
+          onMouseEnter={() => setIsInteractive(true)}
+          onFocusCapture={() => setIsInteractive(true)}
+        >
+          <MoreHorizontal className="size-6 text-gray-600 transition-colors" />
+        </Button>
+      </CardAction>
+    )
+  }
+
   return (
-    <CardAction className="flex items-center gap-4 pl-1">
+    <CardAction>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button

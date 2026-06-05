@@ -8,7 +8,15 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vite.dev/config/
 export default defineConfig({
   base: process.env.GITHUB_ACTIONS ? '/todo-daily/' : '/',
-  plugins: [react(), tsconfigPaths(), tailwindcss()],
+  plugins: [
+    react({
+      babel: {
+        plugins: ['babel-plugin-react-compiler'],
+      },
+    }),
+    tsconfigPaths(),
+    tailwindcss(),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

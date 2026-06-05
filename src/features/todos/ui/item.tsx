@@ -2,8 +2,7 @@ import type { Todo } from '@/shared/api/todo-service.ts'
 import { TodoActions } from '@/features/todos/ui/actions.tsx'
 import { cn } from '@/shared/lib/css'
 import { Card, CardHeader } from '@/shared/ui/kit/card'
-import { Checkbox } from '@/shared/ui/kit/checkbox'
-import { Typography } from '@/shared/ui/typography'
+import { Checkbox } from '@/shared/ui/kit/checkbox.tsx'
 import { useDeleteTodo } from '../model/use-delete-todo'
 import { useToggleTodo } from '../model/use-toggle-todo'
 
@@ -35,22 +34,10 @@ export function TodoItem({ todo }: TodoItemProps) {
           isDeleting && 'pointer-events-none',
         )}
       />
-      <Card
-        className={cn(
-          'w-full pt-2 pb-4.5 pl-1',
-          'backdrop-filter-lg shadow-primary/20 dark:bg-card rounded-md bg-white/40 shadow-xs',
-        )}
-      >
+      <Card className="backdrop-filter-lg shadow-primary/20 dark:bg-card w-full rounded-md bg-white/40 pt-2 pb-4.5 pl-1 shadow-xs">
         <CardHeader>
           <div className={cn((todo.isCompleted || isDeleting) && 'opacity-50')}>
-            <Typography as="h3" variant="h3" size="lg">
-              {todo.title}
-            </Typography>
-            {todo.description && (
-              <Typography size="md" color="muted">
-                {todo.description}
-              </Typography>
-            )}
+            {todo.title}
           </div>
           <TodoActions
             todoId={todo.id}
