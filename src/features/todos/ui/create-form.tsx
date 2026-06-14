@@ -11,7 +11,7 @@ type CreateFormProps = Readonly<{
 }>
 
 export function CreateTodoForm({ className }: CreateFormProps) {
-  const { createTodo, isPending } = useCreateTodo()
+  const { createTodo, isPending, error, reset } = useCreateTodo()
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -60,6 +60,7 @@ export function CreateTodoForm({ className }: CreateFormProps) {
           <PlusIcon className="size-5" />
         </Button>
       </div>
+      {error && <div onClick={reset}>{error.message}</div>}
     </form>
   )
 }

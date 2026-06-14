@@ -3,7 +3,7 @@ import { queryClient } from '@/shared/api/query-client'
 import { todoService } from '@/shared/api/todo-service'
 
 export function useCreateTodo() {
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, error, reset } = useMutation({
     mutationFn: todoService.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] })
@@ -13,5 +13,7 @@ export function useCreateTodo() {
   return {
     createTodo: (title: string) => mutateAsync({ title }),
     isPending,
+    error,
+    reset,
   }
 }

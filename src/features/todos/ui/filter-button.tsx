@@ -30,7 +30,12 @@ export function FilterButton({
       )}
     >
       <Icon className="size-6" />
-      <Typography as="span" size="md" color="inherit" className="flex gap-1">
+      <Typography
+        as="span"
+        size="md"
+        color="inherit"
+        className="hidden sm:flex sm:gap-1"
+      >
         {title}
       </Typography>
       {count && (

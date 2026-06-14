@@ -20,7 +20,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col">
       <Outlet />
-      <Toaster position="top-left" richColors duration={2000} />
+      <Toaster position="top-right" richColors duration={2000} />
     </div>
   )
 }

@@ -4,6 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --radix-dropdown-menu-content-transform-origin: 100px 100px;
+  --radix-dropdown-menu-content-available-width: 109px;
+
   --font-secondary: 'Rowdies', sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -46,10 +49,12 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --animate-fade-in: 0.3s ease-in-out;
+
   @keyframes fadeIn {
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }

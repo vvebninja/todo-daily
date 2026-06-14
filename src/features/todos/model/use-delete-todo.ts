@@ -6,7 +6,7 @@ import { todoService } from '@/shared/api/todo-service'
 
 export function useDeleteTodo() {
   const mutation = useMutation({
-    mutationFn: todoService.delete,
+    mutationFn: todoService.deleteById,
     onSuccess: (_, id) => {
       queryClient.setQueryData<Todo[]>(['todos'], (todos) => {
         return todos?.filter(todo => todo.id !== id)

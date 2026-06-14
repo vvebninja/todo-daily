@@ -5,6 +5,7 @@ import { cn } from '@/shared/lib/css.ts'
 import { useIsIntersecting } from '@/shared/lib/use-is-intersecting.ts'
 import { Typography } from '@/shared/ui/typography.tsx'
 import { CreateTodoForm } from './ui/create-form.tsx'
+import DeleteActionsMenu from './ui/delete-actions-menu.tsx'
 
 function TodosPage() {
   const { ref: createTodoFormRef, isIntersecting } = useIsIntersecting()
@@ -30,11 +31,14 @@ function TodosPage() {
         <CreateTodoForm />
       </div>
 
-      <TodoFilterList
-        selectedFilter={selectedFilter}
-        onFilterClick={setSelectedFilter}
-        className="mb-4 lg:mb-6"
-      />
+      <div className="mb-4 flex items-center justify-between lg:mb-6">
+        <TodoFilterList
+          selectedFilter={selectedFilter}
+          onFilterClick={setSelectedFilter}
+        />
+
+        <DeleteActionsMenu />
+      </div>
 
       <TodoList filter={selectedFilter.value} />
 
