@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.TODOS,
-            lazy: () => import('@/features/todos/todos.page'),
+            lazy: () => import('@/features/todo/todo.page'),
           },
         ],
       },

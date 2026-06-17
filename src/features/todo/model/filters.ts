@@ -14,7 +14,3 @@ export const todoFilters = [
 ] as const
 
 export type TodoFilter = (typeof todoFilters)[number]
-
-export type TodoFilterText = Omit<TodoFilter, 'icon'>
-
-export type TodoFilterValue = TodoFilter['value']

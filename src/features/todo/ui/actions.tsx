@@ -11,23 +11,17 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/ui/kit/dropdown-menu'
 import { Typography } from '@/shared/ui/typography'
+import { useDeleteTodo } from '../model/use-delete-todo'
 
 interface TodoActionsProps {
   todoId: string
-  isDeleting: boolean
-  onDelete: (id: string) => void
 }
 
-export function TodoActions({
-  todoId,
-  isDeleting,
-  onDelete,
-}: TodoActionsProps) {
+export function TodoActions({ todoId }: TodoActionsProps) {
   const [isInteractive, setIsInteractive] = useState(false)
+  const deleteTodo = useDeleteTodo()
 
-  const handleDelete = () => {
-    onDelete(todoId)
-  }
+  const handleDelete = () => deleteTodo.mutate(todoId)
 
   if (!isInteractive) {
     return (
@@ -53,9 +47,9 @@ export function TodoActions({
             size="icon"
             type="button"
             variant="ghost"
-            className={cn(isDeleting && 'pointer-events-none')}
+            className={cn(deleteTodo.isPending && 'pointer-events-none')}
           >
-            {isDeleting
+            {deleteTodo.isPending
               ? (
                   <Trash2Icon className="text-destructive size-6 animate-bounce stroke-[1.5px]" />
                 )

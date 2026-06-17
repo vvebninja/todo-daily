@@ -1,10 +1,10 @@
-import type { TodoFilterValue } from '@/features/todos/model/filters.ts'
+import type { TodoFilter } from './filters'
 import type { Todo } from '@/shared/api/todo-service.ts'
 import { useCallback } from 'react'
-import { useTodos } from '@/features/todos/model/use-todos.ts'
+import { useTodos } from '@/features/todo/model/use-todos'
 
-export function useFilteredTodos(filter: TodoFilterValue) {
-  const { data, isLoading, error } = useTodos({
+export function useTodosByFilter(filter: TodoFilter['value']) {
+  return useTodos({
     select: useCallback(
       (todos: Todo[]) => {
         if (filter === 'active') {
@@ -17,6 +17,4 @@ export function useFilteredTodos(filter: TodoFilterValue) {
       [filter],
     ),
   })
-
-  return { filteredTodos: data, isLoading, error }
 }

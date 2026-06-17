@@ -1,27 +1,26 @@
-import type {
-  TodoFilter,
-  TodoFilterText,
-} from '@/features/todos/model/filters.ts'
+import type { TodoFilter } from '@/features/todo/model/filters'
 import { cn } from '@/shared/lib/css.ts'
 import { Button } from '@/shared/ui/kit/button.tsx'
 import { Typography } from '@/shared/ui/typography.tsx'
+import { useTodoStatusCounts } from '../model/use-todo-status-counts'
 
 interface FilterButtonProps {
   filter: TodoFilter
-  count?: number
   isSelected: boolean
-  onClick: (filter: TodoFilterText) => void
+  onClick: (filter: TodoFilter['value']) => void
 }
 
 export function FilterButton({
   filter: { title, value, icon: Icon },
-  count,
   isSelected,
   onClick,
 }: FilterButtonProps) {
+  const counts = useTodoStatusCounts()
+  const count = counts.data?.[value]
+
   return (
     <Button
-      onClick={() => onClick({ title, value })}
+      onClick={() => onClick(value)}
       variant="ghost"
       className={cn(
         'text-muted-foreground hover:text-primary focus-visible:text-primary flex items-center gap-2 py-1',
@@ -38,7 +37,7 @@ export function FilterButton({
       >
         {title}
       </Typography>
-      {count && (
+      {!!count && (
         <Typography as="span" size="md" font="secondary" color="inherit">
           {count}
         </Typography>

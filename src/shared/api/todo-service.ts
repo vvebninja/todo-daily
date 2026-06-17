@@ -7,7 +7,7 @@ export interface Todo {
   isCompleted: boolean
 }
 
-export type TodoStatus = 'completed' | 'active'
+export type TodoStatus = 'active' | 'completed'
 
 const TODO_TABLE_NAME = 'todos'
 
@@ -24,10 +24,10 @@ export const todoService = {
     return data
   },
 
-  create: async (dto: Pick<Todo, 'title' | 'description'>): Promise<Todo> => {
+  create: async ({ title }: { title: Todo['title'] }): Promise<Todo> => {
     const { data, error } = await supabaseClientInstance
       .from(TODO_TABLE_NAME)
-      .insert([dto])
+      .insert([{ title }])
       .select()
       .single()
 
