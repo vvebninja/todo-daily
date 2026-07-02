@@ -14,7 +14,7 @@ function selectTodoCounts(todos: Todo[]) {
     }
   }
 
-  return { active, completed }
+  return { all: todos.length, active, completed }
 }
 
 export function useTodoStatusCounts() {

@@ -15,7 +15,7 @@ export function TodoFilterList({
   className,
 }: TodosCategoriesProps) {
   return (
-    <ul className={cn('flex justify-between', className)}>
+    <ul className={cn('flex items-center gap-1', className)}>
       {todoFilters.map((filter) => {
         return (
           <li key={filter.value}>

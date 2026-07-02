@@ -7,7 +7,10 @@ export function useTodosByFilter(filter: TodoFilter['value']) {
   return useTodos({
     select: useCallback(
       (todos: Todo[]) => {
-        if (filter === 'active') {
+        if (filter === 'all') {
+          return todos
+        }
+        else if (filter === 'active') {
           return todos.filter(todo => !todo.isCompleted)
         }
         else if (filter === 'completed') {

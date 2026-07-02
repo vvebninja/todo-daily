@@ -11,7 +11,7 @@ interface FilterButtonProps {
 }
 
 export function FilterButton({
-  filter: { title, value, icon: Icon },
+  filter: { title, value },
   isSelected,
   onClick,
 }: FilterButtonProps) {
@@ -28,20 +28,12 @@ export function FilterButton({
         isSelected && 'text-primary',
       )}
     >
-      <Icon className="size-6" />
-      <Typography
-        as="span"
-        size="md"
-        color="inherit"
-        className="hidden sm:flex sm:gap-1"
-      >
+      <Typography as="span" size="md" color="inherit" className="flex gap-1">
         {title}
       </Typography>
-      {!!count && (
-        <Typography as="span" size="md" font="secondary" color="inherit">
-          {count}
-        </Typography>
-      )}
+      <Typography as="span" size="md" color="inherit">
+        {count}
+      </Typography>
     </Button>
   )
 }
